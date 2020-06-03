@@ -1,0 +1,59 @@
+.ml-auto {
+  margin-right: 50px;
+}
+.navbar {
+  .bootstrapbutton {
+    margin-left: 20px;
+    color: #366ff0;
+    outline-color: #366ff0;
+  }
+}
+.header {
+  margin-left: 30px;
+  font-family: Bebas Neue;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 30px;
+  color: #1e3554;
+}
+.highlight {
+  margin-left: 40px;
+  font-size: 40px;
+  color: #1e3554;
+  font-family: Bebas Neue;
+}
+.card {
+  margin: 28px 70px 0 40px;
+}
+
+
+.topicscard {
+  margin: 13px 13px 0 20px;
+  .topicdescription {
+    margin-top: -8px;
+    font-size: 15px;
+  }
+  .topicsheading {
+    font-size: 18px;
+    font-weight: bold;
+  }
+}
+
+.start {
+  margin-top: 30px;
+  margin-right: 70px;
+  display: flex;
+  justify-content: space-between;
+  .tools {
+    display: flex;
+    .bootstrapbutton {
+      background-color: #366ff0;
+    }
+    .workspace {
+      .bootstrapbutton {
+        background-color: #366ff0;
+      }
+      margin-left: 20px;
+    }
+  }
+}
