@@ -44,7 +44,7 @@ class Dashboard extends Component {
               </div>
             </div>
           </div>
-          <Card style={{ width: "93%" }} className="card">
+          <Card className="card">
             <Projects/>
           </Card>
         </div>
