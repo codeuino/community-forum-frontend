@@ -1,0 +1,25 @@
+.projectCards {
+    vertical-align: middle;
+    white-space: nowrap;
+    overflow-x: auto;
+    .projectCard {
+      white-space: normal;
+      overflow-x: auto;
+      display:inline-block;
+      margin-left: 20px;
+      margin-bottom: 20px;
+      margin-right: 10px;
+      width: 21 rem;
+      background-color: #f3f3f3;
+      .cardcontent {
+        height: 60vh;
+        overflow-y: auto;
+      }
+      .projectcardheader {
+        color: #ffffff;
+        font-size: 20px;
+        font-weight: bold;
+        background-color: #366ff0;
+      }
+    }
+  }
