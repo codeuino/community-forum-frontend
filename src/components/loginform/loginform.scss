@@ -1,0 +1,36 @@
+.login-details {
+    padding: 15px 0;
+    .form-check{
+        font-family: 'Inter', sans-serif;
+        font-weight: 200;
+        font-size: 1rem;
+    }
+    .form-group {
+      label {
+        font-family: 'Inter', sans-serif;
+        font-weight: 500;
+        font-size: 1rem;
+        color:  #8F8F8F;
+      }
+    }
+    .cta-login {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 30px;
+      button {
+        background-color: #366FF0;
+        padding: 8px 50px;
+      }
+    }
+  }
+  .cta-register {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    button {
+      padding: 8px 50px;
+      background-color: #366FF0;
+    }
+  }

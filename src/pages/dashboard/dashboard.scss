@@ -1,6 +1,19 @@
 .ml-auto {
   margin-right: 50px;
 }
+.nav-tabs .nav-item.nav-link.active{
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #1e3554;
+}
+.nav-tabs .nav-item.nav-link{
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color:  #8F8F8F;
+}
+
 .navbar {
   .bootstrapbutton {
     margin-left: 20px;
@@ -25,7 +38,6 @@
 .card {
   margin: 1.1em 4.25em 0 2.75em;
 }
-
 
 .topicscard {
   margin: 13px 13px 0 20px;
