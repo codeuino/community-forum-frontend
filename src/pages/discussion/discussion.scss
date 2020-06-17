@@ -1,0 +1,67 @@
+.topicHeading {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 24px;
+  color: #1e3554;
+  margin-top: 30px;
+}
+.discussionHeader {
+  margin: 20px 0 20px 0;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  color: #424242;
+}
+.tags {
+  margin-left: 20px;
+  font-weight: normal;
+}
+.description {
+  margin: 20px 20px 30px 0;
+}
+hr {
+  margin: 30px 20px 0 0;
+}
+.sidewrapper {
+  border-right: thick;
+  border-right-color: #999999;
+}
+.chat {
+  overflow-y: auto;
+  height: 69vh;
+  .chatHead {
+    display: flex;
+    margin-bottom: 16px;
+    .chatinfo {
+      margin-left: 10px;
+      .username {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 17px;
+      }
+      .chatdescription {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 16px;
+        margin-top: 5px;
+        line-height: 19px;
+      }
+      .buttonsclass {
+        margin-top: 5px;
+      }
+      .buttons {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 15px;
+        color: #949494;
+        margin: 10px 10px 0 0;
+      }
+    }
+  }
+}

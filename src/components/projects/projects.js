@@ -80,6 +80,7 @@ class Projects extends Component {
       <DragDropContext onDragEnd={this.onDragEnd}>
         <div className="projectCards">
           {this.state.projectsOrder.map((projectID) => {
+            console.log(typeof(this.state.projects));
             const project = this.state.projects[projectID];
             return (
               <Card
