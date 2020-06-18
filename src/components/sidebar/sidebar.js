@@ -5,7 +5,7 @@ import "./sidebar.scss";
 
 const Side = (props) => {
   return (
-    <>
+    <>                                                                                                                                                                
       <Nav
         className="col-md-12 d-none d-md-block sidebar navbarcolor"
         onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
