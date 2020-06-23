@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Card, Badge, Modal, Tabs, Tab, Form, Button } from "react-bootstrap";
+import { Card, Badge, Modal } from "react-bootstrap";
 import "./projects.scss";
 import projectInfo1 from "../../jsonData/projects";
 import { IconContext } from "react-icons";
