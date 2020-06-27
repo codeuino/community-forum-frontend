@@ -1,48 +1,72 @@
 import React, { Component } from "react";
 import "./discussion.scss";
-import NavBar from "../../components/navbar/navbar";
 import Sidebar from "../../components/sidebar/sidebar";
 import { Container, Row, Col, Badge } from "react-bootstrap";
 import Avatar from "@material-ui/core/Avatar";
-import { Editor } from "@tinymce/tinymce-react";
-import {DiscussionInfo, UserInfo} from "../../jsonData/chats";
+import EditorChat from "../../components/editor/editor";
+import { DiscussionInfo } from "../../jsonData/chats";
+import {IoMdArrowRoundBack} from "react-icons/io"
+import ReactHtmlParser, {
+  processNodes,
+  convertNodeToElement,
+  htmlparser2,
+} from "react-html-parser";
+
+function transform(node, index) {
+  if (node.type === "tag" && node.name === "b") {
+    return <div>This was a bold tag</div>;
+  }
+}
+
+const options = {
+  transform,
+};
+
+const markdown =
+  '<p><strong>das asdasad</strong></p> <ul> <li><strong>adsdas a</strong></li></ul><pre class="language-markup"><code>adsa das dasd</code></pre>';
+
+function Discussions(props) {
+  let obj = DiscussionInfo.Discussion.find((o) => o._ID === props.discussionID);
+  console.log(obj);
+  return obj;
+}
+function UserInfos(DiscussionInfo) {
+  return [
+    ...new Set(
+      DiscussionInfo.chats.map((chat) => {
+        return chat.username;
+      })
+    ),
+  ];
+}
 
 class Discussion extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      content: "",
-      contentValue: "",
-      DiscussionInfo: DiscussionInfo,
-      UserInfo: UserInfo,
+      DiscussionInfo: Discussions(props),
+      UserInfo: UserInfos(Discussions(props)),
     };
-    this.handleEditorChange = this.handleEditorChange.bind(this);
-    this.handleValue = this.handleValue.bind(this);
-    console.log(this.state.contentValue);
-  }
-  handleEditorChange(value) {
-    this.setState({ content: value });
-    // console.log(value)
-  }
-  handleValue(value) {
-    this.setState({ contentValue: value });
-    console.log(value);
   }
 
   render() {
     return (
       <div>
-        <NavBar />
         <Container fluid>
-          <Row md={12}>
+          <Row md={12} className="row">
             <Col xs={2} id="sidebar-wrapper">
-              <Sidebar DiscussionInfo={this.state.DiscussionInfo} UserInfo = {this.state.UserInfo} />
+              <Sidebar
+                DiscussionInfo={this.state.DiscussionInfo}
+                UserInfo={this.state.UserInfo}
+              />
             </Col>
             <Col xs={7} className="sidewrapper border-right">
               <div>
+                
                 <div className="topicHeading">
-                  {this.state.DiscussionInfo.Discussion.TopicName}
-                  {this.state.DiscussionInfo.Discussion.Tags.map((tag) => {
+                <IoMdArrowRoundBack onClick={this.props.onClickingBack} className="backbutton"/>
+                  {this.state.DiscussionInfo.TopicName}
+                  {this.state.DiscussionInfo.Tags.map((tag) => {
                     return (
                       <Badge variant="primary" className="tags">
                         {tag}
@@ -51,55 +75,79 @@ class Discussion extends Component {
                   })}
                 </div>
                 <p className="description">
-                  {this.state.DiscussionInfo.Discussion.TopicDescription}
+                  {this.state.DiscussionInfo.TopicDescription}
                 </p>
                 <hr />
                 <div className="chat">
-                  {this.state.DiscussionInfo.Discussion.chats.map((chat)=>{
-                    return <div className="chatHead">
-                    <Avatar src={chat.avatarurl}></Avatar>
-                    <div className="chatinfo">
-                      <div className="username">{chat.username}</div>
-                      <div className="chatdescription">
-                        {chat.description}
-                      </div>
-                      <div className="buttonsclass">
-                        <a className="buttons" href="/">
-                          Like
-                        </a>
-                        <a className="buttons" href="/">
-                          Comment
-                        </a>
-                      </div>
-                    </div>
-                  </div>
+                  {this.state.DiscussionInfo.chats.map((chat) => {
+                    if (chat.replyTo.length !== 0) {
+                      var replyID = chat.replyTo;
+                      var chatreply = this.state.DiscussionInfo.chats.find(
+                        (element) => element._ID === replyID
+                      );
+                      return (
+                        <div className="chatHead">
+                          <Avatar src={chat.avatarurl}></Avatar>
+                          <div className="chatinfo">
+                            <div className="username">{chat.username}</div>
+                            <div className="chatReply">
+                              <Avatar src={chatreply.avatarurl} className="avatarReply"></Avatar>
+                              <div className="chatinforeply">
+                                <div className="usernamereply">
+                                  {chatreply.username}
+                                </div>
+                                <div className="chatdescriptionreply">
+                                  {chatreply.description}
+                                </div>
+                              </div>
+                              {}
+                            </div>
+                            <div className="chatdescription">
+                              {chat.description}
+                            </div>
+                            <div className="buttonsclass">
+                              <a className="buttons" href="/">
+                                Like
+                              </a>
+                              <a className="buttons" href="/">
+                                Comment
+                              </a>
+                            </div>
+                          </div>
+                          {}
+                        </div>
+                      );
+                    } else {
+                      return (
+                        <div className="chatHead">
+                          <Avatar src={chat.avatarurl}></Avatar>
+                          <div className="chatinfo">
+                            <div className="username">{chat.username}</div>
+                            <div className="chatdescription">
+                              {chat.description}
+                            </div>
+                            <div className="buttonsclass">
+                              <a className="buttons" href="/">
+                                Like
+                              </a>
+                              <a className="buttons" href="/">
+                                Comment
+                              </a>
+                            </div>
+                          </div>
+                          {/* <div>{ReactHtmlParser(markdown, options)}</div> */}
+                          {}
+                        </div>
+                      );
+                    }
                   })}
                 </div>
               </div>
             </Col>
             <Col xs={3} id="contentwriting">
-              <div className="discussionHeader">Write a New Discussion</div>
-              <Editor
-                initialValue="<p>Newb Content</p>"
-                apiKey="8kftszxlfioswims1pl978knfa7p4qyoknx7afc7tvsvzruh"
-                init={{
-                  height: 600,
-                  menubar: false,
-                  branding: false,
-                  plugins: [
-                    "advlist autolink lists link image advcode preview",
-                    "charmap print preview anchor help code",
-                    "searchreplace visualblocks codesample",
-                    "insertdatetime media table paste wordcount",
-                  ],
-                  toolbar:
-                    // eslint-disable-next-line no-multi-str
-                    "undo redo | bold italic strikethrough            \
-                    bullist numlist codesample code",
-                }}
-                onChange={this.handleEditorChange}
-                value={this.state.contentValue}
-              />
+              <div className="editor">
+                <EditorChat />
+              </div>
             </Col>
           </Row>
         </Container>
