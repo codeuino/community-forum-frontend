@@ -1,3 +1,8 @@
+@media (max-width: 1200px) {
+  .sidebar {
+      display: none;
+  }
+}
 .sidebar {
   position: fixed;
   top: 0;
@@ -30,7 +35,7 @@
   }
 }
 #sidebar-wrapper {
-  min-height: 93.5vh;
+  min-height: 92.6vh;
   width: 100vw;
   margin-left: -1rem;
   -webkit-transition: margin 0.25s ease-out;
@@ -46,4 +51,10 @@
 #page-content-wrapper {
   min-width: 0;
   width: 100%;
+}
+
+@media (max-width: 1200px) {
+  .sidebar {
+      display: none;
+  }
 }

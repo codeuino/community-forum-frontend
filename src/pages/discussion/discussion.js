@@ -54,12 +54,12 @@ class Discussion extends Component {
       <div>
         <Container fluid>
           <Row md={12} className="row">
-            <Col xs={2} id="sidebar-wrapper">
-              <Sidebar
-                DiscussionInfo={this.state.DiscussionInfo}
-                UserInfo={this.state.UserInfo}
-              />
-            </Col>
+              <Col xs={2} id="sidebar-wrapper">
+                <Sidebar
+                  DiscussionInfo={this.state.DiscussionInfo}
+                  UserInfo={this.state.UserInfo}
+                />
+              </Col>
             <Col xs={7} className="sidewrapper border-right">
               <div>
                 
