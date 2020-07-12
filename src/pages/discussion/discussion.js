@@ -6,24 +6,7 @@ import Avatar from "@material-ui/core/Avatar";
 import EditorChat from "../../components/editor/editor";
 import { DiscussionInfo } from "../../jsonData/chats";
 import {IoMdArrowRoundBack} from "react-icons/io"
-import ReactHtmlParser, {
-  processNodes,
-  convertNodeToElement,
-  htmlparser2,
-} from "react-html-parser";
 
-function transform(node, index) {
-  if (node.type === "tag" && node.name === "b") {
-    return <div>This was a bold tag</div>;
-  }
-}
-
-const options = {
-  transform,
-};
-
-const markdown =
-  '<p><strong>das asdasad</strong></p> <ul> <li><strong>adsdas a</strong></li></ul><pre class="language-markup"><code>adsa das dasd</code></pre>';
 
 function Discussions(props) {
   let obj = DiscussionInfo.Discussion.find((o) => o._ID === props.discussionID);
