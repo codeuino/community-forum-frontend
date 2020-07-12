@@ -6,6 +6,12 @@
   color: #1e3554;
   margin-top: 30px;
 }
+code{
+  background-color: #f5f2f0;
+}
+.row{
+  max-height: 70vh;
+}
 .discussionHeader {
   margin: 20px 0 20px 0;
   font-family: Inter;
@@ -28,9 +34,43 @@ hr {
   border-right: thick;
   border-right-color: #999999;
 }
+.backbutton{
+  cursor: pointer;
+  margin-right: 20px;
+}
 .chat {
   overflow-y: auto;
-  height: 69vh;
+  max-height: 61vh;
+  .chatReply{
+    background:#F7F7F7;
+    display: flex;
+    border-radius: 2px;
+    margin: 6px 10px 6px 0px;
+    padding: 7px 7px 7px 7px;
+    border: solid #F04B58;
+    border-width: 0 0 0 3px;
+    .avatarReply{
+      width: 23px;
+      height: 23px;
+    }
+    .chatinforeply {
+      margin-left: 10px;
+      .usernamereply {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+      }
+      .chatdescriptionreply {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: normal;
+        font-size: 13px;
+        margin-top: 5px;
+        line-height: 19px;
+      }
+    }
+  }
   .chatHead {
     display: flex;
     margin-bottom: 16px;

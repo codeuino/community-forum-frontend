@@ -5,7 +5,8 @@ import projectInfo1 from "../../jsonData/projects";
 import { IconContext } from "react-icons";
 import { FiPlus } from "react-icons/fi";
 import { Droppable, DragDropContext, Draggable } from "react-beautiful-dnd";
-import TopicForm from '../../components/topicform/topicform';
+import TopicForm from "../../components/topicform/topicform";
+
 
 class Projects extends Component {
   state = projectInfo1;
@@ -14,24 +15,23 @@ class Projects extends Component {
     this.state = {
       projectInfo1: projectInfo1,
       showModal: false,
-      topic:"",
-      topicDescription:"",
-      projectID: ""
+      topic: "",
+      topicDescription: "",
+      projectID: "",
     };
     this.onDragEnd = this.onDragEnd.bind(this);
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
-  handleTopicSubmission(topic,topicDescription){
+  handleTopicSubmission(topic, topicDescription) {
     this.setState({
-      topic:topic,
-      topicDescription:topicDescription
+      topic: topic,
+      topicDescription: topicDescription,
     });
-
   }
   handleShow(projectID) {
     // e.preventDefault();
-    this.setState({ showModal: true});
+    this.setState({ showModal: true });
   }
   handleClose() {
     this.setState({ showModal: false });
@@ -106,7 +106,12 @@ class Projects extends Component {
         <Modal show={this.state.showModal} onHide={this.handleClose} centered>
           <div className="modalbody">
             <Modal.Body>
-              <TopicForm topic={this.state.topic} topicDescription={this.state.topicDescription} projectID = {this.state.projectID} onTopicSubmission= {this.handleTopicSubmission}/>
+              <TopicForm
+                topic={this.state.topic}
+                topicDescription={this.state.topicDescription}
+                projectID={this.state.projectID}
+                onTopicSubmission={this.handleTopicSubmission}
+              />
             </Modal.Body>
           </div>
         </Modal>
@@ -138,6 +143,7 @@ class Projects extends Component {
                             <Draggable draggableId={topic.id} index={index}>
                               {(provided) => (
                                 <Card
+                                  onClick={() => this.props.handleDiscussionTrue(topic.discussionID)}
                                   key={topic.id}
                                   className="topicscard"
                                   {...provided.draggableProps}

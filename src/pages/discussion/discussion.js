@@ -1,38 +1,55 @@
 import React, { Component } from "react";
 import "./discussion.scss";
-import NavBar from "../../components/navbar/navbar";
 import Sidebar from "../../components/sidebar/sidebar";
 import { Container, Row, Col, Badge } from "react-bootstrap";
 import Avatar from "@material-ui/core/Avatar";
 import EditorChat from "../../components/editor/editor";
-import { DiscussionInfo, UserInfo } from "../../jsonData/chats";
+import { DiscussionInfo } from "../../jsonData/chats";
+import {IoMdArrowRoundBack} from "react-icons/io"
+
+
+function Discussions(props) {
+  let obj = DiscussionInfo.Discussion.find((o) => o._ID === props.discussionID);
+  console.log(obj);
+  return obj;
+}
+function UserInfos(DiscussionInfo) {
+  return [
+    ...new Set(
+      DiscussionInfo.chats.map((chat) => {
+        return chat.username;
+      })
+    ),
+  ];
+}
 
 class Discussion extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      DiscussionInfo: DiscussionInfo,
-      UserInfo: UserInfo,
+      DiscussionInfo: Discussions(props),
+      UserInfo: UserInfos(Discussions(props)),
     };
   }
 
   render() {
     return (
       <div>
-        <NavBar />
         <Container fluid>
-          <Row md={12}>
-            <Col xs={2} id="sidebar-wrapper">
-              <Sidebar
-                DiscussionInfo={this.state.DiscussionInfo}
-                UserInfo={this.state.UserInfo}
-              />
-            </Col>
+          <Row md={12} className="row">
+              <Col xs={2} id="sidebar-wrapper">
+                <Sidebar
+                  DiscussionInfo={this.state.DiscussionInfo}
+                  UserInfo={this.state.UserInfo}
+                />
+              </Col>
             <Col xs={7} className="sidewrapper border-right">
               <div>
+                
                 <div className="topicHeading">
-                  {this.state.DiscussionInfo.Discussion.TopicName}
-                  {this.state.DiscussionInfo.Discussion.Tags.map((tag) => {
+                <IoMdArrowRoundBack onClick={this.props.onClickingBack} className="backbutton"/>
+                  {this.state.DiscussionInfo.TopicName}
+                  {this.state.DiscussionInfo.Tags.map((tag) => {
                     return (
                       <Badge variant="primary" className="tags">
                         {tag}
@@ -41,36 +58,79 @@ class Discussion extends Component {
                   })}
                 </div>
                 <p className="description">
-                  {this.state.DiscussionInfo.Discussion.TopicDescription}
+                  {this.state.DiscussionInfo.TopicDescription}
                 </p>
                 <hr />
                 <div className="chat">
-                  {this.state.DiscussionInfo.Discussion.chats.map((chat) => {
-                    return (
-                      <div className="chatHead">
-                        <Avatar src={chat.avatarurl}></Avatar>
-                        <div className="chatinfo">
-                          <div className="username">{chat.username}</div>
-                          <div className="chatdescription">
-                            {chat.description}
+                  {this.state.DiscussionInfo.chats.map((chat) => {
+                    if (chat.replyTo.length !== 0) {
+                      var replyID = chat.replyTo;
+                      var chatreply = this.state.DiscussionInfo.chats.find(
+                        (element) => element._ID === replyID
+                      );
+                      return (
+                        <div className="chatHead">
+                          <Avatar src={chat.avatarurl}></Avatar>
+                          <div className="chatinfo">
+                            <div className="username">{chat.username}</div>
+                            <div className="chatReply">
+                              <Avatar src={chatreply.avatarurl} className="avatarReply"></Avatar>
+                              <div className="chatinforeply">
+                                <div className="usernamereply">
+                                  {chatreply.username}
+                                </div>
+                                <div className="chatdescriptionreply">
+                                  {chatreply.description}
+                                </div>
+                              </div>
+                              {}
+                            </div>
+                            <div className="chatdescription">
+                              {chat.description}
+                            </div>
+                            <div className="buttonsclass">
+                              <a className="buttons" href="/">
+                                Like
+                              </a>
+                              <a className="buttons" href="/">
+                                Comment
+                              </a>
+                            </div>
                           </div>
-                          <div className="buttonsclass">
-                            <a className="buttons" href="/">
-                              Like
-                            </a>
-                            <a className="buttons" href="/">
-                              Comment
-                            </a>
-                          </div>
+                          {}
                         </div>
-                      </div>
-                    );
+                      );
+                    } else {
+                      return (
+                        <div className="chatHead">
+                          <Avatar src={chat.avatarurl}></Avatar>
+                          <div className="chatinfo">
+                            <div className="username">{chat.username}</div>
+                            <div className="chatdescription">
+                              {chat.description}
+                            </div>
+                            <div className="buttonsclass">
+                              <a className="buttons" href="/">
+                                Like
+                              </a>
+                              <a className="buttons" href="/">
+                                Comment
+                              </a>
+                            </div>
+                          </div>
+                          {/* <div>{ReactHtmlParser(markdown, options)}</div> */}
+                          {}
+                        </div>
+                      );
+                    }
                   })}
                 </div>
               </div>
             </Col>
             <Col xs={3} id="contentwriting">
-              <EditorChat />
+              <div className="editor">
+                <EditorChat />
+              </div>
             </Col>
           </Row>
         </Container>

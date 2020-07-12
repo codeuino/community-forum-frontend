@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import {Button } from "react-bootstrap";
+import { Button } from "react-bootstrap";
 import { Editor } from "@tinymce/tinymce-react";
-import "./editor.scss"
+import "./editor.scss";
 
 class EditorChat extends Component {
   constructor(props) {
@@ -16,7 +16,6 @@ class EditorChat extends Component {
   }
   handleEditorChange(content) {
     this.setState({ content });
-    console.log(content);
   }
   handleSubmit(e) {
     e.preventDefault();
@@ -32,9 +31,11 @@ class EditorChat extends Component {
         <div className="discussionHeader">Write a New Discussion</div>
         <Editor
           initialValue="<p>Newb Content</p>"
+          id="uuid"
           apiKey="8kftszxlfioswims1pl978knfa7p4qyoknx7afc7tvsvzruh"
+          outputFormat="html"
           init={{
-            height: 600,
+            height: 400,
             menubar: false,
             branding: false,
             plugins: [
