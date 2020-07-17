@@ -43,6 +43,7 @@ hr {
   max-height: 61vh;
   .chatReply{
     background:#F7F7F7;
+    width: 100vh;
     display: flex;
     border-radius: 2px;
     margin: 6px 10px 6px 0px;
@@ -68,6 +69,21 @@ hr {
         font-size: 13px;
         margin-top: 5px;
         line-height: 19px;
+        p{
+          margin-bottom: 0.25rem;
+        }
+      }
+      .buttonsclass {
+        margin-top: 0px;
+      }
+      .buttons {
+        font-family: Inter;
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 15px;
+        color: #949494;
+        margin: 10px 10px 0 0;
       }
     }
   }
@@ -77,6 +93,13 @@ hr {
     .chatinfo {
       margin-left: 10px;
       .username {
+        .icon{
+          cursor: pointer;
+          color: #F04B58;
+        }
+        width: 100vh;
+        display: flex;
+        justify-content: space-between  ;
         font-family: Inter;
         font-style: normal;
         font-weight: 600;
@@ -89,9 +112,12 @@ hr {
         font-size: 16px;
         margin-top: 5px;
         line-height: 19px;
+        p{
+          margin-bottom: 0.25rem;
+        }
       }
       .buttonsclass {
-        margin-top: 5px;
+        margin-top: 0px;
       }
       .buttons {
         font-family: Inter;

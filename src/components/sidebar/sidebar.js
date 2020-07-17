@@ -17,7 +17,7 @@ const Side = (props) => {
             </Nav.Item>
             <Nav.Item>
               <div className="category-items">
-                {props.DiscussionInfo.chats.length} Discussion
+                {props.chats.length} Discussion
               </div>
               <div className="category-items">0 Documents Shared</div>
               <div className="category-items">

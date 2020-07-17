@@ -1,23 +1,29 @@
-.nav-tabs .nav-item.nav-link.active{
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    font-size: 1.1rem;
-    color: #1e3554;
+.nav-tabs .nav-item.nav-link.active {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #1e3554;
+}
+.nav-tabs .nav-item.nav-link {
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #8f8f8f;
+}
+.announcements {
+  max-height: 60vh;
+  overflow: auto;
+}
+.navTabs {
+  margin: 10px 0 0 25px;
+}
+.navbar {
+  .bootstrapbutton {
+    margin-left: 20px;
+    color: #366ff0;
+    outline-color: #366ff0;
   }
-  .nav-tabs .nav-item.nav-link{
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-    font-size: 1.1rem;
-    color:  #8F8F8F;
-  }
-  
-  .navbar {
-    .bootstrapbutton {
-      margin-left: 20px;
-      color: #366ff0;
-      outline-color: #366ff0;
-    }
-  }
-  .ml-auto {
+}
+.ml-auto {
   margin-right: 50px;
 }

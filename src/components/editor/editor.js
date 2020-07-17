@@ -1,7 +1,14 @@
 import React, { Component } from "react";
 import { Button } from "react-bootstrap";
 import { Editor } from "@tinymce/tinymce-react";
+import Avatar from "@material-ui/core/Avatar";
 import "./editor.scss";
+import { GrFormClose } from "react-icons/gr";
+import ReactHtmlParser, {
+  processNodes,
+  convertNodeToElement,
+  htmlparser2,
+} from "react-html-parser";
 
 class EditorChat extends Component {
   constructor(props) {
@@ -9,17 +16,21 @@ class EditorChat extends Component {
     this.state = {
       content: "",
       contentValue: "",
+      disabled: true,
     };
     this.handleEditorChange = this.handleEditorChange.bind(this);
     this.handleValue = this.handleValue.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
   }
+  handleOnSubmit = () => {
+    this.setState({ content: "" });
+  };
   handleEditorChange(content) {
+    if (content.length > 0) {
+      this.setState({ disabled: false });
+    } else {
+      this.setState({ disabled: true });
+    }
     this.setState({ content });
-  }
-  handleSubmit(e) {
-    e.preventDefault();
-    alert(this.state.content);
   }
   handleValue(value) {
     this.setState({ contentValue: value });
@@ -29,20 +40,49 @@ class EditorChat extends Component {
     return (
       <div>
         <div className="discussionHeader">Write a New Discussion</div>
+        {this.props.commenting ? (
+          <div>
+            <div className="chatHead">
+              <div className="Reply">
+                <div> Replying to: </div>
+                <div className="icon" onClick={this.props.handleCommentOff}>
+                  <GrFormClose size={20} />
+                </div>
+              </div>
+              <div className="chatReply">
+                <Avatar
+                  src={this.props.chatReply.avatarurl}
+                  className="avatarReply"
+                ></Avatar>
+                <div className="chatinforeply">
+                  <div className="usernamereply">
+                    {this.props.chatReply.username}
+                  </div>
+                  <div className="chatdescriptionreply">
+                    {ReactHtmlParser(
+                      this.props.chatReply.description.replace(/(&nbsp;)*/g, "")
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
         <Editor
           initialValue="<p>Newb Content</p>"
           id="uuid"
           apiKey="8kftszxlfioswims1pl978knfa7p4qyoknx7afc7tvsvzruh"
-          outputFormat="html"
           init={{
             height: 400,
             menubar: false,
             branding: false,
             plugins: [
-              "advlist autolink lists link image advcode preview",
-              "charmap print preview anchor help code",
+              "advlist autolink lists link image preview",
+              "charmap print preview anchor code",
               "searchreplace visualblocks codesample",
-              "insertdatetime media table paste wordcount",
+              "insertdatetime media table paste wordcount textpattern",
             ],
             toolbar:
               // eslint-disable-next-line no-multi-str
@@ -52,7 +92,18 @@ class EditorChat extends Component {
           value={this.state.content}
           onEditorChange={this.handleEditorChange}
         />
-        <Button type="submit" onClick={this.handleSubmit} className="sendchat">
+        <Button
+          type="submit"
+          disabled={this.state.disabled}
+          onClick={() =>
+            this.props.handleSubmit(
+              this.state.content,
+              this.props.chatReply,
+              this.handleOnSubmit
+            )
+          }
+          className="sendchat"
+        >
           Send
         </Button>
       </div>
