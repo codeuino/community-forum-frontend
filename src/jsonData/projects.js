@@ -6,6 +6,7 @@ const projectsInfo1 = {
       topicDescription:
         "Some quick example text to build on the card title and make up the bulk of the card's content.",
       topicTags: ["ReactJs", "NodeJS"],
+      discussionID: "random123",
     },
     "topic-2": {
       id: "topic-2",
@@ -13,6 +14,8 @@ const projectsInfo1 = {
       topicDescription:
         "Some quick example text to build on the card title and make up the bulk of the card's content.",
       topicTags: ["ReactJs", "NodeJS"],
+      discussionID: "random123"
+
     },
     "topic-3": {
       id: "topic-3",
@@ -20,6 +23,7 @@ const projectsInfo1 = {
       topicDescription:
         "Some quick example text to build on the card title and make up the bulk of the card's content.",
       topicTags: ["ReactJs", "NodeJS"],
+      discussionID: "random123"
     },
     "topic-4": {
       id: "topic-4",
@@ -27,6 +31,7 @@ const projectsInfo1 = {
       topicDescription:
         "Some quick example text to build on the card title and make up the bulk of the card's content.",
       topicTags: ["ReactJs", "NodeJS"],
+      discussionID: "random1234"
     },
     "topic-5": {
       id: "topic-5",
@@ -34,6 +39,7 @@ const projectsInfo1 = {
       topicDescription:
         "Some quick example text to build on the card title and make up the bulk of the card's content.",
       topicTags: ["ReactJs", "NodeJS"],
+      discussionID: "random123"
     },
     "topic-6": {
       id: "topic-6",
@@ -41,6 +47,7 @@ const projectsInfo1 = {
       topicDescription:
         "Some quick example text to build on the card title and make up the bulk of the card's content.",
       topicTags: ["ReactJs", "NodeJS"],
+      discussionID: "random123"
     },
     "topic-7": {
       id: "topic-7",
@@ -48,6 +55,7 @@ const projectsInfo1 = {
       topicDescription:
         "Some quick example text to build on the card title and make up the bulk of the card's content.",
       topicTags: ["ReactJs", "NodeJS"],
+      discussionID:"random123"
     },
     "topic-8": {
       id: "topic-8",
@@ -55,6 +63,7 @@ const projectsInfo1 = {
       topicDescription:
         "Some quick example text to build on the card title and make up the bulk of the card's content.",
       topicTags: ["ReactJs", "NodeJS"],
+      discussionID:"random123"
     },
     "topic-9": {
       id: "topic-9",
@@ -62,6 +71,7 @@ const projectsInfo1 = {
       topicDescription:
         "Some quick example text to build on the card title and make up the bulk of the card's content.",
       topicTags: ["ReactJs", "NodeJS"],
+      discussionID:"random123"
     },
     "topic-10": {
       id: "topic-10",
@@ -69,6 +79,7 @@ const projectsInfo1 = {
       topicDescription:
         "Some quick example text to build on the card title and make up the bulk of the card's content.",
       topicTags: ["ReactJs", "NodeJS"],
+      discussionID:"random123"
     },
   },
   projectsOrder: [

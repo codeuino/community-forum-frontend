@@ -1,26 +1,4 @@
-.ml-auto {
-  margin-right: 50px;
-}
-.nav-tabs .nav-item.nav-link.active{
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  font-size: 1.1rem;
-  color: #1e3554;
-}
-.nav-tabs .nav-item.nav-link{
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-  font-size: 1.1rem;
-  color:  #8F8F8F;
-}
 
-.navbar {
-  .bootstrapbutton {
-    margin-left: 20px;
-    color: #366ff0;
-    outline-color: #366ff0;
-  }
-}
 .header {
   margin-left: 30px;
   font-family: Bebas Neue;
@@ -64,6 +42,9 @@
     .workspace {
       .bootstrapbutton {
         background-color: #366ff0;
+      }
+      .add-category{
+        margin-left: 20px;
       }
       margin-left: 20px;
     }
