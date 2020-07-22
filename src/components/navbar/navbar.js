@@ -8,7 +8,6 @@ import {
   Modal,
   NavDropdown,
   Form,
-  Dropdown,
 } from "react-bootstrap";
 import "./navbar.scss";
 import Announcements from "../announcements/announcement";

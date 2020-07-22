@@ -6,12 +6,8 @@ import Avatar from "@material-ui/core/Avatar";
 import EditorChat from "../../components/editor/editor";
 import socketIOClient from "socket.io-client";
 import { IoMdArrowRoundBack } from "react-icons/io";
-import { FaCommentAlt, FaReply } from "react-icons/fa";
-import ReactHtmlParser, {
-  processNodes,
-  convertNodeToElement,
-  htmlparser2,
-} from "react-html-parser";
+import { FaReply } from "react-icons/fa";
+import ReactHtmlParser from "react-html-parser";
 
 var socket;
 
@@ -66,15 +62,16 @@ class Discussion extends Component {
   };
 
   handleSubmit = (content, chatReply, handleOnSubmit) => {
+    var newMessage;
     if (chatReply !== null) {
-      var newMessage = {
+      newMessage = {
         topicId: this.props.Topics._id,
         userId: localStorage.getItem("userId"),
         description: content,
         replyTo: chatReply._id,
       };
     } else {
-      var newMessage = {
+      newMessage = {
         topicId: this.props.Topics._id,
         userId: localStorage.getItem("userId"),
         description: content,

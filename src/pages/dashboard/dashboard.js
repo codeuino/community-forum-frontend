@@ -4,6 +4,7 @@ import "./dashboard.scss";
 import Projects from "../../components/projects/projects";
 import NavBar from "../../components/navbar/navbar";
 import Discussion from "../discussion/discussion";
+import converttodict from "../../utils/dictConversion";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -13,12 +14,14 @@ class Dashboard extends Component {
       discussion: false,
       showModal: false,
       showAddCategoryModal: false,
+      Topics: "",
     };
     this.handleDiscussionTrue = this.handleDiscussionTrue.bind(this);
     this.handleDiscussionFalse = this.handleDiscussionFalse.bind(this);
     this.handleShow = this.handleShow.bind(this);
     this.handleClose = this.handleClose.bind(this);
   }
+
   handleAddCategory = (event) => {
     event.preventDefault();
     console.log(localStorage.getItem("token"));

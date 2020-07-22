@@ -6,10 +6,7 @@ import { IconContext } from "react-icons";
 import { FiPlus } from "react-icons/fi";
 import { Droppable, DragDropContext, Draggable } from "react-beautiful-dnd";
 import TopicForm from "../../components/topicform/topicform";
-
-function converttodict(data) {
-  return data.reduce((a, x) => ({ ...a, [x._id]: x }), {});
-}
+import converttodict from "../../utils/dictConversion";
 
 class Projects extends Component {
   state = projectInfo1;
