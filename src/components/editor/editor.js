@@ -4,11 +4,7 @@ import { Editor } from "@tinymce/tinymce-react";
 import Avatar from "@material-ui/core/Avatar";
 import "./editor.scss";
 import { GrFormClose } from "react-icons/gr";
-import ReactHtmlParser, {
-  processNodes,
-  convertNodeToElement,
-  htmlparser2,
-} from "react-html-parser";
+import ReactHtmlParser from "react-html-parser";
 
 class EditorChat extends Component {
   constructor(props) {
