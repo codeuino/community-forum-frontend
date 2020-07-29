@@ -16,10 +16,6 @@ class Dashboard extends Component {
       showAddCategoryModal: false,
       Topics: "",
     };
-    this.handleDiscussionTrue = this.handleDiscussionTrue.bind(this);
-    this.handleDiscussionFalse = this.handleDiscussionFalse.bind(this);
-    this.handleShow = this.handleShow.bind(this);
-    this.handleClose = this.handleClose.bind(this);
   }
 
   handleAddCategory = (event) => {
@@ -69,12 +65,12 @@ class Dashboard extends Component {
     this.setState({ showAddCategoryModal: true });
   };
 
-  handleShow() {
+  handleShow = () => {
     this.setState({ showModal: true });
-  }
-  handleClose() {
+  };
+  handleClose = () => {
     this.setState({ showModal: false, showAddCategoryModal: false });
-  }
+  };
 
   handleChange = (params, event) => {
     event.preventDefault();
@@ -83,17 +79,17 @@ class Dashboard extends Component {
     }
   };
 
-  handleDiscussionTrue(Topics) {
+  handleDiscussionTrue = (Topics) => {
     if (localStorage.getItem("token") && localStorage.getItem("userId")) {
       this.setState({ Topics: Topics });
       this.setState({ discussion: true });
     } else {
       this.handleShow();
     }
-  }
-  handleDiscussionFalse() {
+  };
+  handleDiscussionFalse = () => {
     this.setState({ discussion: false });
-  }
+  };
 
   render() {
     return (

@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
 import "./signupform.scss";
+import { MdBorderAll } from "react-icons/md";
 
 class SignUpForm extends Component {
   constructor(props) {
@@ -16,15 +17,29 @@ class SignUpForm extends Component {
 
   handleChange = (params, event) => {
     event.preventDefault();
-    if (params === "email") {
-      this.setState({ email: event.target.value });
-    } else if (params === "password") {
-      this.setState({ password: event.target.value });
-    } else if (params === "passwordVerify") {
-      this.setState({ passwordVerify: event.target.value });
-    } else if (params === "username") {
-      this.setState({ username: event.target.value });
+    switch (params) {
+      case "email":
+        this.setState({ email: event.target.value });
+        break;
+      case "password":
+        this.setState({ password: event.target.value });
+        break;
+      case "passwordVerify":
+        this.setState({ passwordVerify: event.target.value });
+        break;
+      case "username":
+        this.setState({ username: event.target.value });
+        break;
     }
+    // if (params === "email") {
+    //   this.setState({ email: event.target.value });
+    // } else if (params === "password") {
+    //   this.setState({ password: event.target.value });
+    // } else if (params === "passwordVerify") {
+    //   this.setState({ passwordVerify: event.target.value });
+    // } else if (params === "username") {
+    //   this.setState({ username: event.target.value });
+    // }
   };
 
   handleSubmit = (e) => {

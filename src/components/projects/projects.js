@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Card, Badge, Modal } from "react-bootstrap";
 import "./projects.scss";
-import projectInfo1 from "../../jsonData/projects";
 import { IconContext } from "react-icons";
 import { FiPlus } from "react-icons/fi";
 import { Droppable, DragDropContext, Draggable } from "react-beautiful-dnd";
@@ -9,7 +8,6 @@ import TopicForm from "../../components/topicform/topicform";
 import converttodict from "../../utils/dictConversion";
 
 class Projects extends Component {
-  state = projectInfo1;
   constructor(props) {
     super(props);
     this.state = {
