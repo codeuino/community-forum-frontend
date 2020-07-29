@@ -14,23 +14,19 @@ class EditorChat extends Component {
       contentValue: "",
       disabled: true,
     };
-    this.handleEditorChange = this.handleEditorChange.bind(this);
-    this.handleValue = this.handleValue.bind(this);
   }
   handleOnSubmit = () => {
     this.setState({ content: "" });
   };
-  handleEditorChange(content) {
-    if (content.length > 0) {
-      this.setState({ disabled: false });
-    } else {
-      this.setState({ disabled: true });
-    }
-    this.setState({ content });
-  }
-  handleValue(value) {
+  handleEditorChange = (content) => {
+    this.setState({
+      content,
+      disabled: !(content.length > 0),
+    });
+  };
+  handleValue = (value) => {
     this.setState({ contentValue: value });
-  }
+  };
 
   render() {
     return (
@@ -75,7 +71,7 @@ class EditorChat extends Component {
             menubar: false,
             branding: false,
             plugins: [
-              "advlist autolink lists link image preview",
+              "advlist autolink lists link image preview mentions",
               "charmap print preview anchor code",
               "searchreplace visualblocks codesample",
               "insertdatetime media table paste wordcount textpattern",

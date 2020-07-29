@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import taskData from "../../jsonData/tasks";
 import {
   Button,
   Tab,

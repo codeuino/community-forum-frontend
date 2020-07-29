@@ -26,14 +26,13 @@ class Discussion extends Component {
     console.log(props);
     super(props);
     this.state = {
-      endpoint: "http://localhost:8000/",
       chats: props.Topics.chats,
       UserInfo: UserInfos(props.Topics.chats),
       commenting: false,
       chatReply: null,
       isShown: false,
     };
-    socket = socketIOClient.connect(this.state.endpoint);
+    socket = socketIOClient.connect("http://localhost:8000/");
     socket.on("newChat", async (data) => {
       console.log(data);
       var chats = this.state.chats;
@@ -215,21 +214,6 @@ class Discussion extends Component {
                                   chat.description.replace(/(&nbsp;)*/g, "")
                                 )}
                               </div>
-                              {/* {this.state.isShown_id === chat._id ? (
-                                <div className="buttonsclass">
-                                  <a className="buttons" href="/">
-                                    Like
-                                  </a>
-                                  <a
-                                    className="buttons"
-                                    onClick={() => this.handleComment(chat)}
-                                  >
-                                    Comment
-                                  </a>
-                                </div>
-                              ) : (
-                                ""
-                              )} */}
                             </div>
                             {}
                           </div>

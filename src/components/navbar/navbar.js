@@ -11,7 +11,7 @@ import {
 } from "react-bootstrap";
 import "./navbar.scss";
 import Announcements from "../announcements/announcement";
-import Tasks from "../tasks/tasks"
+import Tasks from "../tasks/tasks";
 import LoginForm from "../loginform/loginform";
 import SignUpForm from "../signupform/signupform";
 
@@ -23,32 +23,28 @@ class NavBar extends Component {
       isLogin: false,
       username: localStorage.getItem("username"),
     };
-    this.handleShow = this.handleShow.bind(this);
-    this.handleClose = this.handleClose.bind(this);
-    this.handleLogin = this.handleLogin.bind(this);
-    this.handleLogout = this.handleLogout.bind(this);
   }
   handleShowTask = () => {
     this.setState({ showModal: true });
   };
-  handleShow() {
+  handleShow = () => {
     this.setState({ showModal: true });
-  }
-  handleClose() {
+  };
+  handleClose = () => {
     this.setState({ showModal: false });
-  }
-  handleLogin() {
+  };
+  handleLogin = () => {
     this.setState({
       isLogin: true,
       username: localStorage.getItem("username"),
     });
     this.props.handleClose();
-  }
-  handleLogout(e) {
+  };
+  handleLogout = (e) => {
     e.preventDefault();
     localStorage.clear();
     this.setState({ isLogin: false, username: null });
-  }
+  };
   render() {
     return (
       <div>
@@ -92,7 +88,7 @@ class NavBar extends Component {
               <Announcements />
             </NavDropdown>
             <NavDropdown title="Tasks" id="collasible-nav-dropdown">
-              <Tasks/>
+              <Tasks />
             </NavDropdown>
             <Nav.Link href="#option2">Options</Nav.Link>
             <Nav.Link href="#option3">Options</Nav.Link>
