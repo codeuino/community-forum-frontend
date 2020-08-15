@@ -24,7 +24,7 @@ class Tasks extends Component {
       tasks: [],
       users: [],
       showModal: false,
-      Topics: [],
+      Topics: props.Topics,
       description: "",
       username: "Please Select User",
       topicName: "Please Select Topic",
@@ -34,36 +34,8 @@ class Tasks extends Component {
 
   componentDidMount() {
     this.fetchTasks();
-    this.fetchTopicNames();
     this.fetchUsers();
   }
-
-  fetchTopicNames = async () => {
-    let requestBody = {
-      query: `
-      query{
-      topics{
-        _id
-        topicName
-      }
-    }
-      `,
-    };
-    let res = await fetch("http://localhost:8000/graphql", {
-      method: "POST",
-      body: JSON.stringify(requestBody),
-      headers: { "Content-Type": "application/json" },
-    });
-    if (res.status === 400) {
-      console.log(res);
-    }
-    if (res.status !== 200 && res.status !== 201) {
-      throw new Error("Failed");
-    }
-    var resData = await res.json();
-    console.log(resData.data.topics);
-    this.setState({ Topics: resData.data.topics });
-  };
 
   fetchUsers = async () => {
     let requestBody = {

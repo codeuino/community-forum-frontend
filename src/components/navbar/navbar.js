@@ -24,6 +24,36 @@ class NavBar extends Component {
       username: localStorage.getItem("username"),
     };
   }
+  componentDidMount() {
+    this.fetchTopicNames();
+  }
+  fetchTopicNames = async () => {
+    let requestBody = {
+      query: `
+      query{
+      topics{
+        _id
+        topicName
+      }
+    }
+      `,
+    };
+    let res = await fetch("http://localhost:8000/graphql", {
+      method: "POST",
+      body: JSON.stringify(requestBody),
+      headers: { "Content-Type": "application/json" },
+    });
+    if (res.status === 400) {
+      console.log(res);
+    }
+    if (res.status !== 200 && res.status !== 201) {
+      throw new Error("Failed");
+    }
+    var resData = await res.json();
+    console.log(resData.data.topics);
+    this.setState({ Topics: resData.data.topics });
+  };
+
   handleShowTask = () => {
     this.setState({ showModal: true });
   };
@@ -85,10 +115,10 @@ class NavBar extends Component {
           </Navbar.Brand>
           <Nav className="ml-auto">
             <NavDropdown title="Announcements" id="collasible-nav-dropdown">
-              <Announcements />
+              <Announcements Topics={this.state.Topics}/>
             </NavDropdown>
             <NavDropdown title="Tasks" id="collasible-nav-dropdown">
-              <Tasks />
+              <Tasks Topics={this.state.Topics} />
             </NavDropdown>
             <Nav.Link href="#option2">Options</Nav.Link>
             <Nav.Link href="#option3">Options</Nav.Link>
