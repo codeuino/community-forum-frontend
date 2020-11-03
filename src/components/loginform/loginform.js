@@ -1,106 +1,142 @@
 import React, { Component } from "react";
 import { Form, Button } from "react-bootstrap";
-import "./loginform.scss";
-import Login from "../../utils/login";
+import { connect } from 'react-redux';
+import { login } from '../../reducers/authSlice';
 
 class LoginForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
       email: "",
+      emailError: "",
       password: "",
-    };
+      passwordError: "",
+      isFormInvalid: true,
+      formSubmissionError: "",
+    }
   }
 
-  handleChange = (event, params) => {
-    event.preventDefault();
-    params === "email"
-      ? this.setState({ email: event.target.value })
-      : this.setState({ password: event.target.value });
+  onFieldChange = (e) => {
+    const { name, value } = e.target;
+    this.setState({ [name]: value }, () => {
+      this.checkFieldValidation(name);
+    });
+  }
+
+  checkFieldValidation = (field) => {
+    switch (field) {
+      case "email": {
+        if (
+          this.state.email.length < 255 &&
+          this.state.email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)
+        ) {
+          this.setState({
+            emailError: null,
+          });
+        } else {
+          this.setState({
+            emailError: "Please enter a valid email address",
+          });
+        }
+        break;
+      }
+      case "password": {
+        if(this.state.password.length < 6) {
+          this.setState({
+            passwordError: "Your password should be atleast 6 characters long",
+          });
+        } else {
+          this.setState({
+            passwordError: null,
+          });
+        }
+        break;
+      }
+    }
+    return;
   };
 
-  checkValidation = () => {
-    if (this.state.email.includes("@") && this.state.email.includes(".")) {
-      return true;
-    }
-    return false;
-  };
-  onSubmit = (e) => {
+  onFormSubmit = e => {
     e.preventDefault();
-    let requestBody = {
-      query: `
-        query {
-          login(email: "${this.state.email}", password: "${this.state.password}") {
-            userId
-            token
-            tokenexpiration
-            username
-          }
-        }
-      `,
-    };
-    fetch("http://localhost:8000/graphql", {
-      method: "POST",
-      body: JSON.stringify(requestBody),
-      headers: { "Content-Type": "application/json" },
-    })
-      .then((res) => {
-        if (res.status !== 200 && res.status !== 201) {
-          throw new Error("Failed");
-        }
-        return res.json();
-      })
-      .then((resData) => {
-        Login(
-          resData.data.login.token,
-          resData.data.login.tokenexpiration,
-          resData.data.login.userId,
-          resData.data.login.username
-        );
-        console.log(resData)
-        this.props.handleLogin();
-      })
-      .catch((err) => {
-        throw new Error(err);
-      });
+    this.props.login(this.state.email, this.state.password);
   };
+  
+  componentDidUpdate() {
+    if(this.state.isFormInvalid != false) {
+      if (this.state.emailError === null && this.state.passwordError === null) {
+        this.setState({ isFormInvalid: false });
+      }
+    } else {
+      if (this.state.emailError !== null || this.state.passwordError !== null)
+        this.setState({ isFormInvalid: true });
+    }
+  }
 
   render() {
+    this.state.formSubmissionError = this.props.error;
     return (
-      <div className="login-details">
-        <Form onSubmit={this.onSubmit}>
+      <div className="login-form">
+        {this.state.formSubmissionError && (
+          <div className="alert alert-danger" role="alert">
+            {this.state.formSubmissionError}
+          </div>
+        )}
+        <Form onSubmit={this.onFormSubmit}>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>
               <div className="formLabel">Email address</div>
             </Form.Label>
             <Form.Control
-              onChange={(e) => this.handleChange(e, "email")}
+              onChange={this.onFieldChange}
               type="email"
-              placeholder="abc@gmail.com"
+              name="email"
             />
+            {this.state.emailError && (
+              <h6 className="form-field-error">{this.state.emailError}</h6>
+            )}
           </Form.Group>
           <Form.Group controlId="formBasicPassword">
             <Form.Label>
               <div className="formLabel">Password</div>
             </Form.Label>
             <Form.Control
-              onChange={(e) => this.handleChange(e, "password")}
+              onChange={this.onFieldChange}
               type="password"
-              placeholder="***********"
+              name="password"
             />
+            {this.state.passwordError && (
+              <h6 className="form-field-error">{this.state.passwordError}</h6>
+            )}
           </Form.Group>
-          <Form.Group controlId="formBasicCheckbox">
-            <Form.Check type="checkbox" label="Remember Me" />
-          </Form.Group>
-          <div className="cta-register">
-            <Button variant="primary" type="submit">
-              Login
-            </Button>
-          </div>
+          <Button
+            className="primary-button"
+            variant="primary"
+            type="submit"
+            disabled={this.state.isFormInvalid}
+          >
+            Login
+          </Button>
         </Form>
       </div>
     );
   }
 }
 
-export default LoginForm;
+const mapStateToProps = (state) => {
+  return {
+    error: state.auth.error,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    login: (email, password) => dispatch(
+        login({
+          email,
+          password,
+        })
+      ),
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);
