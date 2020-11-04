@@ -8,7 +8,7 @@ export const signup = createAsyncThunk(
       .post(
         "http://localhost:8000/graphql", //update
         {
-          query: `query{ createUser(
+          query: `mutation{ createUser(userInput: {
             name: {
               firstName: "${signupData.name.firstName}"
               lastName: "${signupData.name.lastName}"
@@ -18,9 +18,10 @@ export const signup = createAsyncThunk(
             phone: "${signupData.phone}"
             info: {
               about: {
-                shortDescription: "${signupData.info.about.shortDescription}
+                shortDescription: "${signupData.info.about.shortDescription}"
               }
             }
+          }
           ) {
             _id
           }}`,
@@ -46,19 +47,20 @@ export const signup = createAsyncThunk(
 export const userSlice = createSlice({
   name: "user",
   initialState: {
-    id: null,
-    error: "",
+    signup: {
+      id: null,
+      error: "",
+    },
   },
-  reducers: {
-  },
+  reducers: {},
   extraReducers: {
     [signup.fulfilled]: (state, action) => {
-      state.id = action.payload;
-      state.error = "";
+      state.signup.id = action.payload;
+      state.signup.error = "";
     },
     [signup.rejected]: (state, action) => {
-      state.id = null;
-      state.error = action.payload;
+      state.signup.id = null;
+      state.signup.error = action.payload;
     },
   },
 });

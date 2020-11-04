@@ -13,7 +13,7 @@ class LoginForm extends Component {
       passwordError: "",
       isFormInvalid: true,
       formSubmissionError: "",
-    }
+    };
   }
 
   onFieldChange = (e) => {
@@ -21,7 +21,7 @@ class LoginForm extends Component {
     this.setState({ [name]: value }, () => {
       this.checkFieldValidation(name);
     });
-  }
+  };
 
   checkFieldValidation = (field) => {
     switch (field) {
@@ -41,7 +41,7 @@ class LoginForm extends Component {
         break;
       }
       case "password": {
-        if(this.state.password.length < 6) {
+        if (this.state.password.length < 6) {
           this.setState({
             passwordError: "Your password should be atleast 6 characters long",
           });
@@ -56,13 +56,22 @@ class LoginForm extends Component {
     return;
   };
 
-  onFormSubmit = e => {
+  onFormSubmit = (e) => {
     e.preventDefault();
     this.props.login(this.state.email, this.state.password);
   };
-  
+
+  static getDerivedStateFromProps(props, state) {
+    if (props.error) {
+      return {
+        formSubmissionError: props.error,
+      };
+    }
+    return null;
+  }
+
   componentDidUpdate() {
-    if(this.state.isFormInvalid != false) {
+    if (this.state.isFormInvalid != false) {
       if (this.state.emailError === null && this.state.passwordError === null) {
         this.setState({ isFormInvalid: false });
       }
@@ -73,7 +82,6 @@ class LoginForm extends Component {
   }
 
   render() {
-    this.state.formSubmissionError = this.props.error;
     return (
       <div className="login-form">
         {this.state.formSubmissionError && (
@@ -110,7 +118,6 @@ class LoginForm extends Component {
           </Form.Group>
           <Button
             className="primary-button"
-            variant="primary"
             type="submit"
             disabled={this.state.isFormInvalid}
           >
