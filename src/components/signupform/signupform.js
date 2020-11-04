@@ -41,9 +41,9 @@ class SignUpForm extends Component {
             firstNameError: "First name is required",
           });
         } else
-            this.setState({
-              firstNameError: null,
-            });
+          this.setState({
+            firstNameError: null,
+          });
         break;
       }
       case "lastName": {
@@ -52,9 +52,9 @@ class SignUpForm extends Component {
             lastNameError: "Last name is required",
           });
         } else
-            this.setState({
-              lastNameError: null,
-            });
+          this.setState({
+            lastNameError: null,
+          });
         break;
       }
       case "email": {
@@ -87,7 +87,7 @@ class SignUpForm extends Component {
       case "verifyPassword": {
         if (this.state.password != this.state.verifyPassword) {
           this.setState({
-            passwordError: "Please make sure your passwords match",
+            verifyPasswordError: "Please make sure your passwords match",
           });
         } else {
           this.setState({
@@ -114,9 +114,9 @@ class SignUpForm extends Component {
             shortDescriptionError: "Short Description is required",
           });
         } else
-            this.setState({
-              shortDescriptionError: null,
-            });
+          this.setState({
+            shortDescriptionError: null,
+          });
         break;
       }
     }
@@ -135,32 +135,41 @@ class SignUpForm extends Component {
     );
   };
 
+  static getDerivedStateFromProps(props, state) {
+    if (props.error) {
+      return {
+        formSubmissionError: props.error,
+      };
+    }
+    return null;
+  }
+
   componentDidUpdate() {
     if (this.state.isFormInvalid != false) {
       if (
         this.state.firstNameError === null &&
         this.state.lastNameError === null &&
-        this.state.emailError === null && 
+        this.state.emailError === null &&
         this.state.passwordError === null &&
         this.state.phoneError === null &&
-        this.state.shortDescriptionError === null) {
+        this.state.shortDescriptionError === null
+      ) {
         this.setState({ isFormInvalid: false });
       }
     } else {
       if (
         this.state.firstNameError !== null ||
         this.state.lastNameError !== null ||
-        this.state.emailError !== null || 
+        this.state.emailError !== null ||
         this.state.passwordError !== null ||
         this.state.phoneError !== null ||
         this.state.shortDescriptionError !== null
-        )
+      )
         this.setState({ isFormInvalid: true });
     }
   }
 
   render() {
-    this.state.formSubmissionError = this.props.error;
     return (
       <div className="signup-form">
         {this.state.formSubmissionError && (
@@ -280,13 +289,13 @@ class SignUpForm extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    error: state.user.error,
+    error: state.user.signup.error,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    signup: (firstName, lastName, email, password, phone, shortDescription) =>
+    signup: (firstName, lastName, email, password, phone, shortDescription) => {
       dispatch(
         signup({
           name: {
@@ -302,7 +311,8 @@ const mapDispatchToProps = (dispatch) => {
             }
           }
         })
-      ),
+      );
+    }
   };
 };
 
