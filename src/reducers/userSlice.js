@@ -6,7 +6,7 @@ export const signup = createAsyncThunk(
   async (signupData, { rejectWithValue }) => {
     const response = await axios
       .post(
-        "http://localhost:8000/graphql", //update
+        process.env.REACT_APP_GRAPHQL_API_ENDPOINT,
         {
           query: `mutation{ createUser(userInput: {
             name: {
