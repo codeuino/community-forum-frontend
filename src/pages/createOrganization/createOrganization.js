@@ -138,10 +138,8 @@ class CreateOrganization extends Component {
               </div>
             )}
             <Form onSubmit={this.onFormSubmit}>
-              <Form.Group controlId="text">
-                <Form.Label>
-                  <div className="formLabel">Organization Name</div>
-                </Form.Label>
+              <Form.Group controlId="formBasicText1">
+                <Form.Label>Organization Name</Form.Label>
                 <Form.Control
                   onChange={this.onFieldChange}
                   type="text"
@@ -151,10 +149,8 @@ class CreateOrganization extends Component {
                   <h6 className="form-field-error">{this.state.nameError}</h6>
                 )}
               </Form.Group>
-              <Form.Group controlId="text">
-                <Form.Label>
-                  <div className="formLabel">Short Description</div>
-                </Form.Label>
+              <Form.Group controlId="formBasicTextArea">
+                <Form.Label>Short Description</Form.Label>
                 <Form.Control
                   onChange={this.onFieldChange}
                   name="shortDescription"
@@ -168,9 +164,7 @@ class CreateOrganization extends Component {
                 )}
               </Form.Group>
               <Form.Group controlId="formBasicEmail">
-                <Form.Label>
-                  <div className="formLabel">Email Address</div>
-                </Form.Label>
+                <Form.Label>Email Address</Form.Label>
                 <Form.Control
                   onChange={this.onFieldChange}
                   type="email"
@@ -180,9 +174,9 @@ class CreateOrganization extends Component {
                   <h6 className="form-field-error">{this.state.emailError}</h6>
                 )}
               </Form.Group>
-              <Form.Group controlId="text">
+              <Form.Group controlId="formBasicText2">
                 <Form.Label>
-                  <div className="formLabel">Website</div>
+                  Website
                 </Form.Label>
                 <Form.Control
                   onChange={this.onFieldChange}
@@ -197,7 +191,6 @@ class CreateOrganization extends Component {
               </Form.Group>
               <Button
                 className="primary-button organization-creation-button"
-                variant="primary"
                 type="submit"
                 disabled={this.state.isFormInvalid}
               >
