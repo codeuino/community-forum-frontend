@@ -6,7 +6,7 @@ export const createOrg = createAsyncThunk(
   async (orgCreateData, { rejectWithValue }) => {
     const response = await axios
       .post(
-        "http://localhost:8000/graphql", //update
+        process.env.REACT_APP_GRAPHQL_API_ENDPOINT,
         {
           query: `mutation{ createOrganization(organizationInput: {
             name: "${orgCreateData.name}"
@@ -45,7 +45,7 @@ export const getOrg = createAsyncThunk(
   async (orgGetData, { rejectWithValue }) => {
     const response = await axios
       .post(
-        "http://localhost:8000/graphql", //update
+        process.env.REACT_APP_GRAPHQL_API_ENDPOINT,
         {
           query: `query{ getOrganization {
             _id
