@@ -4,7 +4,6 @@ const axios = require("axios");
 export const login = createAsyncThunk(
   'auth/login', 
   async (loginData, { rejectWithValue }) => {
-  console.log(process.env.REACT_APP_GRAPHQL_API_ENDPOINT);
   const response = await axios
     .post(
       process.env.REACT_APP_GRAPHQL_API_ENDPOINT,
