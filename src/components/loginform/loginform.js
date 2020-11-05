@@ -91,9 +91,7 @@ class LoginForm extends Component {
         )}
         <Form onSubmit={this.onFormSubmit}>
           <Form.Group controlId="formBasicEmail">
-            <Form.Label>
-              <div className="formLabel">Email address</div>
-            </Form.Label>
+            <Form.Label>Email Address</Form.Label>
             <Form.Control
               onChange={this.onFieldChange}
               type="email"
@@ -105,7 +103,7 @@ class LoginForm extends Component {
           </Form.Group>
           <Form.Group controlId="formBasicPassword">
             <Form.Label>
-              <div className="formLabel">Password</div>
+              Password
             </Form.Label>
             <Form.Control
               onChange={this.onFieldChange}

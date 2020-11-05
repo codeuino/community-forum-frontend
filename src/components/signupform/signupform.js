@@ -178,10 +178,8 @@ class SignUpForm extends Component {
           </div>
         )}
         <Form onSubmit={this.onFormSubmit}>
-          <Form.Group controlId="text">
-            <Form.Label>
-              <div className="formLabel">First Name</div>
-            </Form.Label>
+          <Form.Group controlId="formBasicText1">
+            <Form.Label>First Name</Form.Label>
             <Form.Control
               onChange={this.onFieldChange}
               type="text"
@@ -191,10 +189,8 @@ class SignUpForm extends Component {
               <h6 className="form-field-error">{this.state.firstNameError}</h6>
             )}
           </Form.Group>
-          <Form.Group controlId="text">
-            <Form.Label>
-              <div className="formLabel">Last Name</div>
-            </Form.Label>
+          <Form.Group controlId="formBasicText2">
+            <Form.Label>Last Name</Form.Label>
             <Form.Control
               onChange={this.onFieldChange}
               type="text"
@@ -205,9 +201,7 @@ class SignUpForm extends Component {
             )}
           </Form.Group>
           <Form.Group controlId="formBasicEmail">
-            <Form.Label>
-              <div className="formLabel">Email address</div>
-            </Form.Label>
+            <Form.Label>Email Address</Form.Label>
             <Form.Control
               onChange={this.onFieldChange}
               type="email"
@@ -217,10 +211,8 @@ class SignUpForm extends Component {
               <h6 className="form-field-error">{this.state.emailError}</h6>
             )}
           </Form.Group>
-          <Form.Group controlId="formBasicPassword">
-            <Form.Label>
-              <div className="formLabel">Password</div>
-            </Form.Label>
+          <Form.Group controlId="formBasicPassword1">
+            <Form.Label>Password</Form.Label>
             <Form.Control
               onChange={this.onFieldChange}
               type="password"
@@ -230,10 +222,8 @@ class SignUpForm extends Component {
               <h6 className="form-field-error">{this.state.passwordError}</h6>
             )}
           </Form.Group>
-          <Form.Group controlId="formBasicPassword">
-            <Form.Label>
-              <div className="formLabel">Re-Type Password</div>
-            </Form.Label>
+          <Form.Group controlId="formBasicPassword2">
+            <Form.Label>Re-Type Password</Form.Label>
             <Form.Control
               onChange={this.onFieldChange}
               type="password"
@@ -245,10 +235,8 @@ class SignUpForm extends Component {
               </h6>
             )}
           </Form.Group>
-          <Form.Group controlId="text">
-            <Form.Label>
-              <div className="formLabel">Phone</div>
-            </Form.Label>
+          <Form.Group controlId="formBasicText3">
+            <Form.Label>Phone</Form.Label>
             <Form.Control
               onChange={this.onFieldChange}
               type="text"
@@ -258,13 +246,12 @@ class SignUpForm extends Component {
               <h6 className="form-field-error">{this.state.phoneError}</h6>
             )}
           </Form.Group>
-          <Form.Group controlId="text">
-            <Form.Label>
-              <div className="formLabel">Short Description</div>
-            </Form.Label>
+          <Form.Group controlId="formBasicTextArea">
+            <Form.Label>Short Description</Form.Label>
             <Form.Control
               onChange={this.onFieldChange}
-              type="text"
+              as="textarea"
+              rows={3}
               name="shortDescription"
             />
             {this.state.shortDescriptionError && (
