@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Container, Row, Col, Modal, Form, Button } from "react-bootstrap";
 import { connect } from "react-redux";
 import { addCategory } from "../../reducers/categorySlice";
-import { checkFieldValidation } from "../../commonFunctions/validateFormField";
+import { fieldNames, checkFieldValidation } from "../../commonFunctions/validateFormField";
 
 class AddCategoryModal extends Component {
   constructor(props) {
@@ -124,7 +124,7 @@ class AddCategoryModal extends Component {
                       <Form.Control
                         onChange={this.onFieldChange}
                         type="text"
-                        name="name"
+                        name={fieldNames.NAME}
                       />
                       {this.state.nameError && (
                         <h6 className="form-field-error">
@@ -138,7 +138,7 @@ class AddCategoryModal extends Component {
                         onChange={this.onFieldChange}
                         as="textarea"
                         rows={3}
-                        name="description"
+                        name={fieldNames.DESCRIPTION}
                       />
                       {this.state.descriptionError && (
                         <h6 className="form-field-error">
