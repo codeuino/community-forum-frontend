@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.scss';
+import './assets/stylesheets/index.scss';
 import App from './App';
 import store from "./store";
 import { Provider } from "react-redux";
 import * as serviceWorker from './serviceWorker';
-require("dotenv").config(); //check
+require("dotenv").config();
 
 ReactDOM.render(
   <Provider store={store}>
