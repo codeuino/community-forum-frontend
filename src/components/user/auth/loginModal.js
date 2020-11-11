@@ -26,11 +26,21 @@ class LoginModal extends Component {
   };
 
   onFormSubmit = (e) => {
+    const {
+      email,
+      password,
+    } = this.state;
     e.preventDefault();
-    this.props.login(this.state.email, this.state.password);
+    this.props.login(email, password);
   };
 
   componentDidUpdate(prevProps) {
+    const {
+      emailError,
+      passwordError,
+      formSubmissionError,
+      isFormInvalid,
+    } = this.state;
     let newState = {};
     if(prevProps.showModal != this.props.showModal) {
       newState = {
@@ -41,7 +51,7 @@ class LoginModal extends Component {
         passwordError: "",
         isFormInvalid: true,
       };
-      if (this.state.formSubmissionError != "") {
+      if (formSubmissionError != "") {
         newState = {
           ...newState,
           formSubmissionError: "",
@@ -54,10 +64,10 @@ class LoginModal extends Component {
           formSubmissionError: this.props.error,
         };
       }
-      if (this.state.isFormInvalid == true) {
+      if (isFormInvalid == true) {
         if (
-          this.state.emailError === null &&
-          this.state.passwordError === null
+          emailError === null &&
+          passwordError === null
         ) {
           newState = {
             ...newState,
@@ -65,8 +75,8 @@ class LoginModal extends Component {
           };
         }
       } else if (
-        this.state.emailError !== null ||
-        this.state.passwordError !== null
+        emailError !== null ||
+        passwordError !== null
       ) {
           newState = {
             ...newState,
