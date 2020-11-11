@@ -92,7 +92,6 @@ export const orgSlice = createSlice({
       result: "",
       error: "",
     },
-    error: "",
   },
   reducers: {},
   extraReducers: {

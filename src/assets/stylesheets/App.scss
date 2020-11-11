@@ -1,0 +1,146 @@
+//layouts
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+}
+
+.center-row {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 100%;
+  text-align: center;
+}
+
+//headings
+.main-heading {
+  font-family: 'Playfair Display', serif;
+  font-weight: 800;
+  padding-bottom: 1.5rem;
+}
+
+//buttons
+.primary-button {
+  background-color: $primary-button;
+  border: 0;
+  color: $white;
+  font-weight: 500;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+  padding: 0.5rem 1.5rem;
+
+  &:disabled,
+  &:hover,
+  &.active {
+    background-color: $primary-button;
+    border: 0;
+    color: $white;
+  }
+
+  &:focus {
+    background-color: $primary-button;
+    border-color: $primary-button;
+    box-shadow: 0 0 0 0.2rem $input-shadow;
+  }
+}
+
+//alerts
+.alert {
+  color: $error-red;
+  font-weight: 500;
+  text-align: center;
+}
+
+//forms
+.form-group {
+  text-align: left;
+
+  label {
+    color: $form-label;
+    font-size: 1rem;
+    font-weight: 500;
+    padding-top: 1rem;
+  }
+}
+
+.form-field-error {
+  color: $error-red;
+  padding-top: 0.5rem;
+}
+
+.form-control {
+  &:focus {
+    border-color: $primary-button;
+    box-shadow: 0 0 0 0.2rem $input-shadow;
+  }
+}
+
+//anchors
+.anchor-text {
+  color: $form-label;
+  font-weight: 500;
+  text-decoration: underline;
+
+  &:hover {
+    color: $primary-button;
+    text-decoration: none;
+  }
+}
+
+//modals
+.modal-heading {
+  font-family: 'Playfair Display', serif;
+  font-weight: 700;
+  padding-bottom: 1rem;
+  padding-top: 0.6rem;
+}
+
+.modal-form {
+  padding: 1rem;
+}
+
+//to be done//
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

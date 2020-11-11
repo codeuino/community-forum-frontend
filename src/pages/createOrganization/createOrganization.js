@@ -138,7 +138,7 @@ class CreateOrganization extends Component {
               </div>
             )}
             <Form onSubmit={this.onFormSubmit}>
-              <Form.Group controlId="formBasicText1">
+              <Form.Group controlId="orgCreationFormBasicText1">
                 <Form.Label>Organization Name</Form.Label>
                 <Form.Control
                   onChange={this.onFieldChange}
@@ -149,7 +149,7 @@ class CreateOrganization extends Component {
                   <h6 className="form-field-error">{this.state.nameError}</h6>
                 )}
               </Form.Group>
-              <Form.Group controlId="formBasicTextArea">
+              <Form.Group controlId="orgCreationFormBasicTextArea">
                 <Form.Label>Short Description</Form.Label>
                 <Form.Control
                   onChange={this.onFieldChange}
@@ -163,7 +163,7 @@ class CreateOrganization extends Component {
                   </h6>
                 )}
               </Form.Group>
-              <Form.Group controlId="formBasicEmail">
+              <Form.Group controlId="orgCreationFormBasicEmail">
                 <Form.Label>Email Address</Form.Label>
                 <Form.Control
                   onChange={this.onFieldChange}
@@ -174,7 +174,7 @@ class CreateOrganization extends Component {
                   <h6 className="form-field-error">{this.state.emailError}</h6>
                 )}
               </Form.Group>
-              <Form.Group controlId="formBasicText2">
+              <Form.Group controlId="orgCreationFormBasicText2">
                 <Form.Label>
                   Website
                 </Form.Label>
