@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import { connect } from "react-redux";
 import { getCategoryTopics } from "../../reducers/topicSlice";
 import NotesRoundedIcon from "@material-ui/icons/NotesRounded";

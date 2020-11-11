@@ -1,6 +1,21 @@
+export const fieldNames = {
+  FIRSTNAME: "firstName",
+  LASTNAME: "lastName",
+  EMAIL: "email",
+  PASSWORD: "password",
+  VERIFY_PASSWORD: "verifyPassword",
+  PHONE: "phone",
+  USER_SHORT_DESCRIPTION: "userShortDescription",
+  NAME: "name",
+  DESCRIPTION: "description",
+  WEBSITE: "website",
+  ORGANIZATION_SHORT_DESCRIPTION: "organizationShortDescription",
+};
+Object.freeze(fieldNames);
+
 export const checkFieldValidation = (fieldName, fieldValue, repeatFieldValue=null) => {
   switch (fieldName) {
-    case "firstName": {
+    case fieldNames.FIRSTNAME: {
       if (fieldValue.length == 0) {
         return {
           firstNameError: "First name is required",
@@ -8,7 +23,7 @@ export const checkFieldValidation = (fieldName, fieldValue, repeatFieldValue=nul
       }
       return { firstNameError: null };
     }
-    case "lastName": {
+    case fieldNames.LASTNAME: {
       if (fieldValue.length == 0) {
         return {
           lastNameError: "Last name is required",
@@ -16,7 +31,7 @@ export const checkFieldValidation = (fieldName, fieldValue, repeatFieldValue=nul
       }
       return { lastNameError: null };
     }
-    case "email": {
+    case fieldNames.EMAIL: {
       if (
         fieldValue.length < 255 &&
         fieldValue.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)
@@ -27,7 +42,7 @@ export const checkFieldValidation = (fieldName, fieldValue, repeatFieldValue=nul
         emailError: "Please enter a valid email address",
       };
     }
-    case "password": {
+    case fieldNames.PASSWORD: {
       if (fieldValue.length < 6) {
         return {
           passwordError: "Your password must be atleast 6 characters long",
@@ -35,7 +50,7 @@ export const checkFieldValidation = (fieldName, fieldValue, repeatFieldValue=nul
       }
       return { passwordError: null };
     }
-    case "verifyPassword": {
+    case fieldNames.VERIFY_PASSWORD: {
       if (fieldValue != repeatFieldValue) {
         return {
           verifyPasswordError: "Please make sure your passwords match",
@@ -43,7 +58,7 @@ export const checkFieldValidation = (fieldName, fieldValue, repeatFieldValue=nul
       }
       return { verifyPasswordError: null };
     }
-    case "phone": {
+    case fieldNames.PHONE: {
       if (fieldValue.length != 10) {
         return {
           phoneError: "Please enter a valid phone number",
@@ -51,7 +66,7 @@ export const checkFieldValidation = (fieldName, fieldValue, repeatFieldValue=nul
       }
       return { phoneError: null };
     }
-    case "userShortDescription": {
+    case fieldNames.USER_SHORT_DESCRIPTION: {
       if (fieldValue.length == 0) {
         return {
           userShortDescriptionError: "Short Description is required",
@@ -59,7 +74,7 @@ export const checkFieldValidation = (fieldName, fieldValue, repeatFieldValue=nul
       }
       return { userShortDescriptionError: null };
     }
-    case "name": {
+    case fieldNames.NAME: {
       if (fieldValue.length < 3) {
         return {
           nameError: "Name must be atleast 3 characters long",
@@ -67,7 +82,7 @@ export const checkFieldValidation = (fieldName, fieldValue, repeatFieldValue=nul
       }
       return { nameError: null };
     }
-    case "description": {
+    case fieldNames.DESCRIPTION: {
       if (fieldValue.length < 6) {
         return {
           descriptionError: "Description must be atleast 6 characters long",
@@ -75,7 +90,7 @@ export const checkFieldValidation = (fieldName, fieldValue, repeatFieldValue=nul
       }
       return { descriptionError: null };
     }
-    case "website": {
+    case fieldNames.WEBSITE: {
       if (
         //regex to be added
         fieldValue.match()
@@ -89,7 +104,7 @@ export const checkFieldValidation = (fieldName, fieldValue, repeatFieldValue=nul
         };
       }
     }
-    case "organizationShortDescription": {
+    case fieldNames.ORGANIZATION_SHORT_DESCRIPTION: {
       if (fieldValue.length < 5) {
         return {
           organizationShortDescriptionError:

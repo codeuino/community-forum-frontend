@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Container, Row, Col, Modal, Form, Button } from "react-bootstrap";
 import { connect } from "react-redux";
 import { signup } from "../../../reducers/authSlice";
-import { checkFieldValidation } from "../../../commonFunctions/validateFormField";
+import { checkFieldValidation, fieldNames } from "../../../commonFunctions/validateFormField";
 
 class SignUpModal extends Component {
   constructor(props) {
@@ -173,7 +173,7 @@ class SignUpModal extends Component {
                           <Form.Control
                             onChange={this.onFieldChange}
                             type="text"
-                            name="firstName"
+                            name={fieldNames.FIRSTNAME}
                           />
                           {this.state.firstNameError && (
                             <h6 className="form-field-error">
@@ -188,7 +188,7 @@ class SignUpModal extends Component {
                           <Form.Control
                             onChange={this.onFieldChange}
                             type="text"
-                            name="lastName"
+                            name={fieldNames.LASTNAME}
                           />
                           {this.state.lastNameError && (
                             <h6 className="form-field-error">
@@ -203,7 +203,7 @@ class SignUpModal extends Component {
                       <Form.Control
                         onChange={this.onFieldChange}
                         type="email"
-                        name="email"
+                        name={fieldNames.EMAIL}
                       />
                       {this.state.emailError && (
                         <h6 className="form-field-error">
@@ -216,7 +216,7 @@ class SignUpModal extends Component {
                       <Form.Control
                         onChange={this.onFieldChange}
                         type="text"
-                        name="phone"
+                        name={fieldNames.PHONE}
                       />
                       {this.state.phoneError && (
                         <h6 className="form-field-error">
@@ -230,7 +230,7 @@ class SignUpModal extends Component {
                         onChange={this.onFieldChange}
                         as="textarea"
                         rows={3}
-                        name="userShortDescription"
+                        name={fieldNames.USER_SHORT_DESCRIPTION}
                       />
                       {this.state.userShortDescriptionError && (
                         <h6 className="form-field-error">
@@ -245,7 +245,7 @@ class SignUpModal extends Component {
                           <Form.Control
                             onChange={this.onFieldChange}
                             type="password"
-                            name="password"
+                            name={fieldNames.PASSWORD}
                           />
                           {this.state.passwordError && (
                             <h6 className="form-field-error">
@@ -260,7 +260,7 @@ class SignUpModal extends Component {
                           <Form.Control
                             onChange={this.onFieldChange}
                             type="password"
-                            name="verifyPassword"
+                            name={fieldNames.VERIFY_PASSWORD}
                           />
                           {this.state.verifyPasswordError && (
                             <h6 className="form-field-error">

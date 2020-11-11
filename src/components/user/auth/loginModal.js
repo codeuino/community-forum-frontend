@@ -3,7 +3,7 @@ import { Container, Row, Col, Modal, Form, Button } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import { login } from '../../../reducers/authSlice';
-import { checkFieldValidation } from "../../../commonFunctions/validateFormField";
+import { checkFieldValidation, fieldNames } from "../../../commonFunctions/validateFormField";
 
 class LoginModal extends Component {
   constructor(props) {
@@ -122,7 +122,7 @@ class LoginModal extends Component {
                       <Form.Control
                         onChange={this.onFieldChange}
                         type="email"
-                        name="email"
+                        name={fieldNames.EMAIL}
                       />
                       {this.state.emailError && (
                         <h6 className="form-field-error">
@@ -135,7 +135,7 @@ class LoginModal extends Component {
                       <Form.Control
                         onChange={this.onFieldChange}
                         type="password"
-                        name="password"
+                        name={fieldNames.PASSWORD}
                       />
                       {this.state.passwordError && (
                         <h6 className="form-field-error">
