@@ -30,7 +30,7 @@ class Dashboard extends Component {
   componentDidUpdate(prevProps) {
     ReactTooltip.rebuild();
     let newState = {};
-    if(this.state.currentCategory._id == undefined) {
+    if(this.state.currentCategory._id == undefined && this.props.categories[0]) {
       newState = {
         ...newState,
         currentCategory: this.props.categories[0],
@@ -159,31 +159,39 @@ class Dashboard extends Component {
           </Col>
           <Col sm={4} className="dashboard-sidebar-base"></Col>
           <Col sm={8} className="dashboard-main-container">
-            <h2>{this.state.currentCategory.name}</h2>
-            <h6 className="dashboard-category-description">{this.state.currentCategory.description}</h6>
-            {this.props.isLoggedIn && (
+            {Object.keys(this.state.currentCategory).length != 0 && (
               <React.Fragment>
-                <div className="dashboard-main-button-container">
-                  <Button
-                    variant=""
-                    className="primary-button dashboard-main-button"
-                    onClick={() => {
-                      this.handleModalShow("addTopic");
-                    }}
-                  >
-                    <InsertCommentOutlinedIcon />
-                    Start Discussion
-                  </Button>
-                  <AddTopicModal
-                    showModal={this.state.showAddTopicModal}
-                    parentCategory={this.state.currentCategory}
-                    handleClose={this.handleModalClose}
-                    handleShow={this.handleModalShow}
-                  />
-                </div>
+                <h2>{this.state.currentCategory.name}</h2>
+                <h6 className="dashboard-category-description">
+                  {this.state.currentCategory.description}
+                </h6>
+                {this.props.isLoggedIn && (
+                  <React.Fragment>
+                    <div className="dashboard-main-button-container">
+                      <Button
+                        variant=""
+                        className="primary-button dashboard-main-button"
+                        onClick={() => {
+                          this.handleModalShow("addTopic");
+                        }}
+                      >
+                        <InsertCommentOutlinedIcon />
+                        Start Discussion
+                      </Button>
+                      <AddTopicModal
+                        showModal={this.state.showAddTopicModal}
+                        parentCategory={this.state.currentCategory}
+                        handleClose={this.handleModalClose}
+                        handleShow={this.handleModalShow}
+                      />
+                    </div>
+                  </React.Fragment>
+                )}
+                <CategoryTopicsContainer
+                  currentCategory={this.state.currentCategory}
+                />
               </React.Fragment>
             )}
-            <CategoryTopicsContainer currentCategory={this.state.currentCategory} />
           </Col>
         </Row>
         <ReactTooltip delayShow={500} effect="solid" data-border="true" />

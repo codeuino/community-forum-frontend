@@ -65,15 +65,38 @@ export const checkFieldValidation = (fieldName, fieldValue, repeatFieldValue=nul
           nameError: "Name must be atleast 3 characters long",
         };
       }
-      return { nameError: null }
+      return { nameError: null };
     }
     case "description": {
-      if (fieldValue.length < 5) {
+      if (fieldValue.length < 6) {
         return {
           descriptionError: "Description must be atleast 6 characters long",
         };
       }
-      return { descriptionError: null }
+      return { descriptionError: null };
+    }
+    case "website": {
+      if (
+        //regex to be added
+        fieldValue.match()
+      ) {
+        return {
+          websiteError: null,
+        };
+      } else {
+        return {
+          websiteError: "Please enter a valid website URL",
+        };
+      }
+    }
+    case "organizationShortDescription": {
+      if (fieldValue.length < 5) {
+        return {
+          organizationShortDescriptionError:
+            "Short Description must be atleast 5 characters long",
+        };
+      }
+      return { organizationShortDescriptionError: null };
     }
   }
 };

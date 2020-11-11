@@ -39,18 +39,37 @@ class SignUpModal extends Component {
   };
 
   onFormSubmit = (e) => {
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      phone,
+      userShortDescription
+    } = this.state;
     e.preventDefault();
     this.props.signup(
-      this.state.firstName,
-      this.state.lastName,
-      this.state.email,
-      this.state.password,
-      this.state.phone,
-      this.state.userShortDescription
+      firstName,
+      lastName,
+      email,
+      password,
+      phone,
+      userShortDescription
     );
   };
 
   componentDidUpdate(prevProps) {
+    const {
+      firstNameError,
+      lastNameError,
+      emailError,
+      passwordError,
+      verifyPasswordError,
+      phoneError,
+      userShortDescriptionError,
+      formSubmissionError,
+      isFormInvalid,
+    } = this.state;
     let newState = {};
     if (prevProps.showModal != this.props.showModal) {
       newState = {
@@ -71,7 +90,7 @@ class SignUpModal extends Component {
         userShortDescriptionError: "",
         isFormInvalid: true,
       };
-      if (this.state.formSubmissionError != "") {
+      if (formSubmissionError != "") {
         newState = {
           ...newState,
           formSubmissionError: "",
@@ -84,14 +103,15 @@ class SignUpModal extends Component {
           formSubmissionError: this.props.error,
         };
       }
-      if (this.state.isFormInvalid == true) {
+      if (isFormInvalid == true) {
         if (
-          this.state.firstNameError === null &&
-          this.state.lastNameError === null &&
-          this.state.emailError === null &&
-          this.state.passwordError === null &&
-          this.state.phoneError === null &&
-          this.state.userShortDescriptionError === null
+          firstNameError === null &&
+          lastNameError === null &&
+          emailError === null &&
+          passwordError === null &&
+          verifyPasswordError === null &&
+          phoneError === null &&
+          userShortDescriptionError === null
         ) {
           newState = {
             ...newState,
@@ -99,12 +119,13 @@ class SignUpModal extends Component {
           };
         }
       } else if (
-        this.state.firstNameError !== null ||
-        this.state.lastNameError !== null ||
-        this.state.emailError !== null ||
-        this.state.passwordError !== null ||
-        this.state.phoneError !== null ||
-        this.state.userShortDescriptionError !== null
+        firstNameError !== null ||
+        lastNameError !== null ||
+        emailError !== null ||
+        passwordError !== null ||
+        verifyPasswordError !== null ||
+        phoneError !== null ||
+        userShortDescriptionError !== null
       ) {
         newState = {
           ...newState,

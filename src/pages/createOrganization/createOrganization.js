@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { connect } from "react-redux";
 import { createOrg } from "../../reducers/orgSlice";
+import { checkFieldValidation } from "../../../commonFunctions/validateFormField";
 
 class CreateOrganization extends Component {
   constructor(props) {
@@ -9,8 +10,8 @@ class CreateOrganization extends Component {
     this.state = {
       name: "",
       nameError: "",
-      shortDescription: "",
-      shortDescriptionError: "",
+      organizationShortDescription: "",
+      organizationShortDescriptionError: "",
       email: "",
       emailError: "",
       website: "",
@@ -23,106 +24,70 @@ class CreateOrganization extends Component {
   onFieldChange = (e) => {
     const { name, value } = e.target;
     this.setState({ [name]: value }, () => {
-      this.checkFieldValidation(name);
+      this.setState(checkFieldValidation(name, value));
     });
   };
 
-  checkFieldValidation = (field) => {
-    switch (field) {
-      case "name": {
-        if (this.state.name.length < 3) {
-          this.setState({
-            nameError: "Name must be atleast 3 characters long",
-          });
-        } else
-          this.setState({
-            nameError: null,
-          });
-        break;
-      }
-      case "email": {
-        if (
-          this.state.email.length < 255 &&
-          this.state.email.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)
-        ) {
-          this.setState({
-            emailError: null,
-          });
-        } else {
-          this.setState({
-            emailError: "Please enter a valid email address",
-          });
-        }
-        break;
-      }
-      case "website": {
-        if (
-          //regex to be added
-          this.state.website.match()
-        ) {
-          this.setState({
-            websiteError: null,
-          });
-        } else {
-          this.setState({
-            websiteError: "Please enter a valid website URL",
-          });
-        }
-        break;
-      }
-      case "shortDescription": {
-        if (this.state.shortDescription.length < 5) {
-          this.setState({
-            shortDescriptionError: "Short Description must be atleast 5 characters long",
-          });
-        } else
-          this.setState({
-            shortDescriptionError: null,
-          });
-        break;
-      }
-    }
-    return;
-  };
-
   onFormSubmit = (e) => {
+    const {
+      name,
+      shortDescription,
+      email,
+      website,
+    } = this.state;
     e.preventDefault();
     this.props.createOrg(
-      this.state.name,
-      this.state.shortDescription,
-      this.state.email,
-      this.state.website,
+      name,
+      shortDescription,
+      email,
+      website,
     );
   };
 
-  static getDerivedStateFromProps(props, state) {
-    if (props.error) {
-      return {
-        formSubmissionError: props.error,
+  componentDidUpdate(prevProps) {
+    const {
+      nameError,
+      organizationShortDescriptionError,
+      emailError,
+      websiteError,
+      isFormInvalid,
+    } = this.state;
+    let newState = {};
+    if (this.props.error != prevProps.error) {
+      newState = {
+        ...newState,
+        formSubmissionError: this.props.error,
       };
-    } else if (props.result) {
-      props.history.push("/");
-      return null;
     }
-    return null;
-  }
-
-  componentDidUpdate() {
-    if (this.state.isFormInvalid != false) {
+    if (isFormInvalid == true) {
       if (
-        this.state.nameError === null &&
-        this.state.shortDescriptionError === null &&
-        this.state.emailError === null && 
-        this.state.websiteError === null) {
-        this.setState({ isFormInvalid: false });
+        nameError === null &&
+        organizationShortDescriptionError === null &&
+        emailError === null && 
+        websiteError === null) {
+          newState = {
+            ...newState,
+            isFormInvalid: false,
+          };
       }
-    } else {
-      if (
-        this.state.nameError !== null ||
-        this.state.shortDescriptionError !== null ||
-        this.state.emailError !== null || 
-        this.state.websiteError !== null)
-        this.setState({ isFormInvalid: true });
+    } else if (
+      nameError !== null ||
+      organizationShortDescriptionError !== null ||
+      emailError !== null || 
+      websiteError !== null
+    ) {
+      newState = {
+        ...newState,
+        isFormInvalid: true,
+      };
+    }
+    if (Object.keys(newState).length != 0) {
+      this.setState(newState);
+    }
+    if (this.props.result &&
+      prevProps.result != this.props.result
+    ) {
+      this.props.history.push("/");
     }
   }
 
@@ -153,13 +118,13 @@ class CreateOrganization extends Component {
                 <Form.Label>Short Description</Form.Label>
                 <Form.Control
                   onChange={this.onFieldChange}
-                  name="shortDescription"
+                  name="organizationShortDescription"
                   as="textarea"
                   rows={3}
                 />
-                {this.state.shortDescriptionError && (
+                {this.state.organizationShortDescriptionError && (
                   <h6 className="form-field-error">
-                    {this.state.shortDescriptionError}
+                    {this.state.organizationShortDescriptionError}
                   </h6>
                 )}
               </Form.Group>
