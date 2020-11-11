@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { connect } from "react-redux";
 import { createOrg } from "../../reducers/orgSlice";
-import { checkFieldValidation } from "../../commonFunctions/validateFormField";
+import { fieldNames, checkFieldValidation } from "../../commonFunctions/validateFormField";
 
 class CreateOrganization extends Component {
   constructor(props) {
@@ -108,7 +108,7 @@ class CreateOrganization extends Component {
                 <Form.Control
                   onChange={this.onFieldChange}
                   type="text"
-                  name="name"
+                  name={fieldNames.NAME}
                 />
                 {this.state.nameError && (
                   <h6 className="form-field-error">{this.state.nameError}</h6>
@@ -118,7 +118,7 @@ class CreateOrganization extends Component {
                 <Form.Label>Short Description</Form.Label>
                 <Form.Control
                   onChange={this.onFieldChange}
-                  name="organizationShortDescription"
+                  name={fieldNames.ORGANIZATION_SHORT_DESCRIPTION}
                   as="textarea"
                   rows={3}
                 />
@@ -133,20 +133,18 @@ class CreateOrganization extends Component {
                 <Form.Control
                   onChange={this.onFieldChange}
                   type="email"
-                  name="email"
+                  name={fieldNames.EMAIL}
                 />
                 {this.state.emailError && (
                   <h6 className="form-field-error">{this.state.emailError}</h6>
                 )}
               </Form.Group>
               <Form.Group controlId="orgCreationFormBasicText2">
-                <Form.Label>
-                  Website
-                </Form.Label>
+                <Form.Label>Website</Form.Label>
                 <Form.Control
                   onChange={this.onFieldChange}
                   type="text"
-                  name="website"
+                  name={fieldNames.WEBSITE}
                 />
                 {this.state.websiteError && (
                   <h6 className="form-field-error">
