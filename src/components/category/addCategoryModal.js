@@ -25,11 +25,21 @@ class AddCategoryModal extends Component {
   };
 
   onFormSubmit = (e) => {
+    const {
+      name,
+      description,
+    } = this.state;
     e.preventDefault();
-    this.props.addCategory(this.state.name, this.state.description);
+    this.props.addCategory(name, description);
   };
 
   componentDidUpdate(prevProps) {
+    const {
+      nameError,
+      descriptionError,
+      formSubmissionError,
+      isFormInvalid,
+    } = this.state;
     let newState = {};
     if (prevProps.showModal != this.props.showModal) {
       newState = {
@@ -40,7 +50,7 @@ class AddCategoryModal extends Component {
         descriptionError: "",
         isFormInvalid: true,
       };
-      if (this.state.formSubmissionError != "") {
+      if (formSubmissionError != "") {
         newState = {
           ...newState,
           formSubmissionError: "",
@@ -53,10 +63,10 @@ class AddCategoryModal extends Component {
           formSubmissionError: this.props.error,
         };
       }
-      if (this.state.isFormInvalid == true) {
+      if (isFormInvalid == true) {
         if (
-          this.state.nameError === null &&
-          this.state.descriptionError === null
+          nameError === null &&
+          descriptionError === null
         ) {
           newState = {
             ...newState,
@@ -64,8 +74,8 @@ class AddCategoryModal extends Component {
           };
         }
       } else if (
-        this.state.nameError !== null ||
-        this.state.descriptionError !== null
+        nameError !== null ||
+        descriptionError !== null
       ) {
         newState = {
           ...newState,
