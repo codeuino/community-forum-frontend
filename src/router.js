@@ -6,8 +6,8 @@ import CreateOrganization from "./pages/createOrganization/createOrganization";
 const Router = () => (
   <BrowserRouter>
     <Switch>
-      <Route exact path="/" component={Dashboard} />
-      <Route path="/setup" component={CreateOrganization} />
+      <Route exact path="/" component={ Dashboard } />
+      <Route path="/setup" component={ CreateOrganization } />
     </Switch>
   </BrowserRouter>
 );

@@ -1,175 +1,219 @@
 import React, { Component } from "react";
-import { Form, FormControl, Button, Card, Modal } from "react-bootstrap";
-import "./dashboard.scss";
-import Projects from "../../components/projects/projects";
+import { Container, Row, Col, Button } from "react-bootstrap";
+import { connect } from "react-redux";
+import ReactTooltip from "react-tooltip";
 import NavBar from "../../components/navbar/navbar";
-import Discussion from "../discussion/discussion";
-import converttodict from "../../utils/dictConversion";
+import { getAllCategories } from "../../reducers/categorySlice";
+import AddCategoryModal from "../../components/category/addCategoryModal";
+import ForumRoundedIcon from "@material-ui/icons/ForumRounded";
+import ForumOutlinedIcon from '@material-ui/icons/ForumOutlined';
+import CategoryTopicsContainer from "../../components/topic/categoryTopicsContainer";
+import InsertCommentOutlinedIcon from "@material-ui/icons/InsertCommentOutlined";
+import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
+import { getCategoryTopics } from "../../reducers/topicSlice";
+import AddTopicModal from "../../components/topic/addTopicModal";
 
 class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      category: "",
-      discussion: false,
-      showModal: false,
       showAddCategoryModal: false,
-      Topics: "",
+      showAddTopicModal: false,
+      currentCategory: {},
     };
   }
 
-  handleAddCategory = (event) => {
-    event.preventDefault();
-    console.log(localStorage.getItem("token"));
-    let requestBody = {
-      query: `
-        mutation {
-          createCategories(categoryInput:{
-            categoryName:"${this.state.category}",
-          }){
-            categoryName
-            _id
-            topicIds
-            }
-        }
-      `,
-    };
-    fetch("http://localhost:8000/graphql", {
-      method: "POST",
-      body: JSON.stringify(requestBody),
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + localStorage.getItem("token"),
-      },
-    })
-      .then((res) => {
-        if (res.status !== 200 && res.status !== 201) {
-          throw new Error("Failed");
-        }
-        return res.json();
-      })
-      .then((resData) => {
-        console.log(resData);
-        window.location.reload();
-      })
-      .catch((err) => {
-        throw new Error(err);
-      });
-  };
+  componentDidMount() {
+    this.props.getCategories();
+  }
 
-  handleAddCategoryModal = () => {
-    if (localStorage.getItem("token") === null) {
-      this.handleShow();
-      return;
+  componentDidUpdate(prevProps) {
+    ReactTooltip.rebuild();
+    let newState = {};
+    if(this.state.currentCategory._id == undefined) {
+      newState = {
+        ...newState,
+        currentCategory: this.props.categories[0],
+      };
     }
-    this.setState({ showAddCategoryModal: true });
-  };
+    if (
+      this.props.newCategory._id &&
+      prevProps.newCategory._id != this.props.newCategory._id
+    ) {
+      this.props.getCategories();
+    }
+    if (
+      this.props.newTopic._id &&
+      this.props.newTopic.parentCategory == this.state.currentCategory._id
+    ) {
+      this.props.getTopics(this.state.currentCategory);
+    }
+    if (Object.keys(newState).length != 0) {
+      this.setState(newState);
+    }
+  }
 
-  handleShow = () => {
-    this.setState({ showModal: true });
-  };
-  handleClose = () => {
-    this.setState({ showModal: false, showAddCategoryModal: false });
-  };
-
-  handleChange = (params, event) => {
-    event.preventDefault();
-    if (params === "category") {
-      this.setState({ category: event.target.value });
+  handleModalShow = (modalName) => {
+    switch (modalName) {
+      case "addCategory": {
+        this.setState({
+          showAddCategoryModal: true,
+        });
+        break;
+      }
+      case "addTopic": {
+        this.setState({
+          showAddTopicModal: true,
+        });
+        break;
+      }
     }
   };
 
-  handleDiscussionTrue = (Topics) => {
-    if (localStorage.getItem("token") && localStorage.getItem("userId")) {
-      this.setState({ Topics: Topics });
-      this.setState({ discussion: true });
-    } else {
-      this.handleShow();
+  handleModalClose = (modalName) => {
+    switch (modalName) {
+      case "addCategory": {
+        this.setState({
+          showAddCategoryModal: false,
+        });
+        break;
+      }
+      case "addTopic": {
+        this.setState({
+          showAddTopicModal: false,
+        });
+        break;
+      }
     }
   };
-  handleDiscussionFalse = () => {
-    this.setState({ discussion: false });
+
+  handleCurrentCategory = (category) => {
+    this.setState({
+      currentCategory: category,
+    });
   };
 
   render() {
     return (
-      <div className="main">
-        <Modal
-          show={this.state.showAddCategoryModal}
-          onHide={this.handleClose}
-          centered
-        >
-          <div className="modalbody">
-            <Modal.Body>
-              <Form onSubmit={this.handleAddCategory}>
-                <Form.Group controlId="formBasicEmail">
-                  <Form.Label>Category Name</Form.Label>
-                  <Form.Control
-                    type="text"
-                    placeholder="Category Name"
-                    onChange={(e) => {
-                      this.handleChange("category", e);
-                    }}
-                  />
-                </Form.Group>
-                <div className="cta-register">
-                  <Button variant="primary" onClick={this.handleAddCategory}>
-                    Add Category
-                  </Button>
-                </div>
-              </Form>
-            </Modal.Body>
-          </div>
-        </Modal>
-        <NavBar
-          showModal={this.state.showModal}
-          handleShow={this.handleShow}
-          handleClose={this.handleClose}
-        />
-        {this.state.discussion ? (
-          <Discussion
-            Topics={this.state.Topics}
-            onClickingBack={this.handleDiscussionFalse}
-          />
-        ) : (
-          <div className="content">
-            <div className="start">
-              <h1 className="highlight">Codeuino Board</h1>
-              <div className="tools">
-                <div className="search">
-                  <Form inline>
-                    <FormControl
-                      type="text"
-                      placeholder="Search"
-                      className="mr-sm-2"
-                    />
-                    <Button variant="primary" className="bootstrapbutton">
-                      Search
-                    </Button>
-                  </Form>
-                </div>
-                <div className="workspace">
+      <Container fluid>
+        <NavBar />
+        <Row className="dashboard-row">
+          <Col sm={4} className="dashboard-sidebar">
+            {this.props.isLoggedIn && (
+              <React.Fragment>
+                <div className="dashboard-sidebar-button-container">
                   <Button
-                    variant="primary"
-                    className="bootstrapbutton add-category"
-                    onClick={this.handleAddCategoryModal}
+                    variant=""
+                    className="primary-button navbar-button dashboard-sidebar-button"
+                    onClick={() => {
+                      this.handleModalShow("addCategory");
+                    }}
                   >
+                    <CreateOutlinedIcon />
                     Add Category
                   </Button>
+                  <AddCategoryModal
+                    showModal={this.state.showAddCategoryModal}
+                    handleClose={this.handleModalClose}
+                    handleShow={this.handleModalShow}
+                  />
                 </div>
+              </React.Fragment>
+            )}
+            <React.Fragment>
+              <div className="dashboard-sidebar-categories-container">
+                {this.props.categories.length > 0 && (
+                  <React.Fragment>
+                    <ul className="dashboard-sidebar-category-list">
+                      {this.props.categories.map((category) => (
+                        <React.Fragment>
+                          <li
+                            data-tip={category.name}
+                            onClick={() => {
+                              this.handleCurrentCategory(category);
+                            }}
+                          >
+                            {this.state.currentCategory._id == category._id ? (
+                              <ForumRoundedIcon />
+                            ) : (
+                              <ForumOutlinedIcon />
+                            )}
+                            <div
+                              className={
+                                this.state.currentCategory._id == category._id
+                                  ? "dashboard-sidebar-category-item active"
+                                  : "dashboard-sidebar-category-item"
+                              }
+                            >
+                              {category.name}
+                            </div>
+                          </li>
+                          <hr className="dashboard-sidebar-separator" />
+                        </React.Fragment>
+                      ))}
+                    </ul>
+                  </React.Fragment>
+                )}
               </div>
-            </div>
-            <Card className="card">
-              <Projects
-                handleDiscussionTrue={this.handleDiscussionTrue}
-                handleShow={this.handleShow}
-              />
-            </Card>
-          </div>
-        )}
-      </div>
+            </React.Fragment>
+          </Col>
+          <Col sm={4} className="dashboard-sidebar-base"></Col>
+          <Col sm={8} className="dashboard-main-container">
+            <h2>{this.state.currentCategory.name}</h2>
+            <h6 className="dashboard-category-description">{this.state.currentCategory.description}</h6>
+            {this.props.isLoggedIn && (
+              <React.Fragment>
+                <div className="dashboard-main-button-container">
+                  <Button
+                    variant=""
+                    className="primary-button dashboard-main-button"
+                    onClick={() => {
+                      this.handleModalShow("addTopic");
+                    }}
+                  >
+                    <InsertCommentOutlinedIcon />
+                    Start Discussion
+                  </Button>
+                  <AddTopicModal
+                    showModal={this.state.showAddTopicModal}
+                    parentCategory={this.state.currentCategory}
+                    handleClose={this.handleModalClose}
+                    handleShow={this.handleModalShow}
+                  />
+                </div>
+              </React.Fragment>
+            )}
+            <CategoryTopicsContainer currentCategory={this.state.currentCategory} />
+          </Col>
+        </Row>
+        <ReactTooltip delayShow={500} effect="solid" data-border="true" />
+      </Container>
     );
   }
 }
 
-export default Dashboard;
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.auth.isLoggedIn,
+    categories: state.category.getAll.categories,
+    newCategory: state.category.add.newCategory,
+    newTopic: state.topic.add.newTopic,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    getCategories: () =>
+      dispatch(
+        getAllCategories()
+      ),
+    getTopics: (currentCategory) =>
+    dispatch(
+      getCategoryTopics({
+        _id: currentCategory._id,
+      })
+    )
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard);
