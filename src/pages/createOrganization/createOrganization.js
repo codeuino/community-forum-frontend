@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Container, Row, Col, Form, Button } from "react-bootstrap";
 import { connect } from "react-redux";
 import { createOrg } from "../../reducers/orgSlice";
-import { checkFieldValidation } from "../../../commonFunctions/validateFormField";
+import { checkFieldValidation } from "../../commonFunctions/validateFormField";
 
 class CreateOrganization extends Component {
   constructor(props) {
