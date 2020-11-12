@@ -11,6 +11,10 @@ class CategoryTopicsContainer extends Component {
     this.state = {};
   }
 
+  componentDidMount() {
+    this.props.getCategoryTopics(this.props.currentCategory);
+  }
+  
   componentDidUpdate(prevProps) {
     if (prevProps.currentCategory._id != this.props.currentCategory._id) {
       this.props.getCategoryTopics(this.props.currentCategory);

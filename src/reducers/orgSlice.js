@@ -61,6 +61,7 @@ export const getOrg = createAsyncThunk(
             isArchived
             isUnderMaintenance
             totalUsers
+            exists
           }}`,
         },
         {
