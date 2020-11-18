@@ -125,6 +125,7 @@ class AddCategoryModal extends Component {
                         onChange={this.onFieldChange}
                         type="text"
                         name={fieldNames.NAME}
+                        value={this.state.name}
                       />
                       {this.state.nameError && (
                         <h6 className="form-field-error">
@@ -139,6 +140,7 @@ class AddCategoryModal extends Component {
                         as="textarea"
                         rows={3}
                         name={fieldNames.DESCRIPTION}
+                        value={this.state.description}
                       />
                       {this.state.descriptionError && (
                         <h6 className="form-field-error">

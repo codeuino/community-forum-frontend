@@ -9,7 +9,9 @@ import { connect } from "react-redux";
 import { HashLink as Link } from "react-router-hash-link";
 import LoginModal from "../user/auth/loginModal";
 import SignUpModal from "../user/auth/signupModal";
+import UpdateOrganizationModal from "../organization/updateOrganizationModal";
 import { logout } from "../../reducers/authSlice";
+import UpdateUserModal from "../user/user/updateUserModal";
 
 class NavBar extends Component {
   constructor(props) {
@@ -17,6 +19,8 @@ class NavBar extends Component {
     this.state = {
       showLoginModal: false,
       showSignupModal: false,
+      showUpdateOrganizationModal: false,
+      showUpdateUserModal: false,
     };
   }
   navbarRef = createRef();
@@ -51,6 +55,18 @@ class NavBar extends Component {
         });
         break;
       }
+      case "updateOrg": {
+        this.setState({
+          showUpdateOrganizationModal: true,
+        });
+        break;
+      }
+      case "updateUser": {
+        this.setState({
+          showUpdateUserModal: true,
+        });
+        break;
+      }
     }
   };
 
@@ -65,6 +81,18 @@ class NavBar extends Component {
       case "signup": {
         this.setState({
           showSignupModal: false,
+        });
+        break;
+      }
+      case "updateOrg": {
+        this.setState({
+          showUpdateOrganizationModal: false,
+        });
+        break;
+      }
+      case "updateUser": {
+        this.setState({
+          showUpdateUserModal: false,
         });
         break;
       }
@@ -84,6 +112,21 @@ class NavBar extends Component {
           handleClose={this.handleModalClose}
           handleShow={this.handleModalShow}
         />
+        {this.props.isLoggedIn && this.props.currentUser.isFirstAdmin && (
+          <UpdateOrganizationModal
+            showModal={this.state.showUpdateOrganizationModal}
+            handleClose={this.handleModalClose}
+            handleShow={this.handleModalShow}
+          />
+        )}
+        {this.props.isLoggedIn && (
+          <UpdateUserModal
+            showModal={this.state.showUpdateUserModal}
+            handleClose={this.handleModalClose}
+            handleShow={this.handleModalShow}
+            history={this.props.history}
+          />
+        )}
         <Navbar
           bg="light"
           variant="light"
@@ -99,6 +142,28 @@ class NavBar extends Component {
                 title={this.props.currentUser.name.firstName}
                 className="navbar-user-dropdown"
               >
+                {this.props.currentUser.isFirstAdmin && (
+                  <NavDropdown.Item>
+                    <div
+                      onClick={() => {
+                        this.handleModalShow("updateOrg");
+                      }}
+                    >
+                      Update <br />
+                      Organization
+                    </div>
+                  </NavDropdown.Item>
+                )}
+                <NavDropdown.Item>
+                  <div
+                    onClick={() => {
+                      this.handleModalShow("updateUser");
+                    }}
+                  >
+                    Edit <br />
+                    Profile
+                  </div>
+                </NavDropdown.Item>
                 <NavDropdown.Item>
                   <div onClick={this.props.logout}>Logout</div>
                 </NavDropdown.Item>

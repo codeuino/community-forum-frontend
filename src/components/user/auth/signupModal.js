@@ -174,6 +174,7 @@ class SignUpModal extends Component {
                             onChange={this.onFieldChange}
                             type="text"
                             name={fieldNames.FIRSTNAME}
+                            value={this.state.firstName}
                           />
                           {this.state.firstNameError && (
                             <h6 className="form-field-error">
@@ -189,6 +190,7 @@ class SignUpModal extends Component {
                             onChange={this.onFieldChange}
                             type="text"
                             name={fieldNames.LASTNAME}
+                            value={this.state.lastName}
                           />
                           {this.state.lastNameError && (
                             <h6 className="form-field-error">
@@ -204,6 +206,7 @@ class SignUpModal extends Component {
                         onChange={this.onFieldChange}
                         type="email"
                         name={fieldNames.EMAIL}
+                        value={this.state.email}
                       />
                       {this.state.emailError && (
                         <h6 className="form-field-error">
@@ -217,6 +220,7 @@ class SignUpModal extends Component {
                         onChange={this.onFieldChange}
                         type="text"
                         name={fieldNames.PHONE}
+                        value={this.state.phone}
                       />
                       {this.state.phoneError && (
                         <h6 className="form-field-error">
@@ -231,6 +235,7 @@ class SignUpModal extends Component {
                         as="textarea"
                         rows={3}
                         name={fieldNames.USER_SHORT_DESCRIPTION}
+                        value={this.state.userShortDescription}
                       />
                       {this.state.userShortDescriptionError && (
                         <h6 className="form-field-error">
@@ -246,6 +251,7 @@ class SignUpModal extends Component {
                             onChange={this.onFieldChange}
                             type="password"
                             name={fieldNames.PASSWORD}
+                            value={this.state.password}
                           />
                           {this.state.passwordError && (
                             <h6 className="form-field-error">
@@ -261,6 +267,7 @@ class SignUpModal extends Component {
                             onChange={this.onFieldChange}
                             type="password"
                             name={fieldNames.VERIFY_PASSWORD}
+                            value={this.state.verifyPassword}
                           />
                           {this.state.verifyPasswordError && (
                             <h6 className="form-field-error">

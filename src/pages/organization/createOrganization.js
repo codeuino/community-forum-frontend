@@ -31,14 +31,14 @@ class CreateOrganization extends Component {
   onFormSubmit = (e) => {
     const {
       name,
-      shortDescription,
+      organizationShortDescription,
       email,
       website,
     } = this.state;
     e.preventDefault();
     this.props.createOrg(
       name,
-      shortDescription,
+      organizationShortDescription,
       email,
       website,
     );
@@ -109,6 +109,7 @@ class CreateOrganization extends Component {
                   onChange={this.onFieldChange}
                   type="text"
                   name={fieldNames.NAME}
+                  value={this.state.name}
                 />
                 {this.state.nameError && (
                   <h6 className="form-field-error">{this.state.nameError}</h6>
@@ -121,6 +122,7 @@ class CreateOrganization extends Component {
                   name={fieldNames.ORGANIZATION_SHORT_DESCRIPTION}
                   as="textarea"
                   rows={3}
+                  value={this.state.organizationShortDescription}
                 />
                 {this.state.organizationShortDescriptionError && (
                   <h6 className="form-field-error">
@@ -134,6 +136,7 @@ class CreateOrganization extends Component {
                   onChange={this.onFieldChange}
                   type="email"
                   name={fieldNames.EMAIL}
+                  value={this.state.email}
                 />
                 {this.state.emailError && (
                   <h6 className="form-field-error">{this.state.emailError}</h6>
@@ -145,6 +148,7 @@ class CreateOrganization extends Component {
                   onChange={this.onFieldChange}
                   type="text"
                   name={fieldNames.WEBSITE}
+                  value={this.state.website}
                 />
                 {this.state.websiteError && (
                   <h6 className="form-field-error">
@@ -176,12 +180,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createOrg: (name, shortDescription, email, website) => {
+    createOrg: (name, organizationShortDescription, email, website) => {
       dispatch(
         createOrg({
           name,
           description: {
-            shortDescription,
+            shortDescription: organizationShortDescription,
           },
           contactInfo: {
             email,

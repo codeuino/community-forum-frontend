@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
+import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import ReactTooltip from "react-tooltip";
 import NavBar from "../../components/navbar/navbar";
@@ -12,6 +13,10 @@ import InsertCommentOutlinedIcon from "@material-ui/icons/InsertCommentOutlined"
 import CreateOutlinedIcon from "@material-ui/icons/CreateOutlined";
 import { getCategoryTopics } from "../../reducers/topicSlice";
 import AddTopicModal from "../../components/topic/addTopicModal";
+import ReplyAllIcon from "@material-ui/icons/ReplyAll";
+import BubbleChartRoundedIcon from "@material-ui/icons/BubbleChartRounded";
+import TodayIcon from "@material-ui/icons/Today";
+import UpdateCategoryModal from "../../components/category/updateCategoryModal"
 
 class Dashboard extends Component {
   constructor(props) {
@@ -19,6 +24,7 @@ class Dashboard extends Component {
     this.state = {
       showAddCategoryModal: false,
       showAddTopicModal: false,
+      showUpdateCategoryModal: false,
       currentCategory: {},
     };
   }
@@ -30,15 +36,26 @@ class Dashboard extends Component {
   componentDidUpdate(prevProps) {
     ReactTooltip.rebuild();
     let newState = {};
-    if(this.state.currentCategory._id == undefined && this.props.categories[0]) {
+    if (
+      this.props.categories.length == 0 &&
+      this.state.currentCategory._id != undefined
+    ) {
+      newState = {
+        ...newState,
+        currentCategory: {},
+      };
+    } else if (
+      this.state.currentCategory._id == undefined &&
+      this.props.categories[0]
+    ) {
       newState = {
         ...newState,
         currentCategory: this.props.categories[0],
       };
     }
     if (
-      this.props.newCategory._id &&
-      prevProps.newCategory._id != this.props.newCategory._id
+      (this.props.newCategory._id &&
+        prevProps.newCategory._id != this.props.newCategory._id)
     ) {
       this.props.getCategories();
     }
@@ -47,6 +64,18 @@ class Dashboard extends Component {
       this.props.newTopic.parentCategory == this.state.currentCategory._id
     ) {
       this.props.getTopics(this.state.currentCategory);
+    }
+    if (
+      this.props.categories.length != 0 &&
+      (
+        JSON.stringify(prevProps.categories) !=
+        JSON.stringify(this.props.categories)
+      )
+    ) {
+      const updatedCategory = this.props.categories.filter(
+        (category) => category._id == this.state.currentCategory._id
+      );
+      this.setState({ currentCategory: updatedCategory[0] });
     }
     if (Object.keys(newState).length != 0) {
       this.setState(newState);
@@ -67,6 +96,12 @@ class Dashboard extends Component {
         });
         break;
       }
+      case "updateCategory": {
+        this.setState({
+          showUpdateCategoryModal: true,
+        });
+        break;
+      }
     }
   };
 
@@ -84,19 +119,42 @@ class Dashboard extends Component {
         });
         break;
       }
+      case "updateCategory": {
+        this.setState({
+          showUpdateCategoryModal: false,
+        });
+        break;
+      }
     }
   };
 
   handleCurrentCategory = (category) => {
     this.setState({
       currentCategory: category,
-    });
+    }, () => {this.props.getCategories();});
+  };
+
+  resetCurrentCategory = () => {
+    if(
+      (
+        this.props.categories[0]._id == this.state.currentCategory._id
+        ) && 
+        this.props.categories[1]
+    ) {
+      this.setState({
+        currentCategory: this.props.categories[1],
+      });
+    } else {
+      this.setState({
+        currentCategory: {},
+      });
+    }
   };
 
   render() {
     return (
       <Container fluid>
-        <NavBar />
+        <NavBar history={this.props.history} />
         <Row className="dashboard-row">
           <Col sm={4} className="dashboard-sidebar">
             {this.props.isLoggedIn && (
@@ -161,9 +219,42 @@ class Dashboard extends Component {
           <Col sm={8} className="dashboard-main-container">
             {Object.keys(this.state.currentCategory).length != 0 && (
               <React.Fragment>
-                <h2>{this.state.currentCategory.name}</h2>
+                <h2 className="dashboard-category-name">
+                  {this.state.currentCategory.name}
+                </h2>
+                {(this.state.currentCategory.createdBy._id ==
+                  this.props.currentUser._id || this.props.currentUser.isModerator) && (
+                  <React.Fragment>
+                    <Link
+                      className="anchor-text dashboard-anchor-text"
+                      onClick={() => {
+                        this.handleModalShow("updateCategory");
+                      }}
+                    >
+                      Edit
+                    </Link>
+                    <UpdateCategoryModal
+                      showModal={this.state.showUpdateCategoryModal}
+                      handleClose={this.handleModalClose}
+                      handleShow={this.handleModalShow}
+                      category={this.state.currentCategory}
+                      resetCurrentCategory={this.resetCurrentCategory}
+                    />
+                  </React.Fragment>
+                )}
+                <h6 className="dashboard-category-creator">
+                  <ReplyAllIcon />
+                  Created By:{" "}
+                  {this.state.currentCategory.createdBy.name.firstName}
+                </h6>
                 <h6 className="dashboard-category-description">
                   {this.state.currentCategory.description}
+                </h6>
+                <h6 className="dashboard-category-date">
+                  <TodayIcon />
+                  Last Activity:{" "}
+                  {this.state.currentCategory.updatedAt.slice(0, 10)}&nbsp;
+                  {this.state.currentCategory.updatedAt.slice(11, 16)}
                 </h6>
                 {this.props.isLoggedIn && (
                   <React.Fragment>
@@ -187,6 +278,11 @@ class Dashboard extends Component {
                     </div>
                   </React.Fragment>
                 )}
+                <hr className="dashboard-main-separator" />
+                <h2 className="dashboard-topics-heading">
+                  <BubbleChartRoundedIcon />
+                  Topics ({this.state.currentCategory.topics.length}) :
+                </h2>
                 <CategoryTopicsContainer
                   currentCategory={this.state.currentCategory}
                 />
@@ -203,6 +299,7 @@ class Dashboard extends Component {
 const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.auth.isLoggedIn,
+    currentUser: state.auth.currentUser,
     categories: state.category.getAll.categories,
     newCategory: state.category.add.newCategory,
     newTopic: state.topic.add.newTopic,

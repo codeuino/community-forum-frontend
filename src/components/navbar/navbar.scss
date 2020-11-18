@@ -1,6 +1,12 @@
 .navbar {
   padding-bottom: 0;
   padding-top: 0;
+
+  .dropdown-toggle {
+    &::after {
+      display: none;
+    }
+  }
 }
 
 .navbar-brand {
@@ -18,7 +24,9 @@
 .navbar-user-dropdown  {
   .nav-link {
     color: $black;
-    font-size: 1rem;
+    font-size: 1.3rem;
+    font-weight: 500;
+    padding-right: 0;
 
     &:hover {
       color: $black;
@@ -26,9 +34,17 @@
   }
 
   .dropdown-item {
+    padding-left: 0.6rem;
+    text-align: left;
+    word-wrap: break-word;
+
     &.active,
     &:active {
       background-color: $primary-button;
     }
+  }
+
+  .dropdown-menu {
+    margin-right: 10rem;
   }
 }
