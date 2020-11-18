@@ -10,6 +10,9 @@ export const fieldNames = {
   DESCRIPTION: "description",
   WEBSITE: "website",
   ORGANIZATION_SHORT_DESCRIPTION: "organizationShortDescription",
+  ORGANIZATION_LONG_DESCRIPTION: "organizationLongDescription",
+  DESIGNATION: "designation",
+  TWITTER: "twitter",
 };
 Object.freeze(fieldNames);
 
@@ -112,6 +115,38 @@ export const checkFieldValidation = (fieldName, fieldValue, repeatFieldValue=nul
         };
       }
       return { organizationShortDescriptionError: null };
+    }
+    case fieldNames.ORGANIZATION_LONG_DESCRIPTION: {
+      if (fieldValue.length < 10) {
+        return {
+          organizationLongDescriptionError:
+            "Long Description must be atleast 10 characters long",
+        };
+      }
+      return { organizationLongDescriptionError: null };
+    }
+    case fieldNames.DESIGNATION: {
+      if (fieldValue.length < 2 && fieldValue.length != 0) {
+        return {
+          designationError: "Designation must be atleast 2 characters long",
+        };
+      }
+      return { designationError: null };
+    }
+    case fieldNames.TWITTER: {
+      if (
+        fieldValue.match(
+          `http(?:s)?:\/\/(?:www\.)?twitter\.com\/([a-zA-Z0-9_]{1,15}$)`
+        ) ||fieldValue.length == 0
+      ) {
+        return {
+          twitterError: null,
+        };
+      } else {
+        return {
+          twitterError: "Please enter a valid twitter handle",
+        };
+      }
     }
   }
 };

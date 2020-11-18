@@ -123,6 +123,7 @@ class LoginModal extends Component {
                         onChange={this.onFieldChange}
                         type="email"
                         name={fieldNames.EMAIL}
+                        value={this.state.email}
                       />
                       {this.state.emailError && (
                         <h6 className="form-field-error">
@@ -136,6 +137,7 @@ class LoginModal extends Component {
                         onChange={this.onFieldChange}
                         type="password"
                         name={fieldNames.PASSWORD}
+                        value={this.state.password}
                       />
                       {this.state.passwordError && (
                         <h6 className="form-field-error">
