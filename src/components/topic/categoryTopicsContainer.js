@@ -50,7 +50,6 @@ class CategoryTopicsContainer extends Component {
                     </div>
                   </Col>
                 </Row>
-                <hr className="dashboard-topic-separator" />
               </div>
             </React.Fragment>
           ))}

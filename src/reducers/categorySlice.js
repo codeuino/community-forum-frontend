@@ -18,7 +18,16 @@ export const addCategory = createAsyncThunk(
           _id
           name
           description
-          createdBy
+          createdBy {
+            _id
+            name {
+              firstName
+              lastName
+            }
+          }
+          topics
+          createdAt
+          updatedAt
         }}`,
         },
         {
@@ -40,6 +49,90 @@ export const addCategory = createAsyncThunk(
   }
 );
 
+export const updateCategory = createAsyncThunk(
+  "category/update",
+  async (updateCategoryData, { rejectWithValue }) => {
+    const tokenHeader = `Bearer ${localStorage.getItem("token")}`;
+    const response = await axios
+      .post(
+        process.env.REACT_APP_GRAPHQL_API_ENDPOINT,
+        {
+          query: `mutation{ updateCategory(
+            categoryInput: {
+              _id: "${updateCategoryData._id}"
+              name: "${updateCategoryData.name}"
+              description: "${updateCategoryData.description}"
+            }
+        ) {
+          _id
+          name
+          description
+          createdBy {
+            _id
+            name {
+              firstName
+              lastName
+            }
+          }
+          topics
+          createdAt
+          updatedAt
+        }}`,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: tokenHeader,
+          },
+        }
+      )
+      .catch((error) => {
+        if (error.response) {
+          return error.response.data.errors[0].message;
+        }
+      });
+    if (response.data != undefined) {
+      return response.data.data.updateCategory;
+    }
+    return rejectWithValue(response);
+  }
+);
+
+export const deleteCategory = createAsyncThunk(
+  "category/delete",
+  async (deleteCategoryData, { rejectWithValue }) => {
+    const tokenHeader = `Bearer ${localStorage.getItem("token")}`;
+    const response = await axios
+      .post(
+        process.env.REACT_APP_GRAPHQL_API_ENDPOINT,
+        {
+          query: `mutation{ deleteCategory(
+            categoryFindInput: {
+              _id: "${deleteCategoryData._id}"
+            }
+        ) {
+          result
+        }}`,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: tokenHeader,
+          },
+        }
+      )
+      .catch((error) => {
+        if (error.response) {
+          return error.response.data.errors[0].message;
+        }
+      });
+    if (response.data != undefined) {
+      return response.data.data.deleteCategory;
+    }
+    return rejectWithValue(response);
+  }
+);
+
 export const getAllCategories = createAsyncThunk(
   "category/getAll",
   async (getAllCategoriesData, { rejectWithValue }) => {
@@ -51,7 +144,16 @@ export const getAllCategories = createAsyncThunk(
           _id
           name
           description
-          createdBy
+          createdBy {
+            _id
+            name {
+              firstName
+              lastName
+            }
+          }
+          topics
+          createdAt
+          updatedAt
         }}`,
         },
         {
@@ -79,6 +181,13 @@ export const categorySlice = createSlice({
       newCategory: {},
       error: "",
     },
+    update: {
+      isCompleted: true,
+      error: "",
+    },
+    delete: {
+      isCompleted: true,
+    },
     getAll: {
       categories: {},
       error: "",
@@ -94,10 +203,28 @@ export const categorySlice = createSlice({
       state.add.newCategory = {};
       state.add.error = action.payload;
     },
+    [updateCategory.fulfilled]: (state, action) => {
+      state.update.isCompleted = true;
+      state.update.error = "";
+    },
+    [updateCategory.pending]: (state, action) => {
+      state.update.isCompleted = false;
+    },
+    [updateCategory.rejected]: (state, action) => {
+      state.update.error = action.payload;
+      state.update.isCompleted = false;
+    },
+    [deleteCategory.fulfilled]: (state, action) => {
+      state.delete.isCompleted = true;
+    },
+    [deleteCategory.pending]: (state, action) => {
+      state.delete.isCompleted = false;
+    },
+    [deleteCategory.rejected]: (state, action) => {
+      state.delete.isCompleted = false;
+    },
     [getAllCategories.fulfilled]: (state, action) => {
-      if (Object.keys(state.getAll.categories).length != Object.keys(action.payload).length) {
-        state.getAll.categories = action.payload;
-      }
+      state.getAll.categories = action.payload;
       state.getAll.error = "";
     },
     [getAllCategories.rejected]: (state, action) => {

@@ -20,15 +20,22 @@ body {
   padding-bottom: 1.5rem;
 }
 
+//text
+.medium-text {
+  font-weight: 600;
+}
+
 //buttons
 .primary-button {
   background-color: $primary-button;
   border: 0;
+  border-radius: 0.35rem;
   color: $white;
   font-weight: 500;
   margin-bottom: 2rem;
   margin-top: 1rem;
   padding: 0.5rem 1.5rem;
+  transition: all .3s ease-in;
 
   &:disabled,
   &:hover,
@@ -38,9 +45,45 @@ body {
     color: $white;
   }
 
+  &:hover {
+    box-shadow: 0 10px 10px $shadow-black;
+    transform: translateY(-5px);
+  }
+
   &:focus {
     background-color: $primary-button;
     border-color: $primary-button;
+    box-shadow: 0 0 0 0.2rem $input-shadow;
+  }
+}
+
+.primary-delete-button {
+  background-color: $error-hover-red;
+  border: 0;
+  border-radius: 0.35rem;
+  color: $white;
+  font-weight: 500;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+  padding: 0.5rem 2.5rem;
+  transition: all .3s ease-in;
+
+  &:disabled,
+  &:hover,
+  &.active {
+    background-color: $error-hover-red;
+    border: 0;
+    color: $white;
+  }
+
+  &:hover {
+    box-shadow: 0 10px 10px $shadow-black;
+    transform: translateY(-5px);
+  }
+
+  &:focus {
+    background-color: $error-hover-red;
+    border-color: $error-hover-red;
     box-shadow: 0 0 0 0.2rem $input-shadow;
   }
 }
@@ -88,6 +131,20 @@ body {
   }
 }
 
+.anchor-danger-text {
+  color: $error-red;
+  float: right;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding-top: 1.6rem;
+  text-decoration: underline;
+
+  &:hover {
+    color: $error-hover-red;
+    text-decoration: none;
+  }
+}
+
 //modals
 .modal-heading {
   font-family: 'Playfair Display', serif;
@@ -100,47 +157,12 @@ body {
   padding: 1rem;
 }
 
-//to be done//
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-.App {
+.modal-delete-container {
+  margin-left: auto;
+  margin-right: auto;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.modal-delete-text {
+  text-align: left;
 }
