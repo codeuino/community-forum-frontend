@@ -1,9 +1,10 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
-import CreateOrganization from "../../pages/createOrganization/createOrganization";
+import CreateOrganization from "../../pages/organization/createOrganization";
 import { getOrg } from "../../reducers/orgSlice";
-function OrganizationSetupRoute() {
+
+function OrganizationSetupRoute({...rest}) {
   const dispatch = useDispatch();
   const orgExists = useSelector(state => state.org.get.org);
   if(Object.keys(orgExists).length == 0) {
@@ -12,8 +13,13 @@ function OrganizationSetupRoute() {
   }
   return (
     <Route
-      render={() =>
-        orgExists.exists ? <Redirect to="/" /> : <CreateOrganization />
+      {...rest}
+      render={(routeProps) =>
+        orgExists.exists ? (
+          <Redirect to="/" />
+        ) : (
+          <CreateOrganization {...routeProps} />
+        )
       }
     />
   );

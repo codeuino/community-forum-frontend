@@ -18,7 +18,21 @@ export const login = createAsyncThunk(
           firstName
           lastName
         }
+        email
+        phone
+        info {
+          about {
+            shortDescription
+            designation
+          }
+        }
+        socialMedia {
+          twitter
+        }
         token
+        isFirstAdmin
+        isAdmin
+        isModerator
         }}`,
       },
       {
@@ -37,6 +51,59 @@ export const login = createAsyncThunk(
     return response.data.data.login;
   }
   return rejectWithValue(response)
+});
+
+export const getCurrentUser = createAsyncThunk(
+  "auth/getUser",
+  async (currentUserData, { rejectWithValue }) => {
+  const token = localStorage.getItem("token");
+    if (token) {
+      try {
+        const userData = jwt_decode(token);
+        if (userData._id) {
+          const response = await axios
+            .post(process.env.REACT_APP_GRAPHQL_API_ENDPOINT, {
+              query: `query{ getCurrentUser(
+                _id: "${userData._id}"
+                token: "${token}"
+              ) {
+              _id
+              name {
+                firstName
+                lastName
+              }
+              email
+              phone
+              info {
+                about {
+                  shortDescription
+                  designation
+                }
+              }
+              socialMedia {
+                twitter
+              }
+              token
+              isFirstAdmin
+              isAdmin
+              isModerator
+              }}`,
+            })
+            .catch((error) => {
+              if (error.response) {
+                return error.response.data.errors[0].message;
+              }
+            });
+          if (response.data != undefined) {
+            return response.data.data.getCurrentUser;
+          }
+          return rejectWithValue(response);
+        }
+      } catch (err) {
+        return rejectWithValue(err);
+      }
+    }
+    return rejectWithValue("");
 });
 
 export const signup = createAsyncThunk(
@@ -66,7 +133,21 @@ export const signup = createAsyncThunk(
               firstName
               lastName
             }
+            email
+            phone
+            info {
+              about {
+                shortDescription
+                designation
+              }
+            }
+            socialMedia {
+              twitter
+            }
             token
+            isFirstAdmin
+            isAdmin
+            isModerator
           }}`,
         },
         {
@@ -102,23 +183,6 @@ export const authSlice = createSlice({
       state.currentUser = {};
       state.error = "";
     },
-    getCurrentUser: (state) => {
-      const token = localStorage.getItem("token");
-      if (token) {
-        try {
-          const userData = jwt_decode(token);
-          state.isLoggedIn = true;
-          state.currentUser = {
-            _id: userData.id,
-            name: userData.name,
-            token,
-          }
-        } catch (err) {
-          console.log(err);
-          throw err;
-        }
-      }
-    },
   },
   extraReducers: {
     [login.fulfilled]: (state, action) => {
@@ -127,6 +191,17 @@ export const authSlice = createSlice({
       state.error = "";
     },
     [login.rejected]: (state, action) => {
+      state.isLoggedIn = false;
+      state.currentUser = {};
+      state.error = action.payload;
+    },
+    [getCurrentUser.fulfilled]: (state, action) => {
+      state.isLoggedIn = true;
+      state.currentUser = action.payload;
+      state.error = "";
+    },
+    [getCurrentUser.rejected]: (state, action) => {
+      localStorage.removeItem("token");
       state.isLoggedIn = false;
       state.currentUser = {};
       state.error = action.payload;
@@ -144,5 +219,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const { logout, getCurrentUser } = authSlice.actions;
+export const { logout } = authSlice.actions;
 export default authSlice.reducer;

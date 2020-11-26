@@ -103,18 +103,59 @@
   margin-top: 6px;
 }
 
+.dashboard-category-name {
+  display: inline-block;
+  font-size: 2.5rem;
+  font-weight: 600;
+  margin-left: -0.1rem;
+  max-width: 85%;
+}
+
+.dashboard-anchor-text {
+  font-size: 1.5rem;
+  padding-left: 0.8rem;
+  vertical-align: text-bottom;
+}
+
+.dashboard-category-creator {
+  color: $subheading-black;
+  font-size: 1.1rem;
+  font-weight: 500;
+
+  svg {
+    margin-right: 0.4rem;
+    padding-bottom: 0.3rem;
+  }
+}
+
 .dashboard-category-description {
   color: $fade-black;
-  margin-bottom: 1.5rem;
+  line-height: 1.3rem;
+  margin-top: 1rem;
+  max-width: 90%;
+}
+
+.dashboard-category-date {
+  color: $subheading-black;
+  font-size: 0.9rem;
+  margin-bottom: 1rem;
+  margin-left: -0.2rem;
+
+  svg {
+    margin-right: 0.3rem;
+    padding-bottom: 0.3rem;
+  }
 }
 
 .dashboard-main-button-container {
+  margin-bottom: 0rem;
   text-align: right;
-  width: 95%;
+  width: 90%;
 }
 
 .dashboard-main-button {
   font-weight: 500;
+  margin-bottom: 1rem;
   margin-top: 0;
   padding: 0.5rem 1.3rem;
 
@@ -124,16 +165,42 @@
   }
 }
 
+.dashboard-main-separator {
+  padding-bottom: 1.5rem;
+  width: 80%;
+}
+
+.dashboard-topics-heading {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+
+  svg {
+    font-size: 2.5rem;
+    padding-bottom: 0.3rem;
+  }
+}
+
 .dashboard-topic-container {
+  background-color: $navbar-light;
+  border: 1px solid $navbar-light;
+  border-radius: 0.5rem;
   cursor: pointer;
-  max-width: 90%;
-  padding: 0.8rem;
+  max-width: 80%;
+  margin-bottom: 1.5rem;
+  padding: 2rem;
+  padding-left: 3rem;
+  transition: all 0.3s ease-in;
   
   .dashboard-topic-icon {
     float: left;
     font-size: 2rem;
     margin-bottom: 1rem;
     margin-right: 0.5rem;
+  }
+
+  &:hover {
+    border: 1px solid $fade-black;
   }
 }
 
@@ -142,6 +209,7 @@
 }
 
 .dashboard-topic-description {
+  color: $subheading-black;
   padding-left: 0.3rem;
 }
 
@@ -153,6 +221,7 @@
 
 .dashboard-chat-count-container {
   color: $fade-black;
+  text-align: right;
 
   h6 {
     display: inline-block;
@@ -231,6 +300,6 @@
   }
 
   .dashboard-topic-container {
-    max-width: 100%;
+    max-width: 90%;
   }
 }
