@@ -21,27 +21,12 @@ export const updateUser = createAsyncThunk(
                 designation: "${userUpdateData.info.about.designation}"
               }
             }
+            socialMedia: {
+              twitter: "${userUpdateData.socialMedia.twitter}"
+            }
           }
           ) {
           _id
-          name {
-            firstName
-            lastName
-          }
-          email
-          phone
-          info {
-            about {
-              shortDescription
-              designation
-            }
-          }
-          socialMedia {
-            twitter
-          }
-          isFirstAdmin
-          isAdmin
-          isModerator
           }}`,
         },
         {
@@ -66,14 +51,98 @@ export const updateUser = createAsyncThunk(
 export const removeUser = createAsyncThunk(
   "user/remove",
   async (userRemoveData, { rejectWithValue }) => {
+    const isId = userRemoveData._id ? userRemoveData._id : "";
+    const isEmail = userRemoveData._email ? userRemoveData._email : "";
     const tokenHeader = `Bearer ${localStorage.getItem("token")}`;
     const response = await axios
       .post(
         process.env.REACT_APP_GRAPHQL_API_ENDPOINT,
         {
           query: `mutation{ removeUser(userFindInput: {
-            _id: ${userRemoveData._id ? "${userRemoveData._id}" : null}
-            email: ${userRemoveData._email ? "${userRemoveData._email}" : null}
+            _id: "${isId}"
+            email: "${isEmail}"
+          }
+          ) {
+          result
+          }}`,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: tokenHeader,
+          },
+        }
+      )
+      .catch((error) => {
+        if (error.response) {
+          return error.response.data.errors[0].message;
+        }
+      });
+    const isOtherUser = (isId || isEmail) ? true: false;
+    if (response.data != undefined) {
+      return {
+        response: response.data.data.removeUser,
+        isOtherUser,
+      };
+    }
+    return rejectWithValue({
+      response,
+      isOtherUser,
+    });
+  }
+);
+
+export const blockUser = createAsyncThunk(
+  "user/block",
+  async (userBlockData, { rejectWithValue }) => {
+    const isId = userBlockData._id ? userBlockData._id : "";
+    const isEmail = userBlockData._email ? userBlockData._email : "";
+    const tokenHeader = `Bearer ${localStorage.getItem("token")}`;
+    const response = await axios
+      .post(
+        process.env.REACT_APP_GRAPHQL_API_ENDPOINT,
+        {
+          query: `mutation{ blockUser(userFindInput: {
+            _id: "${isId}"
+            email: "${isEmail}"
+          }
+          ) {
+          result
+          }}`,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: tokenHeader,
+          },
+        }
+      )
+      .catch((error) => {
+        if (error.response) {
+          console.log(error.response);
+          return error.response.data.errors[0].message;
+        }
+      });
+    if (response.data != undefined) {
+      return response.data.data.blockUser;
+    }
+    return rejectWithValue(response);
+  }
+);
+
+export const unblockUser = createAsyncThunk(
+  "user/unblock",
+  async (userUnblockData, { rejectWithValue }) => {
+    const isId = userUnblockData._id ? userUnblockData._id : "";
+    const isEmail = userUnblockData._email ? userUnblockData._email : "";
+    const tokenHeader = `Bearer ${localStorage.getItem("token")}`;
+    const response = await axios
+      .post(
+        process.env.REACT_APP_GRAPHQL_API_ENDPOINT,
+        {
+          query: `mutation{ unblockUser(userFindInput: {
+            _id: "${isId}"
+            email: "${isEmail}"
           }
           ) {
           result
@@ -92,7 +161,79 @@ export const removeUser = createAsyncThunk(
         }
       });
     if (response.data != undefined) {
-      return response.data.data.removeUser;
+      return response.data.data.unblockUser;
+    }
+    return rejectWithValue(response);
+  }
+);
+
+export const getUserProfile = createAsyncThunk(
+  "user/profile",
+  async (userProfileData, { rejectWithValue }) => {
+    const response = await axios
+      .post(
+        process.env.REACT_APP_GRAPHQL_API_ENDPOINT,
+        {
+          query: `mutation{ getUserProfile(userFindInput: {
+            _id: "${userProfileData._id}"
+          }
+          ) {
+          _id
+          name {
+            firstName
+            lastName
+          }
+          email
+          phone
+          info {
+            about {
+              shortDescription
+              designation
+            }
+          }
+          socialMedia {
+            twitter
+          }
+          isFirstAdmin
+          isAdmin
+          isModerator
+          isBlocked
+          isRemoved
+          categoriesCreated {
+            _id
+            name
+            description
+            isArchived
+            topics
+          }
+          topicsCreated {
+            _id
+            name
+            description
+            isSelfArchived
+            isArchived
+            tags {
+              _id
+              name
+              hexColorCode
+            }
+            chats
+          }
+          }}`,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
+      .catch((error) => {
+        if (error.response) {
+          return error.response.data.errors[0].message;
+        }
+      });
+    if (response.data != undefined) {
+      return response.data.data.getUserProfile;
     }
     return rejectWithValue(response);
   }
@@ -105,11 +246,24 @@ export const userSlice = createSlice({
       isCompleted: true,
       error: "",
     },
+    block: {
+      isCompleted: true,
+      error: "",
+    },
     remove: {
       isCompleted: true,
     },
+    getCurrent: {
+      userProfile: {},
+      error: "",
+    },
   },
-  reducers: {},
+  reducers: {
+    clearCurrentUserProfile: (state) => {
+      state.getCurrent.userProfile = {};
+      state.getCurrent.error = "";
+    },
+  },
   extraReducers: {
     [updateUser.fulfilled]: (state, action) => {
       state.update.error = "";
@@ -122,9 +276,33 @@ export const userSlice = createSlice({
       state.update.error = action.payload;
       state.update.isCompleted = false;
     },
+    [blockUser.fulfilled]: (state, action) => {
+      state.block.isCompleted = true;
+      state.block.error = "";
+    },
+    [blockUser.pending]: (state, action) => {
+      state.block.isCompleted = false;
+    },
+    [blockUser.rejected]: (state, action) => {
+      state.block.error = action.payload;
+      state.block.isCompleted = false;
+    },
+    [unblockUser.fulfilled]: (state, action) => {
+      state.block.isCompleted = true;
+      state.block.error = "";
+    },
+    [unblockUser.pending]: (state, action) => {
+      state.block.isCompleted = false;
+    },
+    [unblockUser.rejected]: (state, action) => {
+      state.block.error = action.payload;
+      state.block.isCompleted = false;
+    },
     [removeUser.fulfilled]: (state, action) => {
+      if (!action.payload.isOtherUser) {
+        localStorage.removeItem("token");
+      }
       state.remove.isCompleted = true;
-      localStorage.removeItem("token");
     },
     [removeUser.pending]: (state, action) => {
       state.remove.isCompleted = false;
@@ -132,7 +310,16 @@ export const userSlice = createSlice({
     [removeUser.rejected]: (state, action) => {
       state.remove.isCompleted = false;
     },
+    [getUserProfile.fulfilled]: (state, action) => {
+      state.getCurrent.userProfile = action.payload;
+      state.getCurrent.error = "";
+    },
+    [getUserProfile.rejected]: (state, action) => {
+      state.getCurrent.userProfile = {};
+      state.getCurrent.error = action.payload;
+    },
   },
 });
 
+export const { clearCurrentUserProfile } = userSlice.actions;
 export default userSlice.reducer;

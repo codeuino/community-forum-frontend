@@ -1,0 +1,61 @@
+.common-card-link {
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.common-card-container {
+  background-color: $navbar-light;
+  border: 1px solid $navbar-light;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  height: 90%;
+  max-width: 100%;
+  margin-bottom: 1.5rem;
+  padding: 2rem;
+  padding-left: 3rem;
+  transition: all 0.3s ease-in;
+  text-decoration: none;
+
+  .common-card-icon {
+    color: $black;
+    float: left;
+    font-size: 2rem;
+    margin-right: 0.5rem;
+
+  }
+
+  &:hover {
+    border: 1px solid $fade-black;
+  }
+}
+
+.common-card-heading {
+  color: $black;
+  max-width: 80%;
+  font-weight: 600;
+  text-decoration: none;
+  word-wrap: break-word;
+}
+
+.common-card-description {
+  color: $subheading-black;
+  padding-left: 0.3rem;
+  padding-top: 0.4rem;
+  text-decoration: none;
+}
+
+.common-card-count-container {
+  color: $fade-black;
+  text-align: right;
+
+  h6 {
+    display: inline-block;
+    font-size: 1.1rem;
+    padding-left: 0.2rem;
+  }
+
+  svg {
+    font-size: 1.4rem;
+  }
+}

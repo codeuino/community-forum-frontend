@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Modal, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Modal, Form, Button, Alert } from "react-bootstrap";
 import { connect } from "react-redux";
 import { signup } from "../../../reducers/authSlice";
 import { checkFieldValidation, fieldNames } from "../../../commonFunctions/validateFormField";
@@ -136,34 +136,42 @@ class SignUpModal extends Component {
     if (Object.keys(newState).length != 0) {
       this.setState(newState);
     }
-    if (this.props.isLoggedIn) {
-      this.props.handleClose("signup");
+    if (
+      !prevProps.isLoggedIn &&
+      prevProps.isLoggedIn != this.props.isLoggedIn
+    ) {
+      this.props.handleClose();
     }
   }
 
   render() {
     return (
       <Modal
+        size="md"
+        scrollable={true}
         show={this.props.showModal}
-        onHide={() => {
-          this.props.handleClose("signup");
-        }}
+        onHide={this.props.handleClose}
+        className="modal-wide"
         centered
       >
-        <Modal.Body>
+        <Modal.Header>
           <Container>
             <Row className="center-row">
               <Col xs={12}>
                 <h1 className="modal-heading">Sign Up</h1>
               </Col>
             </Row>
+          </Container>
+        </Modal.Header>
+        <Modal.Body>
+          <Container>
             <Row>
               <Col xs={12}>
                 <div className="modal-form">
                   {this.state.formSubmissionError && (
-                    <div className="alert alert-danger" role="alert">
+                    <Alert variant="danger">
                       {this.state.formSubmissionError}
-                    </div>
+                    </Alert>
                   )}
                   <Form onSubmit={this.onFormSubmit}>
                     <Row>
@@ -200,34 +208,40 @@ class SignUpModal extends Component {
                         </Form.Group>
                       </Col>
                     </Row>
-                    <Form.Group controlId="signupFormBasicEmail">
-                      <Form.Label>Email Address</Form.Label>
-                      <Form.Control
-                        onChange={this.onFieldChange}
-                        type="email"
-                        name={fieldNames.EMAIL}
-                        value={this.state.email}
-                      />
-                      {this.state.emailError && (
-                        <h6 className="form-field-error">
-                          {this.state.emailError}
-                        </h6>
-                      )}
-                    </Form.Group>
-                    <Form.Group controlId="signupFormBasicText3">
-                      <Form.Label>Phone</Form.Label>
-                      <Form.Control
-                        onChange={this.onFieldChange}
-                        type="text"
-                        name={fieldNames.PHONE}
-                        value={this.state.phone}
-                      />
-                      {this.state.phoneError && (
-                        <h6 className="form-field-error">
-                          {this.state.phoneError}
-                        </h6>
-                      )}
-                    </Form.Group>
+                    <Row>
+                      <Col md={12}>
+                        <Form.Group controlId="signupFormBasicEmail">
+                          <Form.Label>Email Address</Form.Label>
+                          <Form.Control
+                            onChange={this.onFieldChange}
+                            type="email"
+                            name={fieldNames.EMAIL}
+                            value={this.state.email}
+                          />
+                          {this.state.emailError && (
+                            <h6 className="form-field-error">
+                              {this.state.emailError}
+                            </h6>
+                          )}
+                        </Form.Group>
+                      </Col>
+                      <Col md={12}>
+                        <Form.Group controlId="signupFormBasicText3">
+                          <Form.Label>Phone</Form.Label>
+                          <Form.Control
+                            onChange={this.onFieldChange}
+                            type="text"
+                            name={fieldNames.PHONE}
+                            value={this.state.phone}
+                          />
+                          {this.state.phoneError && (
+                            <h6 className="form-field-error">
+                              {this.state.phoneError}
+                            </h6>
+                          )}
+                        </Form.Group>
+                      </Col>
+                    </Row>
                     <Form.Group controlId="signupFormBasicTextArea">
                       <Form.Label>Short Description</Form.Label>
                       <Form.Control

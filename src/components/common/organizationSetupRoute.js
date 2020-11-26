@@ -25,5 +25,5 @@ function OrganizationSetupRoute({...rest}) {
   );
 }
 
-  export default OrganizationSetupRoute;
+export default OrganizationSetupRoute;
   

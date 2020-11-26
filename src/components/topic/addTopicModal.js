@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Modal, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Modal, Form, Button, Alert } from "react-bootstrap";
 import { connect } from "react-redux";
 import { addTopic } from "../../reducers/topicSlice";
 import { checkFieldValidation, fieldNames } from "../../commonFunctions/validateFormField";
@@ -12,6 +12,7 @@ class AddTopicModal extends Component {
       nameError: "",
       description: "",
       descriptionError: "",
+      tagString: "",
       isFormInvalid: true,
       formSubmissionError: "",
     };
@@ -28,9 +29,10 @@ class AddTopicModal extends Component {
     const {
       name,
       description,
+      tagString,
     } = this.state;
     e.preventDefault();
-    this.props.addTopic(name, description, this.props.parentCategory);
+    this.props.addTopic(name, description, tagString, this.props.parentCategory);
   };
 
   componentDidUpdate(prevProps) {
@@ -84,10 +86,10 @@ class AddTopicModal extends Component {
       }
     }
     if (
-      this.props.newTopic._id &&
-      prevProps.newTopic._id != this.props.newTopic._id
+      !prevProps.isCompleted &&
+      prevProps.isCompleted != this.props.isCompleted
     ) {
-      this.props.handleClose("addTopic");
+      this.props.handleClose();
     }
     if (Object.keys(newState).length != 0) {
       this.setState(newState);
@@ -98,28 +100,31 @@ class AddTopicModal extends Component {
     return (
       <Modal
         show={this.props.showModal}
-        onHide={() => {
-          this.props.handleClose("addTopic");
-        }}
+        onHide={this.props.handleClose}
+        scrollable={true}
         centered
       >
-        <Modal.Body>
+        <Modal.Header>
           <Container>
             <Row className="center-row">
               <Col xs={12}>
                 <h1 className="modal-heading">Add Topic</h1>
               </Col>
             </Row>
+          </Container>
+        </Modal.Header>
+        <Modal.Body>
+          <Container>
             <Row>
               <Col xs={12}>
                 <div className="modal-form">
                   {this.state.formSubmissionError && (
-                    <div className="alert alert-danger" role="alert">
+                    <Alert variant="danger">
                       {this.state.formSubmissionError}
-                    </div>
+                    </Alert>
                   )}
                   <Form onSubmit={this.onFormSubmit}>
-                    <Form.Group controlId="addTopicFormBasicText">
+                    <Form.Group controlId="addTopicFormBasicText1">
                       <Form.Label>Name</Form.Label>
                       <Form.Control
                         onChange={this.onFieldChange}
@@ -132,6 +137,19 @@ class AddTopicModal extends Component {
                           {this.state.nameError}
                         </h6>
                       )}
+                    </Form.Group>
+                    <Form.Group controlId="addTopicFormBasicText2">
+                      <Form.Label>Tags</Form.Label>
+                      <Form.Control
+                        onChange={this.onFieldChange}
+                        type="text"
+                        name="tagString"
+                        aria-describedby="tagStringHelp"
+                        value={this.state.tagString}
+                      />
+                      <small id="tagStringHelp" class="form-text text-muted">
+                        Enter tags separated by a space (" ")
+                      </small>
                     </Form.Group>
                     <Form.Group controlId="addTopicFormBasicTextArea">
                       <Form.Label>Description</Form.Label>
@@ -169,18 +187,19 @@ class AddTopicModal extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    newTopic: state.topic.add.newTopic,
+    isCompleted: state.topic.add.isCompleted,
     error: state.topic.add.error,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    addTopic: (name, description, parentCategory) =>
+    addTopic: (name, description, tagString, parentCategory) =>
       dispatch(
         addTopic({
           name,
           description,
+          tagString,
           parentCategory: parentCategory._id,
         })
       ),
