@@ -1,13 +1,16 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Modal, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Modal, Form, Button, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { getAllCategories, updateCategory, deleteCategory } from "../../reducers/categorySlice";
+import { updateCategory, archiveCategory, unarchiveCategory, deleteCategory } from "../../reducers/categorySlice";
 import {
   fieldNames,
   checkFieldValidation,
 } from "../../commonFunctions/validateFormField";
 import DeleteModal from "../common/deleteModal";
+import {
+  handleModal,
+} from "../../commonFunctions/handleModal";
 
 class UpdateCategoryModal extends Component {
   constructor(props) {
@@ -36,21 +39,22 @@ class UpdateCategoryModal extends Component {
     this.props.updateCategory(this.props.category._id, name, description);
   };
 
-  handleDeleteModalShow = () => {
-    this.setState({
-      showDeleteModal: true,
-    });
-  };
-
-  handleDeleteModalClose = () => {
-    this.setState({
-      showDeleteModal: false,
-    });
+  onArchiveSubmit = (action) => {
+    switch (action) {
+      case "archive": {
+        this.props.archiveCategory(this.props.category._id);
+        break;
+      }
+      case "unarchive": {
+        this.props.unarchiveCategory(this.props.category._id);
+        break;
+      }
+    }
   };
 
   onDeleteSubmit = () => {
     this.props.deleteCategory(this.props.category._id);
-  }
+  };
 
   componentDidUpdate(prevProps) {
     const {
@@ -59,10 +63,7 @@ class UpdateCategoryModal extends Component {
       formSubmissionError,
       isFormInvalid,
     } = this.state;
-    const {
-      name,
-      description,
-    } = this.props.category;
+    const { name, description } = this.props.category;
     let newState = {};
     if (prevProps.showModal != this.props.showModal) {
       newState = {
@@ -80,10 +81,16 @@ class UpdateCategoryModal extends Component {
         };
       }
     } else {
-      if (this.props.error != prevProps.error) {
+      if (this.props.updateError != prevProps.updateError) {
         newState = {
           ...newState,
-          formSubmissionError: this.props.error,
+          formSubmissionError: this.props.updateError,
+        };
+      }
+      else if (this.props.archiveError != prevProps.archiveError) {
+        newState = {
+          ...newState,
+          formSubmissionError: this.props.archiveError,
         };
       }
       if (isFormInvalid == true) {
@@ -107,16 +114,21 @@ class UpdateCategoryModal extends Component {
       !prevProps.isUpdateCompleted &&
       prevProps.isUpdateCompleted != this.props.isUpdateCompleted
     ) {
-      this.props.getCategories();
-      this.props.handleClose("updateCategory");
-    }
-    if (
+      this.props.handleClose();
+    } 
+     else if (
       !prevProps.isDeleteCompleted &&
       prevProps.isDeleteCompleted != this.props.isDeleteCompleted
     ) {
-      this.props.getCategories();
-      this.handleDeleteModalClose();
-      this.props.resetCurrentCategory();
+      this.setState(handleModal("delete", "close"));
+      if (this.props.resetCurrentCategory) {
+        this.props.resetCurrentCategory();
+      } else if (
+        this.props.history && this.props.history.location.pathname ==
+        `/category/${this.props.category._id}`
+      ) {
+        this.props.history.push("/");
+      }
     }
   }
 
@@ -125,9 +137,7 @@ class UpdateCategoryModal extends Component {
       <React.Fragment>
         <Modal
           show={this.props.showModal}
-          onHide={() => {
-            this.props.handleClose("updateCategory");
-          }}
+          onHide={this.props.handleClose}
           centered
         >
           <Modal.Body>
@@ -141,9 +151,9 @@ class UpdateCategoryModal extends Component {
                 <Col xs={12}>
                   <div className="modal-form">
                     {this.state.formSubmissionError && (
-                      <div className="alert alert-danger" role="alert">
+                      <Alert variant="danger">
                         {this.state.formSubmissionError}
-                      </div>
+                      </Alert>
                     )}
                     <Form onSubmit={this.onFormSubmit}>
                       <Form.Group controlId="addCategoryFormBasicText">
@@ -183,15 +193,36 @@ class UpdateCategoryModal extends Component {
                       >
                         Update
                       </Button>
-                      <Link
-                        className="pl-2 pr-1 anchor-danger-text"
-                        onClick={() => {
-                          this.props.handleClose("updateCategory");
-                          this.handleDeleteModalShow();
-                        }}
-                      >
-                        Delete
-                      </Link>
+                      <div className="anchor-container">
+                        {this.props.category.isArchived ? (
+                          <Link
+                            className="pl-2 pr-1 anchor-danger-text anchor-update-text"
+                            onClick={() => {
+                              this.onArchiveSubmit("unarchive");
+                            }}
+                          >
+                            Unarchive
+                          </Link>
+                        ) : (
+                          <Link
+                            className="pl-2 pr-1 anchor-danger-text anchor-update-text"
+                            onClick={() => {
+                              this.onArchiveSubmit("archive");
+                            }}
+                          >
+                            Archive
+                          </Link>
+                        )}
+                        <Link
+                          className="pl-2 pr-1 anchor-danger-text"
+                          onClick={() => {
+                            this.props.handleClose();
+                            this.setState(handleModal("delete", "open"));
+                          }}
+                        >
+                          Delete
+                        </Link>
+                      </div>
                     </Form>
                   </div>
                 </Col>
@@ -203,7 +234,9 @@ class UpdateCategoryModal extends Component {
           showModal={this.state.showDeleteModal}
           modalHeading="Category"
           objectName={`${this.props.category.name} Category`}
-          handleClose={this.handleDeleteModalClose}
+          handleClose={() => {
+            this.setState(handleModal("delete", "close"));
+          }}
           deleteFunction={this.onDeleteSubmit}
         />
       </React.Fragment>
@@ -214,8 +247,10 @@ class UpdateCategoryModal extends Component {
 const mapStateToProps = (state) => {
   return {
     isUpdateCompleted: state.category.update.isCompleted,
+    updateError: state.category.update.error,
+    isArchiveCompleted: state.category.archive.isCompleted,
+    archiveError: state.category.archive.error,
     isDeleteCompleted: state.category.delete.isCompleted,
-    error: state.category.update.error,
   };
 };
 
@@ -229,16 +264,24 @@ const mapDispatchToProps = (dispatch) => {
           description,
         })
       ),
-    getCategories: () => 
-    dispatch(
-      getAllCategories()
-    ),
-    deleteCategory: (_id) => 
-    dispatch(
-      deleteCategory({
-        _id,
-      })
-    )
+    archiveCategory: (_id) =>
+      dispatch(
+        archiveCategory({
+          _id,
+        })
+      ),
+    unarchiveCategory: (_id) =>
+      dispatch(
+        unarchiveCategory({
+          _id,
+        })
+      ),
+    deleteCategory: (_id) =>
+      dispatch(
+        deleteCategory({
+          _id,
+        })
+      ),
   };
 };
 

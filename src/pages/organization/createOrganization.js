@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { connect } from "react-redux";
-import { createOrg } from "../../reducers/orgSlice";
+import { createOrg, getOrg } from "../../reducers/orgSlice";
 import { fieldNames, checkFieldValidation } from "../../commonFunctions/validateFormField";
 
 class CreateOrganization extends Component {
@@ -87,6 +87,7 @@ class CreateOrganization extends Component {
     if (this.props.result &&
       prevProps.result != this.props.result
     ) {
+      this.props.getOrg();
       this.props.history.push("/");
     }
   }
@@ -98,9 +99,7 @@ class CreateOrganization extends Component {
           <Col xs={12}>
             <h1 className="main-heading">Setup Organization</h1>
             {this.state.formSubmissionError && (
-              <div className="alert alert-danger" role="alert">
-                {this.state.formSubmissionError}
-              </div>
+              <Alert variant="danger">{this.state.formSubmissionError}</Alert>
             )}
             <Form onSubmit={this.onFormSubmit}>
               <Form.Group controlId="orgCreationFormBasicText1">
@@ -194,6 +193,7 @@ const mapDispatchToProps = (dispatch) => {
         })
       );
     },
+    getOrg: () => dispatch(getOrg()),
   };
 };
 

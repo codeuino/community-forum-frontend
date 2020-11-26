@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Modal, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Modal, Form, Button, Alert } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import { login } from '../../../reducers/authSlice';
@@ -87,8 +87,9 @@ class LoginModal extends Component {
     if (Object.keys(newState).length != 0) {
       this.setState(newState);
     }
-    if (this.props.isLoggedIn) {
-      this.props.handleClose("login");
+
+    if (!prevProps.isLoggedIn && prevProps.isLoggedIn != this.props.isLoggedIn) {
+      this.props.handleClose();
     }
   }
 
@@ -96,9 +97,7 @@ class LoginModal extends Component {
     return (
       <Modal
         show={this.props.showModal}
-        onHide={() => {
-          this.props.handleClose("login");
-        }}
+        onHide={this.props.handleClose}
         centered
       >
         <Modal.Body>
@@ -112,9 +111,9 @@ class LoginModal extends Component {
               <Col xs={12}>
                 <div className="modal-form">
                   {this.state.formSubmissionError && (
-                    <div className="alert alert-danger" role="alert">
+                    <Alert variant="danger">
                       {this.state.formSubmissionError}
-                    </div>
+                    </Alert>
                   )}
                   <Form onSubmit={this.onFormSubmit}>
                     <Form.Group controlId="loginFormBasicEmail">
@@ -157,7 +156,7 @@ class LoginModal extends Component {
                     <Link
                       className="anchor-text"
                       onClick={() => {
-                        this.props.handleShow("signup");
+                        this.props.handleSignupShow();
                       }}
                     >
                       Sign Up

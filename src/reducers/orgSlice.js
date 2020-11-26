@@ -73,6 +73,7 @@ export const updateOrg = createAsyncThunk(
             isArchived
             isUnderMaintenance
             totalUsers
+            exists
           }}`,
         },
         {

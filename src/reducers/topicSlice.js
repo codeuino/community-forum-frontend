@@ -13,14 +13,11 @@ export const addTopic = createAsyncThunk(
             topicInput: {
               name: "${addTopicData.name}"
               description: "${addTopicData.description}"
+              tagString: "${addTopicData.tagString}"
               parentCategory: "${addTopicData.parentCategory}"
             }
         ) {
           _id
-          name
-          description
-          parentCategory
-          createdBy
         }}`,
         },
         {
@@ -57,11 +54,21 @@ export const getCategoryTopics = createAsyncThunk(
           _id
           name
           description
-          tags
+          tags {
+            _id
+            name
+            hexColorCode
+          }
           isArchived
           parentCategory
           chats
-          createdBy
+          createdBy {
+            _id
+            name {
+              firstName
+              lastName
+            }
+          }
         }}`,
         },
         {
@@ -86,7 +93,7 @@ export const topicSlice = createSlice({
   name: "topic",
   initialState: {
     add: {
-      newTopic: {},
+      isCompleted: true,
       error: "",
     },
     get: {
@@ -97,11 +104,14 @@ export const topicSlice = createSlice({
   reducers: {},
   extraReducers: {
     [addTopic.fulfilled]: (state, action) => {
-      state.add.newTopic = action.payload;
+      state.add.isCompleted = true;
       state.add.error = "";
     },
+    [addTopic.pending]: (state, action) => {
+      state.add.isCompleted = false;
+    },
     [addTopic.rejected]: (state, action) => {
-      state.add.newTopic = {};
+      state.add.isCompleted = false;
       state.add.error = action.payload;
     },
     [getCategoryTopics.fulfilled]: (state, action) => {

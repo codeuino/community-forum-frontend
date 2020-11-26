@@ -1,9 +1,21 @@
 //layouts
+html {
+  font-size: 18px;
+}
+
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: 'Inter', sans-serif;
   margin: 0;
+}
+
+.primary-container {
+  padding-top: 7rem;
+}
+
+.container-mid {
+  max-width: 90%;;
 }
 
 .center-row {
@@ -13,10 +25,55 @@ body {
   text-align: center;
 }
 
+@media (max-width: 1200px) and (min-width: 992px) {
+  html {
+    font-size: 17px;
+  }
+
+  .container-mid {
+    max-width: 90%;;
+  }
+}
+
+@media (max-width: 992px) and (min-width: 768px) {
+  html {
+    font-size: 17px;
+  }
+
+  .container-mid {
+    max-width: 100%;;
+  }
+}
+
+@media (max-width: 768px) and (min-width: 576px) {
+  html {
+    font-size: 16px;
+  }
+
+  .container-mid {
+    max-width: 100%;;
+  }
+}
+
+@media (max-width: 576px) {
+  html {
+    font-size: 14px;
+  }
+
+  .container-mid {
+    max-width: 100%;;
+  }
+
+  .primary-container {
+    padding-top: 6rem;
+  }
+}
+
 //headings
 .main-heading {
   font-family: 'Playfair Display', serif;
-  font-weight: 800;
+  font-size: 2.6rem;
+  font-weight: 700;
   padding-bottom: 1.5rem;
 }
 
@@ -31,10 +88,11 @@ body {
   border: 0;
   border-radius: 0.35rem;
   color: $white;
+  font-size: 1rem;
   font-weight: 500;
   margin-bottom: 2rem;
   margin-top: 1rem;
-  padding: 0.5rem 1.5rem;
+  padding: 0.4rem 1.5rem;
   transition: all .3s ease-in;
 
   &:disabled,
@@ -63,6 +121,7 @@ body {
   border-radius: 0.35rem;
   color: $white;
   font-weight: 500;
+  font-size: 1rem;
   margin-bottom: 2rem;
   margin-top: 1rem;
   padding: 0.5rem 2.5rem;
@@ -85,6 +144,11 @@ body {
     background-color: $error-hover-red;
     border-color: $error-hover-red;
     box-shadow: 0 0 0 0.2rem $input-shadow;
+  }
+
+  svg {
+    margin-right: 0.1rem;
+    padding-bottom: 0.2rem;
   }
 }
 
@@ -131,9 +195,13 @@ body {
   }
 }
 
+.anchor-container {
+  display: flex;
+  float: right;
+}
+
 .anchor-danger-text {
   color: $error-red;
-  float: right;
   font-size: 1.2rem;
   font-weight: 600;
   padding-top: 1.6rem;
@@ -145,12 +213,34 @@ body {
   }
 }
 
+.anchor-update-text {
+  color: $form-label;
+
+  &:hover {
+    color: $primary-button;
+  }
+}
+
 //modals
+.modal {
+  border-radius: 0.5rem;
+}
+
 .modal-heading {
   font-family: 'Playfair Display', serif;
+  font-size: 2.3rem;
   font-weight: 700;
-  padding-bottom: 1rem;
-  padding-top: 0.6rem;
+  padding-bottom: 0;
+  padding-top: 1.3rem;
+}
+
+.modal-header {
+  border-bottom: 0;
+  padding: 0;
+}
+
+.modal-body {
+  padding-top: 0;
 }
 
 .modal-form {
@@ -160,9 +250,40 @@ body {
 .modal-delete-container {
   margin-left: auto;
   margin-right: auto;
+  padding-top: 1rem;
   text-align: center;
 }
 
 .modal-delete-text {
   text-align: left;
+}
+
+@media (min-width: 768px) {
+  .modal-wide .modal-dialog {
+    max-width: 700px;
+    margin: 1.75rem auto;
+  }
+}
+
+//tags
+.primary-tag {
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin: 0.4rem 0.2rem;
+  padding: 0.4rem 0.8rem;
+  transition: all .3s ease-in;
+  a {
+    color: $white;
+    text-decoration: none;
+
+    &:hover {
+      color: $white;
+      text-decoration: none;
+    }
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+  }
+
 }
