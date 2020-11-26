@@ -24,9 +24,8 @@
 .navbar-user-dropdown  {
   .nav-link {
     color: $black;
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: 500;
-    padding-right: 0;
 
     &:hover {
       color: $black;
@@ -34,7 +33,7 @@
   }
 
   .dropdown-item {
-    padding-left: 0.6rem;
+    padding-left: 1rem;
     text-align: left;
     word-wrap: break-word;
 
@@ -42,9 +41,16 @@
     &:active {
       background-color: $primary-button;
     }
-  }
 
-  .dropdown-menu {
-    margin-right: 10rem;
+    svg {
+      margin-right: 0.3rem;
+      padding-bottom: 0.2rem;
+    }
   }
+}
+
+.dropdown-menu {
+  box-shadow: 0 5px 5px $shadow-black;
+  left: auto;
+  right: 0;
 }
