@@ -19,36 +19,36 @@ Object.freeze(fieldNames);
 export const checkFieldValidation = (fieldName, fieldValue, repeatFieldValue=null) => {
   switch (fieldName) {
     case fieldNames.FIRSTNAME: {
-      if (fieldValue.length == 0) {
+      if (fieldValue.trim().length == 0) {
         return {
-          firstNameError: "First name is required",
+          firstNameError: "Enter first name",
         };
       }
       return { firstNameError: null };
     }
     case fieldNames.LASTNAME: {
-      if (fieldValue.length == 0) {
+      if (fieldValue.trim().length == 0) {
         return {
-          lastNameError: "Last name is required",
+          lastNameError: "Enter last name",
         };
       }
       return { lastNameError: null };
     }
     case fieldNames.EMAIL: {
       if (
-        fieldValue.length < 255 &&
+        fieldValue.trim().length < 255 &&
         fieldValue.match(/^([\w.%+-]+)@([\w-]+\.)+([\w]{2,})$/i)
       ) {
         return { emailError: null };
       }
       return {
-        emailError: "Please enter a valid email address",
+        emailError: "Enter a valid email address",
       };
     }
     case fieldNames.PASSWORD: {
-      if (fieldValue.length < 6) {
+      if (fieldValue.trim().length < 6) {
         return {
-          passwordError: "Your password must be atleast 6 characters long",
+          passwordError: "Use 6 characters or more for your password",
         };
       }
       return { passwordError: null };
@@ -56,39 +56,39 @@ export const checkFieldValidation = (fieldName, fieldValue, repeatFieldValue=nul
     case fieldNames.VERIFY_PASSWORD: {
       if (fieldValue != repeatFieldValue) {
         return {
-          verifyPasswordError: "Please make sure your passwords match",
+          verifyPasswordError: "Passwords don't match",
         };
       }
       return { verifyPasswordError: null };
     }
     case fieldNames.PHONE: {
-      if (fieldValue.length != 10) {
+      if (fieldValue.trim().length != 10) {
         return {
-          phoneError: "Please enter a valid phone number",
+          phoneError: "Enter a valid phone number",
         };
       }
       return { phoneError: null };
     }
     case fieldNames.USER_SHORT_DESCRIPTION: {
-      if (fieldValue.length == 0) {
+      if (fieldValue.trim().length == 0) {
         return {
-          userShortDescriptionError: "Short Description is required",
+          userShortDescriptionError: "Enter short description",
         };
       }
       return { userShortDescriptionError: null };
     }
     case fieldNames.NAME: {
-      if (fieldValue.length < 3) {
+      if (fieldValue.trim().length < 3) {
         return {
-          nameError: "Name must be atleast 3 characters long",
+          nameError: "Use 3 characters or more for name",
         };
       }
       return { nameError: null };
     }
     case fieldNames.DESCRIPTION: {
-      if (fieldValue.length < 6) {
+      if (fieldValue.trim().length < 6) {
         return {
-          descriptionError: "Description must be atleast 6 characters long",
+          descriptionError: "Use 6 characters or more for description",
         };
       }
       return { descriptionError: null };
@@ -103,32 +103,32 @@ export const checkFieldValidation = (fieldName, fieldValue, repeatFieldValue=nul
         };
       } else {
         return {
-          websiteError: "Please enter a valid website URL",
+          websiteError: "Enter a valid website URL",
         };
       }
     }
     case fieldNames.ORGANIZATION_SHORT_DESCRIPTION: {
-      if (fieldValue.length < 5) {
+      if (fieldValue.trim().length < 5) {
         return {
           organizationShortDescriptionError:
-            "Short Description must be atleast 5 characters long",
+            "Use 5 characters or more for short description",
         };
       }
       return { organizationShortDescriptionError: null };
     }
     case fieldNames.ORGANIZATION_LONG_DESCRIPTION: {
-      if (fieldValue.length < 10) {
+      if (fieldValue.trim().length < 10) {
         return {
           organizationLongDescriptionError:
-            "Long Description must be atleast 10 characters long",
+            "Use 10 characters or more for long description",
         };
       }
       return { organizationLongDescriptionError: null };
     }
     case fieldNames.DESIGNATION: {
-      if (fieldValue.length < 2 && fieldValue.length != 0) {
+      if (fieldValue.trim().length < 2 && fieldValue.trim().length != 0) {
         return {
-          designationError: "Designation must be atleast 2 characters long",
+          designationError: "Use 2 characters or more for designation",
         };
       }
       return { designationError: null };
@@ -144,7 +144,7 @@ export const checkFieldValidation = (fieldName, fieldValue, repeatFieldValue=nul
         };
       } else {
         return {
-          twitterError: "Please enter a valid twitter handle",
+          twitterError: "Enter a valid twitter handle",
         };
       }
     }

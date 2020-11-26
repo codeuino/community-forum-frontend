@@ -1,14 +1,14 @@
 import React from "react";
 import { Container, Row, Col, Modal, Button } from "react-bootstrap";
-import DeleteIcon from "@material-ui/icons/Delete";
 
-function DeleteModal(props) {
+function BlockModal(props) {
   const {
+    modalAction,
     showModal,
     handleClose,
-    modalHeading,
-    objectName,
-    deleteFunction,
+    userName,
+    modalDescription,
+    modalFunction,
   } = props;
   return (
     <Modal show={showModal} onHide={handleClose}>
@@ -16,7 +16,9 @@ function DeleteModal(props) {
         <Container>
           <Row className="center-row">
             <Col xs={12}>
-              <h1 className="modal-heading">Delete {modalHeading}</h1>
+              <h1 className="modal-heading">
+                {modalAction} {userName.firstName}
+              </h1>
             </Col>
           </Row>
         </Container>
@@ -27,21 +29,23 @@ function DeleteModal(props) {
             <Col xs={12}>
               <div className="modal-delete-container">
                 <p className="modal-delete-text">
-                  Are you absolutely sure? This action can't be undone. This
-                  will permanently delete{" "}
-                  <span className="medium-text">{objectName}</span>.
+                  Are you absolutely sure? This will{" "}
+                  <span className="medium-text">
+                    {modalAction.toLowerCase()} {userName.firstName}{" "}
+                    {userName.lastName}
+                  </span>{" "}
+                  {modalDescription}
                 </p>
                 <Button
                   variant=""
-                  className="primary-delete-button"
+                  className="primary-button organization-creation-button"
                   type="submit"
                   onClick={() => {
                     handleClose();
-                    deleteFunction();
+                    modalFunction();
                   }}
                 >
-                  <DeleteIcon />
-                  Delete
+                  {modalAction}
                 </Button>
               </div>
             </Col>
@@ -52,4 +56,4 @@ function DeleteModal(props) {
   );
 }
 
-export default DeleteModal;
+export default BlockModal;

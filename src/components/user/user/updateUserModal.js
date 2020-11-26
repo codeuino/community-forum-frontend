@@ -9,6 +9,7 @@ import {
 import { getCurrentUser } from "../../../reducers/authSlice";
 import { updateUser, removeUser } from "../../../reducers/userSlice";
 import DeleteModal from "../../common/deleteModal";
+import { handleModal } from "../../../commonFunctions/handleModal";
 
 class UpdateUserModal extends Component {
   constructor(props) {
@@ -60,18 +61,6 @@ class UpdateUserModal extends Component {
     );
   };
 
-  handleDeleteModalShow = () => {
-    this.setState({
-      showDeleteModal: true,
-    });
-  };
-
-  handleDeleteModalClose = () => {
-    this.setState({
-      showDeleteModal: false,
-    });
-  };
-
   onDeleteSubmit = () => {
     this.props.removeUser();
   };
@@ -88,6 +77,7 @@ class UpdateUserModal extends Component {
       isFormInvalid,
     } = this.state;
     const { name, email, phone, info, socialMedia } = this.props.currentUser;
+    const isTwitter = socialMedia && socialMedia.twitter;
     let newState = {};
     if (prevProps.showModal != this.props.showModal) {
       newState = {
@@ -103,7 +93,7 @@ class UpdateUserModal extends Component {
         userShortDescriptionError: null,
         designation: info.about.designation,
         designationError: null,
-        twitter: socialMedia?.twitter,
+        twitter: isTwitter ? socialMedia.twitter : "",
         twitterError: null,
         isFormInvalid: true,
       };
@@ -157,13 +147,14 @@ class UpdateUserModal extends Component {
       prevProps.isUpdateCompleted != this.props.isUpdateCompleted
     ) {
       this.props.getCurrentUser();
-      this.props.handleClose("updateUser");
+      this.props.handleClose();
     }
     if (
       !prevProps.isDeleteCompleted &&
-      prevProps.isDeleteCompleted != this.props.isDeleteCompleted
+      prevProps.isDeleteCompleted != this.props.isDeleteCompleted &&
+      localStorage.getItem("token") == null
     ) {
-      this.handleDeleteModalClose();
+      this.setState(handleModal("delete", "close"));
       if (this.props.history.location.pathname == "/") {
         window.location.reload();
       } else {
@@ -178,19 +169,26 @@ class UpdateUserModal extends Component {
     return (
       <React.Fragment>
         <Modal
+          size="lg"
+          scrollable={true}
           show={this.props.showModal}
           onHide={() => {
             this.props.handleClose("updateUser");
           }}
+          className="modal-wide"
           centered
         >
-          <Modal.Body>
+          <Modal.Header>
             <Container>
               <Row className="center-row">
                 <Col xs={12}>
                   <h1 className="modal-heading">Edit Details</h1>
                 </Col>
               </Row>
+            </Container>
+          </Modal.Header>
+          <Modal.Body>
+            <Container>
               <Row>
                 <Col xs={12}>
                   <div className="modal-form">
@@ -234,16 +232,6 @@ class UpdateUserModal extends Component {
                           </Form.Group>
                         </Col>
                       </Row>
-                      <Form.Group controlId="signupFormBasicEmail">
-                        <Form.Label>Email Address</Form.Label>
-                        <Form.Control
-                          onChange={this.onFieldChange}
-                          type="email"
-                          name={fieldNames.EMAIL}
-                          value={this.state.email}
-                          disabled
-                        />
-                      </Form.Group>
                       <Form.Group controlId="signupFormBasicText3">
                         <Form.Label>Designation</Form.Label>
                         <Form.Control
@@ -258,20 +246,36 @@ class UpdateUserModal extends Component {
                           </h6>
                         )}
                       </Form.Group>
-                      <Form.Group controlId="signupFormBasicText4">
-                        <Form.Label>Phone</Form.Label>
-                        <Form.Control
-                          onChange={this.onFieldChange}
-                          type="text"
-                          name={fieldNames.PHONE}
-                          value={this.state.phone}
-                        />
-                        {this.state.phoneError && (
-                          <h6 className="form-field-error">
-                            {this.state.phoneError}
-                          </h6>
-                        )}
-                      </Form.Group>
+                      <Row>
+                        <Col md={6}>
+                          <Form.Group controlId="signupFormBasicEmail">
+                            <Form.Label>Email Address</Form.Label>
+                            <Form.Control
+                              onChange={this.onFieldChange}
+                              type="email"
+                              name={fieldNames.EMAIL}
+                              value={this.state.email}
+                              disabled
+                            />
+                          </Form.Group>
+                        </Col>
+                        <Col md={6}>
+                          <Form.Group controlId="signupFormBasicText4">
+                            <Form.Label>Phone</Form.Label>
+                            <Form.Control
+                              onChange={this.onFieldChange}
+                              type="text"
+                              name={fieldNames.PHONE}
+                              value={this.state.phone}
+                            />
+                            {this.state.phoneError && (
+                              <h6 className="form-field-error">
+                                {this.state.phoneError}
+                              </h6>
+                            )}
+                          </Form.Group>
+                        </Col>
+                      </Row>
                       <Form.Group controlId="signupFormBasicTextArea">
                         <Form.Label>Short Description</Form.Label>
                         <Form.Control
@@ -309,15 +313,19 @@ class UpdateUserModal extends Component {
                       >
                         Update
                       </Button>
-                      <Link
-                        className="pl-2 pr-1 anchor-danger-text"
-                        onClick={() => {
-                          this.props.handleClose("updateUser");
-                          this.handleDeleteModalShow();
-                        }}
-                      >
-                        Delete
-                      </Link>
+                      {!this.props.currentUser.isFirstAdmin && (
+                        <div className="anchor-container">
+                          <Link
+                            className="pl-2 pr-1 anchor-danger-text"
+                            onClick={() => {
+                              this.props.handleClose();
+                              this.setState(handleModal("delete", "open"));
+                            }}
+                          >
+                            Delete
+                          </Link>
+                        </div>
+                      )}
                     </Form>
                   </div>
                 </Col>
@@ -329,7 +337,9 @@ class UpdateUserModal extends Component {
           showModal={this.state.showDeleteModal}
           modalHeading="Account"
           objectName={`your account`}
-          handleClose={this.handleDeleteModalClose}
+          handleClose={() => {
+            this.setState(handleModal("delete", "close"));
+          }}
           deleteFunction={this.onDeleteSubmit}
         />
       </React.Fragment>
