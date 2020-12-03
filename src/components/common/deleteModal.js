@@ -12,14 +12,16 @@ function DeleteModal(props) {
   } = props;
   return (
     <Modal show={showModal} onHide={handleClose}>
-      <Modal.Header>
-        <Container>
-          <Row className="center-row">
-            <Col xs={12}>
-              <h1 className="modal-heading">Delete {modalHeading}</h1>
-            </Col>
-          </Row>
-        </Container>
+      <Modal.Header closeButton>
+        <Modal.Title>
+          <Container>
+            <Row>
+              <Col xs={12}>
+                <h1 className="modal-heading">Delete {modalHeading}</h1>
+              </Col>
+            </Row>
+          </Container>
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Container>
@@ -27,9 +29,10 @@ function DeleteModal(props) {
             <Col xs={12}>
               <div className="modal-delete-container">
                 <p className="modal-delete-text">
-                  Are you absolutely sure? This action can't be undone. This
+                  Are you absolutely sure? This action cannot be undone. This
                   will permanently delete{" "}
-                  <span className="medium-text">{objectName}</span>.
+                  <span className="medium-text">{objectName}</span> and remove
+                  all its associations.
                 </p>
                 <Button
                   variant=""

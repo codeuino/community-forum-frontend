@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Modal, Form, Button, Alert } from "react-bootstrap";
+import { Container, Row, Col, Modal, Form, Button, Alert, ModalDialog } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { updateCategory, archiveCategory, unarchiveCategory, deleteCategory } from "../../reducers/categorySlice";
@@ -140,13 +140,19 @@ class UpdateCategoryModal extends Component {
           onHide={this.props.handleClose}
           centered
         >
+          <Modal.Header closeButton>
+            <Modal.Title>
+              <Container>
+                <Row>
+                  <Col xs={12}>
+                    <h1 className="modal-heading">Edit Details</h1>
+                  </Col>
+                </Row>
+              </Container>
+            </Modal.Title>
+          </Modal.Header>
           <Modal.Body>
             <Container>
-              <Row className="center-row">
-                <Col xs={12}>
-                  <h1 className="modal-heading">Edit Category</h1>
-                </Col>
-              </Row>
               <Row>
                 <Col xs={12}>
                   <div className="modal-form">

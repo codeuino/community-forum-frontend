@@ -133,14 +133,16 @@ class UpdateOrganizationModal extends Component {
         className="modal-wide"
         centered
       >
-        <Modal.Header>
-          <Container>
-            <Row className="center-row">
-              <Col xs={12}>
-                <h1 className="modal-heading">Edit Organization Details</h1>
-              </Col>
-            </Row>
-          </Container>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <Container>
+              <Row>
+                <Col xs={12}>
+                  <h1 className="modal-heading">Edit Organization Details</h1>
+                </Col>
+              </Row>
+            </Container>
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Container>
@@ -232,14 +234,16 @@ class UpdateOrganizationModal extends Component {
                         </h6>
                       )}
                     </Form.Group>
-                    <Button
-                      variant=""
-                      className="primary-button"
-                      type="submit"
-                      disabled={this.state.isFormInvalid}
-                    >
-                      Update
-                    </Button>
+                    <Row className="center-row">
+                      <Button
+                        className="primary-button organization-page-create-button"
+                        variant=""
+                        type="submit"
+                        disabled={this.state.isFormInvalid}
+                      >
+                        Update
+                      </Button>
+                    </Row>
                   </Form>
                 </div>
               </Col>

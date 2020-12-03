@@ -4,6 +4,7 @@ import userReducer from "./reducers/userSlice";
 import orgReducer from "./reducers/orgSlice";
 import categoryReducer from "./reducers/categorySlice";
 import topicReducer from "./reducers/topicSlice";
+import tagReducer from "./reducers/tagSlice";
 
 export default configureStore({
   reducer: {
@@ -12,5 +13,6 @@ export default configureStore({
     org: orgReducer,
     category: categoryReducer,
     topic: topicReducer,
+    tag: tagReducer,
   },
 });
