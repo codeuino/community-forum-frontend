@@ -5,6 +5,7 @@ import ForumRoundedIcon from "@material-ui/icons/ForumRounded";
 import NotesRoundedIcon from "@material-ui/icons/NotesRounded";
 import ChatBubbleOutlineRoundedIcon from "@material-ui/icons/ChatBubbleOutlineRounded";
 import BubbleChartRoundedIcon from "@material-ui/icons/BubbleChartRounded";
+import ArchiveIcon from "@material-ui/icons/Archive";
 
 function CategoryTopicCard(props) {
   const {
@@ -32,11 +33,15 @@ function CategoryTopicCard(props) {
           <Row>
             <Col md={10}>
               <Row>
-                {entityType == "category" ? (
-                  <ForumRoundedIcon className="common-card-icon" />
-                ) : (
-                  <NotesRoundedIcon className="common-card-icon" />
+                {entity.isArchived && (
+                  <ArchiveIcon className="common-card-icon" />
                 )}
+                {!entity.isArchived &&
+                  (entityType == "category" ? (
+                    <ForumRoundedIcon className="common-card-icon" />
+                  ) : (
+                    <NotesRoundedIcon className="common-card-icon" />
+                  ))}
                 <h3 className="common-card-heading">{entity.name}</h3>
               </Row>
               {entityType == "topic" && (

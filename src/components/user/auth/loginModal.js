@@ -100,13 +100,19 @@ class LoginModal extends Component {
         onHide={this.props.handleClose}
         centered
       >
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <Container>
+              <Row>
+                <Col xs={12}>
+                  <h1 className="modal-heading">Login</h1>
+                </Col>
+              </Row>
+            </Container>
+          </Modal.Title>
+        </Modal.Header>
         <Modal.Body>
           <Container>
-            <Row className="center-row">
-              <Col xs={12}>
-                <h1 className="modal-heading">Login</h1>
-              </Col>
-            </Row>
             <Row>
               <Col xs={12}>
                 <div className="modal-form">
@@ -152,7 +158,7 @@ class LoginModal extends Component {
                     >
                       Login
                     </Button>
-                    <span className="pl-2 pr-1">New User?</span>
+                    <span className="pl-3 pr-1">New User?</span>
                     <Link
                       className="anchor-text"
                       onClick={() => {

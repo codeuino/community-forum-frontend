@@ -39,6 +39,7 @@
   font-size: 1rem;
   font-weight: 600;
   margin-bottom: 0.7rem;
+  max-width: 95%;
   padding: 0.6rem 1.7rem;
   text-align: center;
 
@@ -104,6 +105,7 @@
 
 .dashboard-category-name {
   display: inline;
+  font-family: 'Inter', sans-serif;
   font-size: 2.3rem;
   font-weight: 600;
   margin-left: -0.1rem;
@@ -115,6 +117,7 @@
 
   .archive-icon {
     font-size: 2.4rem;
+    margin-left: 0;
     padding-bottom: 0.3rem;
   }
 }
@@ -123,6 +126,7 @@
   display: inline;
   font-size: 1.3rem;
   padding-left: 0.8rem;
+  padding-top: 0;
   vertical-align: text-bottom;
 }
 
@@ -142,7 +146,7 @@
   color: $fade-black;
   line-height: 1.3rem;
   margin-top: 1rem;
-  max-width: 90%;
+  max-width: 85%;
 }
 
 .dashboard-category-date {
@@ -181,13 +185,32 @@
 }
 
 .dashboard-topics-heading {
-  font-size: 1.7rem;
+  font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 2rem;
 
   svg {
     font-size: 2.3rem;
     padding-bottom: 0.3rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .dashboard-sidebar {
+    box-shadow: 0 0.8rem 0.8rem $shadow-black;
+    display: none;
+    max-width: 280px;
+    padding-right: 1.2rem;
+
+    &.active {
+      background-color: $white;
+      display: block;
+      transition: all 0.3s ease-in;
+    }
+  }
+
+  .dashboard-sidebar-base {
+    max-width: 0;
   }
 }
 
@@ -213,8 +236,7 @@
   }
 
   .dashboard-main-button-container,
-  .dashboard-main-separator,
-  .dashboard-category-description {
+  .dashboard-main-separator {
     max-width: 100%;
   }
 }
@@ -237,8 +259,7 @@
   }
 
   .dashboard-main-button-container,
-  .dashboard-main-separator,
-  .dashboard-category-description {
+  .dashboard-main-separator {
     max-width: 100%;
   }
 }
@@ -253,24 +274,24 @@
   }
 
   .dashboard-sidebar-category-item {
-    max-width: 250px;
+    max-width: 260px;
   }
 
   .dashboard-sidebar-button {
-    padding: 0.5rem 1.5rem;
+    padding: 0.6rem 2.7rem;
   }
 
   .dashboard-sidebar-categories-container {
-    padding-left: 2.5rem;
+    padding-left: 1.2rem;
   }
 
   .dashboard-main-container {
-    margin-left: 40px;
+    margin-left: 25px;
+    max-width: 65%;
   }
 
   .dashboard-main-button-container,
-  .dashboard-main-separator,
-  .dashboard-category-description {
+  .dashboard-main-separator {
     max-width: 100%;
   }
 }

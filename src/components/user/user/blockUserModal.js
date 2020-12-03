@@ -12,16 +12,18 @@ function BlockModal(props) {
   } = props;
   return (
     <Modal show={showModal} onHide={handleClose}>
-      <Modal.Header>
-        <Container>
-          <Row className="center-row">
-            <Col xs={12}>
-              <h1 className="modal-heading">
-                {modalAction} {userName.firstName}
-              </h1>
-            </Col>
-          </Row>
-        </Container>
+      <Modal.Header closeButton>
+        <Modal.Title>
+          <Container>
+            <Row>
+              <Col xs={12}>
+                <h1 className="modal-heading">
+                  {modalAction} {userName.firstName}
+                </h1>
+              </Col>
+            </Row>
+          </Container>
+        </Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Container>
@@ -38,7 +40,7 @@ function BlockModal(props) {
                 </p>
                 <Button
                   variant=""
-                  className="primary-button organization-creation-button"
+                  className="primary-button organization-page-create-button"
                   type="submit"
                   onClick={() => {
                     handleClose();

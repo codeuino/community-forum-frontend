@@ -154,14 +154,16 @@ class SignUpModal extends Component {
         className="modal-wide"
         centered
       >
-        <Modal.Header>
-          <Container>
-            <Row className="center-row">
-              <Col xs={12}>
-                <h1 className="modal-heading">Sign Up</h1>
-              </Col>
-            </Row>
-          </Container>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <Container>
+              <Row>
+                <Col xs={12}>
+                  <h1 className="modal-heading">Sign Up</h1>
+                </Col>
+              </Row>
+            </Container>
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Container>
@@ -209,7 +211,7 @@ class SignUpModal extends Component {
                       </Col>
                     </Row>
                     <Row>
-                      <Col md={12}>
+                      <Col md={7}>
                         <Form.Group controlId="signupFormBasicEmail">
                           <Form.Label>Email Address</Form.Label>
                           <Form.Control
@@ -225,7 +227,7 @@ class SignUpModal extends Component {
                           )}
                         </Form.Group>
                       </Col>
-                      <Col md={12}>
+                      <Col md={5}>
                         <Form.Group controlId="signupFormBasicText3">
                           <Form.Label>Phone</Form.Label>
                           <Form.Control
@@ -291,14 +293,16 @@ class SignUpModal extends Component {
                         </Form.Group>
                       </Col>
                     </Row>
-                    <Button
-                      className="primary-button"
-                      variant=""
-                      type="submit"
-                      disabled={this.state.isFormInvalid}
-                    >
-                      Sign Up
-                    </Button>
+                    <Row className="center-row">
+                      <Button
+                        className="primary-button organization-page-create-button"
+                        variant=""
+                        type="submit"
+                        disabled={this.state.isFormInvalid}
+                      >
+                        Sign Up
+                      </Button>
+                    </Row>
                   </Form>
                 </div>
               </Col>

@@ -5,6 +5,7 @@ import axios from "axios";
 export const login = createAsyncThunk(
   'auth/login', 
   async (loginData, { rejectWithValue }) => {
+  const tokenHeader = `Bearer ${localStorage.getItem("token")}`;
   const response = await axios
     .post(
       process.env.REACT_APP_GRAPHQL_API_ENDPOINT,
@@ -38,6 +39,7 @@ export const login = createAsyncThunk(
       {
         headers: {
           "Content-Type": "application/json",
+          Authorization: tokenHeader,
         },
       }
     )
@@ -56,14 +58,17 @@ export const login = createAsyncThunk(
 export const getCurrentUser = createAsyncThunk(
   "auth/getUser",
   async (currentUserData, { rejectWithValue }) => {
-  const token = localStorage.getItem("token");
+    const tokenHeader = `Bearer ${localStorage.getItem("token")}`;
+    const token = localStorage.getItem("token");
     if (token) {
       try {
         const userData = jwt_decode(token);
         if (userData._id) {
           const response = await axios
-            .post(process.env.REACT_APP_GRAPHQL_API_ENDPOINT, {
-              query: `query{ getCurrentUser(
+            .post(
+              process.env.REACT_APP_GRAPHQL_API_ENDPOINT,
+              {
+                query: `query{ getCurrentUser(
                 _id: "${userData._id}"
                 token: "${token}"
               ) {
@@ -88,7 +93,14 @@ export const getCurrentUser = createAsyncThunk(
               isAdmin
               isModerator
               }}`,
-            })
+              },
+              {
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: tokenHeader,
+                },
+              }
+            )
             .catch((error) => {
               if (error.response) {
                 return error.response.data.errors[0].message;
@@ -109,6 +121,7 @@ export const getCurrentUser = createAsyncThunk(
 export const signup = createAsyncThunk(
   "auth/signup",
   async (signupData, { rejectWithValue }) => {
+    const tokenHeader = `Bearer ${localStorage.getItem("token")}`;
     const response = await axios
       .post(
         process.env.REACT_APP_GRAPHQL_API_ENDPOINT,
@@ -153,6 +166,7 @@ export const signup = createAsyncThunk(
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: tokenHeader,
           },
         }
       )
@@ -173,14 +187,18 @@ export const authSlice = createSlice({
   name: "auth",
   initialState: {
     isLoggedIn: false,
-    currentUser: {},
+    currentUser: {
+      token: localStorage.getItem("token"),
+    },
     error: "",
   },
   reducers: {
     logout: (state) => {
       localStorage.removeItem("token");
       state.isLoggedIn = false;
-      state.currentUser = {};
+      state.currentUser = {
+        token: null,
+      };
       state.error = "";
     },
   },
@@ -192,7 +210,9 @@ export const authSlice = createSlice({
     },
     [login.rejected]: (state, action) => {
       state.isLoggedIn = false;
-      state.currentUser = {};
+      state.currentUser = {
+        token: null,
+      };
       state.error = action.payload;
     },
     [getCurrentUser.fulfilled]: (state, action) => {
@@ -203,7 +223,9 @@ export const authSlice = createSlice({
     [getCurrentUser.rejected]: (state, action) => {
       localStorage.removeItem("token");
       state.isLoggedIn = false;
-      state.currentUser = {};
+      state.currentUser = {
+        token: null,
+      };
       state.error = action.payload;
     },
     [signup.fulfilled]: (state, action) => {
