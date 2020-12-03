@@ -170,6 +170,7 @@ export const unblockUser = createAsyncThunk(
 export const getUserProfile = createAsyncThunk(
   "user/profile",
   async (userProfileData, { rejectWithValue }) => {
+    const tokenHeader = `Bearer ${localStorage.getItem("token")}`;
     const response = await axios
       .post(
         process.env.REACT_APP_GRAPHQL_API_ENDPOINT,
@@ -210,6 +211,7 @@ export const getUserProfile = createAsyncThunk(
             _id
             name
             description
+            parentCategory
             isSelfArchived
             isArchived
             tags {
@@ -224,6 +226,7 @@ export const getUserProfile = createAsyncThunk(
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: tokenHeader,
           },
         }
       )

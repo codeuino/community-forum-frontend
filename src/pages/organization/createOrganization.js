@@ -95,9 +95,19 @@ class CreateOrganization extends Component {
   render() {
     return (
       <Container>
-        <Row className="organization-parent-row">
-          <Col xs={12}>
-            <h1 className="main-heading">Setup Organization</h1>
+        <Row>
+          <Col md={7} lg={6} className="organization-page-brand-container">
+            <h1 className="organization-page-brand">SPANSBERRY</h1>
+            <h6 className="organization-page-brand-subheading">
+              Have meaningful discussions in a more organized way and turn them
+              into impactful actions.
+              <hr align="left" />
+            </h6>
+            <h6 className="organization-page-copyright-text">
+              &#169; A <a href="https://www.codeuino.org/">CODEUINO</a> PRODUCT
+            </h6>
+          </Col>
+          <Col md={5} lg={6} className="organization-page-parent-column">
             {this.state.formSubmissionError && (
               <Alert variant="danger">{this.state.formSubmissionError}</Alert>
             )}
@@ -156,7 +166,7 @@ class CreateOrganization extends Component {
                 )}
               </Form.Group>
               <Button
-                className="primary-button organization-creation-button"
+                className="primary-button organization-page-create-button"
                 type="submit"
                 disabled={this.state.isFormInvalid}
               >
@@ -164,6 +174,9 @@ class CreateOrganization extends Component {
               </Button>
             </Form>
           </Col>
+          <h6 className="organization-page-copyright-text2">
+            &#169; A <a href="https://www.codeuino.org/">CODEUINO</a> PRODUCT
+          </h6>
         </Row>
       </Container>
     );

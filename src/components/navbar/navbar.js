@@ -14,6 +14,8 @@ import UpdateUserModal from "../user/user/updateUserModal";
 import { logout } from "../../reducers/authSlice";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import { handleModal } from "../../commonFunctions/handleModal";
+import PersonIcon from "@material-ui/icons/Person";
+import MenuIcon from "@material-ui/icons/Menu";
 
 class NavBar extends Component {
   constructor(props) {
@@ -96,41 +98,64 @@ class NavBar extends Component {
           className="navbar-container"
         >
           <Link to="" onClick={this.scrollToTop}>
-            <span className="navbar-brand">SPANSBERRY</span>
+            {this.props.history.location.pathname == "/" ? (
+              <span className="navbar-brand">
+                <MenuIcon onClick={this.props.toggleSidebar} />
+                SPANSBERRY
+              </span>
+            ) : (
+              <span className="navbar-brand">
+                SPANSBERRY
+              </span>
+            )}
           </Link>
           <Nav className="ml-auto">
             {this.props.isLoggedIn ? (
-              <NavDropdown
-                title={this.props.currentUser.name.firstName}
-                className="navbar-user-dropdown"
-              >
-                <NavDropdown.Item>
-                  <div
-                    onClick={() => {
-                      this.setState(handleModal("updateUser", "open"));
-                    }}
-                  >
-                    Edit Profile
-                  </div>
-                </NavDropdown.Item>
-                {this.props.currentUser.isFirstAdmin && (
+              <React.Fragment>
+                <PersonIcon className="navbar-user-image" />
+                <NavDropdown
+                  title={this.props.currentUser.name.firstName}
+                  className="navbar-user-dropdown"
+                >
                   <NavDropdown.Item>
                     <div
                       onClick={() => {
-                        this.setState(handleModal("updateOrg", "open"));
+                        this.setState(handleModal("updateUser", "open"));
                       }}
                     >
-                      Update Organization
+                      Edit Profile
                     </div>
                   </NavDropdown.Item>
-                )}
-                <NavDropdown.Item>
-                  <div onClick={this.props.logout}>
-                    <ExitToAppIcon />
-                    Logout
-                  </div>
-                </NavDropdown.Item>
-              </NavDropdown>
+                  {this.props.currentUser.isAdmin && (
+                    <React.Fragment>
+                      <NavDropdown.Item>
+                        <div
+                          onClick={() => {
+                            this.props.history.push("/admin");
+                          }}
+                        >
+                          Admin Dashboard
+                        </div>
+                      </NavDropdown.Item>
+                      <NavDropdown.Item>
+                        <div
+                          onClick={() => {
+                            this.setState(handleModal("updateOrg", "open"));
+                          }}
+                        >
+                          Update Organization
+                        </div>
+                      </NavDropdown.Item>
+                    </React.Fragment>
+                  )}
+                  <NavDropdown.Item>
+                    <div onClick={this.props.logout}>
+                      <ExitToAppIcon />
+                      Logout
+                    </div>
+                  </NavDropdown.Item>
+                </NavDropdown>
+              </React.Fragment>
             ) : (
               <Button
                 variant=""
@@ -167,4 +192,3 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
-

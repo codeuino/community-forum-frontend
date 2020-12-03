@@ -101,13 +101,21 @@ class AddCategoryModal extends Component {
         onHide={this.props.handleClose}
         centered
       >
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <Container>
+              <Row>
+                <Col xs={12}>
+                  <h1 className="modal-heading">
+                    New Category
+                  </h1>
+                </Col>
+              </Row>
+            </Container>
+          </Modal.Title>
+        </Modal.Header>
         <Modal.Body>
           <Container>
-            <Row className="center-row">
-              <Col xs={12}>
-                <h1 className="modal-heading">Add Category</h1>
-              </Col>
-            </Row>
             <Row>
               <Col xs={12}>
                 <div className="modal-form">
@@ -146,14 +154,16 @@ class AddCategoryModal extends Component {
                         </h6>
                       )}
                     </Form.Group>
-                    <Button
-                      variant=""
-                      className="primary-button"
-                      type="submit"
-                      disabled={this.state.isFormInvalid}
-                    >
-                      Create
-                    </Button>
+                    <Row className="center-row">
+                      <Button
+                        variant=""
+                        className="primary-button organization-page-create-button"
+                        type="submit"
+                        disabled={this.state.isFormInvalid}
+                      >
+                        Create
+                      </Button>
+                    </Row>
                   </Form>
                 </div>
               </Col>

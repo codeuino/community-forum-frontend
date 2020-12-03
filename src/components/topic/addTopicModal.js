@@ -104,14 +104,18 @@ class AddTopicModal extends Component {
         scrollable={true}
         centered
       >
-        <Modal.Header>
-          <Container>
-            <Row className="center-row">
-              <Col xs={12}>
-                <h1 className="modal-heading">Add Topic</h1>
-              </Col>
-            </Row>
-          </Container>
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <Container>
+              <Row>
+                <Col xs={12}>
+                  <h1 className="modal-heading">
+                    New Topic
+                  </h1>
+                </Col>
+              </Row>
+            </Container>
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Container>
@@ -166,14 +170,16 @@ class AddTopicModal extends Component {
                         </h6>
                       )}
                     </Form.Group>
-                    <Button
-                      variant=""
-                      className="primary-button"
-                      type="submit"
-                      disabled={this.state.isFormInvalid}
-                    >
-                      Create
-                    </Button>
+                    <Row className="center-row">
+                      <Button
+                        variant=""
+                        className="primary-button organization-page-create-button"
+                        type="submit"
+                        disabled={this.state.isFormInvalid}
+                      >
+                        Create
+                      </Button>
+                    </Row>
                   </Form>
                 </div>
               </Col>

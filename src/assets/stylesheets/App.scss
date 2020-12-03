@@ -15,7 +15,8 @@ body {
 }
 
 .container-mid {
-  max-width: 90%;;
+  max-width: 98%;
+  padding: 0;
 }
 
 .center-row {
@@ -25,7 +26,7 @@ body {
   text-align: center;
 }
 
-@media (max-width: 1200px) and (min-width: 992px) {
+@media (max-width: 1199px) and (min-width: 992px) {
   html {
     font-size: 17px;
   }
@@ -35,7 +36,7 @@ body {
   }
 }
 
-@media (max-width: 992px) and (min-width: 768px) {
+@media (max-width: 991px) and (min-width: 768px) {
   html {
     font-size: 17px;
   }
@@ -45,7 +46,7 @@ body {
   }
 }
 
-@media (max-width: 768px) and (min-width: 576px) {
+@media (max-width: 767px) and (min-width: 575px) {
   html {
     font-size: 16px;
   }
@@ -71,10 +72,10 @@ body {
 
 //headings
 .main-heading {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.6rem;
-  font-weight: 700;
-  padding-bottom: 1.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 2.4rem;
+  font-weight: 600;
+  padding-bottom: 1rem;
 }
 
 //text
@@ -222,21 +223,38 @@ body {
 }
 
 //modals
-.modal {
+.modal-content {
   border-radius: 0.5rem;
 }
 
 .modal-heading {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.3rem;
-  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
   padding-bottom: 0;
+  margin-top: -2rem;
+  padding-left: 1.9rem;
   padding-top: 1.3rem;
+
+  svg {
+    font-size: 2rem;
+    margin-right: 0.2rem;
+    padding-bottom: 0.2rem;
+  }
 }
 
 .modal-header {
   border-bottom: 0;
   padding: 0;
+  padding-right: 4rem;
+  padding-top: 2.8rem;
+
+  .close {
+    background-color: $navbar-light;
+    border-radius: 50%;
+    box-shadow: 0 2px 2px $shadow-black;
+    padding: 0.4rem 0.6rem;
+  }
 }
 
 .modal-body {
@@ -250,7 +268,7 @@ body {
 .modal-delete-container {
   margin-left: auto;
   margin-right: auto;
-  padding-top: 1rem;
+  padding: 1rem;
   text-align: center;
 }
 
@@ -274,6 +292,7 @@ body {
   transition: all .3s ease-in;
   a {
     color: $white;
+    text-shadow: 1px 1px $subheading-black;
     text-decoration: none;
 
     &:hover {
@@ -285,5 +304,63 @@ body {
   &:hover {
     transform: translateY(-3px);
   }
+}
 
+.primary-big-tag {
+  color: $white;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0 0.2rem;
+  padding: 0.4rem 0.8rem;
+}
+
+//checkboxes
+.primary-checkpoint {
+  background-color: $shadow-black;
+  bottom: 0;
+  display: inline-block;
+  height: 1.5rem;
+  position: absolute;
+  width: 1.5rem;
+
+  &::after {
+    content: '';
+    display: none;
+    position: absolute;
+  }
+}
+
+.primary-checkpoint-container {
+  cursor: pointer;
+  display: block;
+  font-size: 1rem;
+  position: relative;
+
+  input {
+    height: 0;
+    opacity: 0;
+    position: absolute;
+    width: 0;
+  }
+
+  h6 {
+    display: inline-block;
+    margin-bottom: 0;
+    margin-right: 0.5rem;
+  }
+
+  input:checked ~ .primary-checkpoint {
+    background-color: $primary-button;
+
+    &::after {
+      border: solid $white;
+      border-width: 0 3px 3px 0;
+      display: block;
+      height: 1rem;
+      left: 0.5rem;
+      top: 0.15rem;
+      transform: rotate(45deg);
+      width: 0.5rem;
+    }
+  }
 }

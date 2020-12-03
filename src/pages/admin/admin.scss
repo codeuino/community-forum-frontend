@@ -1,0 +1,44 @@
+.admin-page-container {
+  margin-top: 5.5rem;
+}
+
+.admin-page-tab-selector {
+  .nav-item {
+    width: 90%;
+    .nav-link {
+      border: 0;
+      border-radius: 0.35rem;
+      color: $subheading-black;
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin: 0.4rem 0;
+      padding: 0.6rem 1.3rem;
+      text-align: center;
+
+      svg {
+        margin-right: 0.3rem;
+        padding-bottom: 0.2rem;
+      }
+
+      &.active {
+        background-color: $primary-button;
+        color: $white;
+        font-weight: 600;
+        transition: all 0.2s ease-in;
+      }
+    }
+  }
+}
+
+.admin-page-checkpoint-container {
+  h6 {
+    font-size: 1.2rem;
+    margin-right: 2rem;
+  }
+}
+
+.admin-page-maintenance-text {
+  color: $subheading-black;
+  margin-top: 1.5rem;
+  max-width: 90%;
+}

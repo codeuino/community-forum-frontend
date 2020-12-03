@@ -182,6 +182,7 @@ export const deleteCategory = createAsyncThunk(
 export const getAllCategories = createAsyncThunk(
   "category/getAll",
   async (getAllCategoriesData, { rejectWithValue }) => {
+    const tokenHeader = `Bearer ${localStorage.getItem("token")}`;
     const response = await axios
       .post(
         process.env.REACT_APP_GRAPHQL_API_ENDPOINT,
@@ -208,6 +209,7 @@ export const getAllCategories = createAsyncThunk(
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: tokenHeader,
           },
         }
       )
@@ -226,6 +228,7 @@ export const getAllCategories = createAsyncThunk(
 export const getCategory = createAsyncThunk(
   "category/getCurrent",
   async (getCategoryData, { rejectWithValue }) => {
+    const tokenHeader = `Bearer ${localStorage.getItem("token")}`;
     const response = await axios
       .post(
         process.env.REACT_APP_GRAPHQL_API_ENDPOINT,
@@ -256,6 +259,7 @@ export const getCategory = createAsyncThunk(
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: tokenHeader,
           },
         }
       )

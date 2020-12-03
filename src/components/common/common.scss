@@ -1,3 +1,4 @@
+//categoryTopicsCard
 .common-card-link {
   &:hover {
     text-decoration: none;
@@ -8,7 +9,6 @@
   background-color: $navbar-light;
   border: 1px solid $navbar-light;
   border-radius: 0.5rem;
-  cursor: pointer;
   height: 90%;
   max-width: 100%;
   margin-bottom: 1.5rem;
@@ -20,19 +20,20 @@
   .common-card-icon {
     color: $black;
     float: left;
-    font-size: 2rem;
+    font-size: 1.7rem;
     margin-right: 0.5rem;
-
   }
 
   &:hover {
     border: 1px solid $fade-black;
+    box-shadow: 0 5px 5px $shadow-black;
   }
 }
 
 .common-card-heading {
   color: $black;
   max-width: 80%;
+  font-size: 1.3rem;
   font-weight: 600;
   text-decoration: none;
   word-wrap: break-word;

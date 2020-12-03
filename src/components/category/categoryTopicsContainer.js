@@ -6,7 +6,7 @@ import CategoryTopicCard from "../common/categoryTopicCard";
 
 function CategoryTopicsContainer(props) {
   const topics = useSelector((state) => state.topic.get.topics);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const prevCurrentCategoryRef = useRef();
   useEffect(() => {
     if (prevCurrentCategoryRef.current?.id || (prevCurrentCategoryRef.current?._id != props.currentCategory._id)) {

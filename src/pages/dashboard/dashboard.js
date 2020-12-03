@@ -29,6 +29,7 @@ class Dashboard extends Component {
       showAddTopicModal: false,
       showUpdateCategoryModal: false,
       currentCategory: {},
+      dashboardSidebarClass: "dashboard-sidebar",
     };
   }
 
@@ -115,13 +116,23 @@ class Dashboard extends Component {
     }
   };
 
+  toggleSidebar = () => {
+    let newClassList = "";
+    if (this.state.dashboardSidebarClass.includes("active")) {
+      newClassList = this.state.dashboardSidebarClass.replace(" active", "");
+    } else {
+      newClassList = this.state.dashboardSidebarClass + " active";
+    }
+    this.setState({ dashboardSidebarClass: newClassList });
+  }
+
   render() {
     return (
       <Container fluid>
-        <NavBar history={this.props.history} />
+        <NavBar history={this.props.history} toggleSidebar={this.toggleSidebar} />
         <Container fluid className="container-mid">
           <Row className="dashboard-row">
-            <Col sm={4} className="dashboard-sidebar">
+            <Col md={4} xl={3} className={this.state.dashboardSidebarClass}>
               {this.props.isLoggedIn && (
                 <React.Fragment>
                   <div className="dashboard-sidebar-button-container">
@@ -185,8 +196,8 @@ class Dashboard extends Component {
                 </div>
               </React.Fragment>
             </Col>
-            <Col sm={4} className="dashboard-sidebar-base"></Col>
-            <Col sm={8} className="dashboard-main-container">
+            <Col md={4} className="dashboard-sidebar-base"></Col>
+            <Col md={8} xl={9} className="dashboard-main-container">
               {Object.keys(this.state.currentCategory).length != 0 && (
                 <React.Fragment>
                   <h2 className="dashboard-category-name">

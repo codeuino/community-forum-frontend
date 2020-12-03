@@ -162,7 +162,6 @@ class UpdateUserModal extends Component {
         this.props.history.push("/");
       }
     }
-
   }
 
   render() {
@@ -178,14 +177,16 @@ class UpdateUserModal extends Component {
           className="modal-wide"
           centered
         >
-          <Modal.Header>
-            <Container>
-              <Row className="center-row">
-                <Col xs={12}>
-                  <h1 className="modal-heading">Edit Details</h1>
-                </Col>
-              </Row>
-            </Container>
+          <Modal.Header closeButton>
+            <Modal.Title>
+              <Container>
+                <Row>
+                  <Col xs={12}>
+                    <h1 className="modal-heading">Edit Details</h1>
+                  </Col>
+                </Row>
+              </Container>
+            </Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Container>
@@ -247,7 +248,7 @@ class UpdateUserModal extends Component {
                         )}
                       </Form.Group>
                       <Row>
-                        <Col md={6}>
+                        <Col md={5}>
                           <Form.Group controlId="signupFormBasicEmail">
                             <Form.Label>Email Address</Form.Label>
                             <Form.Control
@@ -259,7 +260,7 @@ class UpdateUserModal extends Component {
                             />
                           </Form.Group>
                         </Col>
-                        <Col md={6}>
+                        <Col md={7}>
                           <Form.Group controlId="signupFormBasicText4">
                             <Form.Label>Phone</Form.Label>
                             <Form.Control
@@ -305,26 +306,39 @@ class UpdateUserModal extends Component {
                           </h6>
                         )}
                       </Form.Group>
-                      <Button
-                        className="primary-button"
-                        variant=""
-                        type="submit"
-                        disabled={this.state.isFormInvalid}
-                      >
-                        Update
-                      </Button>
-                      {!this.props.currentUser.isFirstAdmin && (
-                        <div className="anchor-container">
-                          <Link
-                            className="pl-2 pr-1 anchor-danger-text"
-                            onClick={() => {
-                              this.props.handleClose();
-                              this.setState(handleModal("delete", "open"));
-                            }}
+                      {!this.props.currentUser.isFirstAdmin ? (
+                        <React.Fragment>
+                          <Button
+                            className="primary-button"
+                            variant=""
+                            type="submit"
+                            disabled={this.state.isFormInvalid}
                           >
-                            Delete
-                          </Link>
-                        </div>
+                            Update
+                          </Button>
+                          <div className="anchor-container">
+                            <Link
+                              className="pl-2 pr-1 anchor-danger-text"
+                              onClick={() => {
+                                this.props.handleClose();
+                                this.setState(handleModal("delete", "open"));
+                              }}
+                            >
+                              Delete
+                            </Link>
+                          </div>
+                        </React.Fragment>
+                      ) : (
+                        <Row className="center-row">
+                          <Button
+                            className="primary-button organization-page-create-button"
+                            variant=""
+                            type="submit"
+                            disabled={this.state.isFormInvalid}
+                          >
+                            Update
+                          </Button>
+                        </Row>
                       )}
                     </Form>
                   </div>

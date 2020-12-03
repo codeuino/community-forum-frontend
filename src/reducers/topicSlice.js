@@ -42,6 +42,7 @@ export const addTopic = createAsyncThunk(
 export const getCategoryTopics = createAsyncThunk(
   "topic/get",
   async (getTopicData, { rejectWithValue }) => {
+    const tokenHeader = `Bearer ${localStorage.getItem("token")}`;
     const response = await axios
       .post(
         process.env.REACT_APP_GRAPHQL_API_ENDPOINT,
@@ -74,6 +75,7 @@ export const getCategoryTopics = createAsyncThunk(
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: tokenHeader,
           },
         }
       )

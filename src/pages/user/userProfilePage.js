@@ -92,11 +92,11 @@ class UserProfilePage extends Component {
             <Container fluid>
               <NavBar history={this.props.history} />
               <Container className="primary-container">
-                <Row className="center-row user-details-container">
-                  <Col md={4} className="user-image">
+                <Row className="center-row user-page-details-container">
+                  <Col md={4} className="user-page-image">
                     <AccountCircleIcon />
                   </Col>
-                  <Col md={8} className="user-details">
+                  <Col md={8} className="user-page-details">
                     <h2>
                       {this.props.userProfile.isBlocked && (
                         <BlockIcon data-tip="This user had been blocked" />
@@ -108,10 +108,10 @@ class UserProfilePage extends Component {
                     <h6>
                       {this.props.userProfile.info.about.shortDescription}
                     </h6>
-                    <div className="user-anchor-text-container">
+                    <div className="user-page-anchor-text-container">
                       {this.props.userProfile.socialMedia?.twitter && (
                         <a
-                          className="user-twitter-icon"
+                          className="user-page-twitter-icon"
                           href={this.props.userProfile.socialMedia.twitter}
                         >
                           <TwitterIcon />
@@ -177,7 +177,7 @@ class UserProfilePage extends Component {
                   </Col>
                 </Row>
                 <Row>
-                  <Col className="user-categories-topics-container">
+                  <Col className="user-page-categories-topics-container">
                     <UserCategoriesTopicsContainer
                       columnValue={6}
                       categoriesCreated={
