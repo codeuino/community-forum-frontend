@@ -1,12 +1,28 @@
 .navbar {
   padding-bottom: 0;
   padding-top: 0;
+
+  .dropdown-toggle {
+    &::after {
+      display: none;
+    }
+  }
+}
+
+.navbar-user-image {
+  margin-right: -0.3rem;
+  margin-top: 0.6rem;
 }
 
 .navbar-brand {
   font-family: Bebas Neue;
   font-size: 2.5rem;
   padding-bottom: 0;
+  padding-left: 1rem;
+
+  svg {
+    display: none;
+  }
 }
 
 .navbar-button {
@@ -18,7 +34,8 @@
 .navbar-user-dropdown  {
   .nav-link {
     color: $black;
-    font-size: 1rem;
+    font-size: 1.2rem;
+    font-weight: 500;
 
     &:hover {
       color: $black;
@@ -26,9 +43,36 @@
   }
 
   .dropdown-item {
+    padding-left: 1rem;
+    text-align: left;
+    word-wrap: break-word;
+
     &.active,
     &:active {
       background-color: $primary-button;
+    }
+
+    svg {
+      margin-right: 0.3rem;
+      padding-bottom: 0.2rem;
+    }
+  }
+}
+
+.dropdown-menu {
+  box-shadow: 0 5px 5px $shadow-black;
+  left: auto;
+  right: 0;
+}
+
+@media (max-width: 767px) {
+  .navbar-brand {
+    padding-left: 0;
+
+    svg {
+      display: inline;
+      font-size: 2.5rem;
+      margin-right: 0.3rem;
     }
   }
 }

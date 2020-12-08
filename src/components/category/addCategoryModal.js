@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Modal, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Modal, Form, Button, Alert } from "react-bootstrap";
 import { connect } from "react-redux";
 import { addCategory } from "../../reducers/categorySlice";
 import { fieldNames, checkFieldValidation } from "../../commonFunctions/validateFormField";
@@ -84,10 +84,10 @@ class AddCategoryModal extends Component {
       }
     }
     if (
-      this.props.newCategory._id &&
-      prevProps.newCategory._id != this.props.newCategory._id
+      !prevProps.isCompleted &&
+      prevProps.isCompleted != this.props.isCompleted
     ) {
-      this.props.handleClose("addCategory");
+      this.props.handleClose();
     }
     if (Object.keys(newState).length != 0) {
       this.setState(newState);
@@ -98,25 +98,31 @@ class AddCategoryModal extends Component {
     return (
       <Modal
         show={this.props.showModal}
-        onHide={() => {
-          this.props.handleClose("addCategory");
-        }}
+        onHide={this.props.handleClose}
         centered
       >
+        <Modal.Header closeButton>
+          <Modal.Title>
+            <Container>
+              <Row>
+                <Col xs={12}>
+                  <h1 className="modal-heading">
+                    New Category
+                  </h1>
+                </Col>
+              </Row>
+            </Container>
+          </Modal.Title>
+        </Modal.Header>
         <Modal.Body>
           <Container>
-            <Row className="center-row">
-              <Col xs={12}>
-                <h1 className="modal-heading">Add Category</h1>
-              </Col>
-            </Row>
             <Row>
               <Col xs={12}>
                 <div className="modal-form">
                   {this.state.formSubmissionError && (
-                    <div className="alert alert-danger" role="alert">
+                    <Alert variant="danger">
                       {this.state.formSubmissionError}
-                    </div>
+                    </Alert>
                   )}
                   <Form onSubmit={this.onFormSubmit}>
                     <Form.Group controlId="addCategoryFormBasicText">
@@ -125,6 +131,7 @@ class AddCategoryModal extends Component {
                         onChange={this.onFieldChange}
                         type="text"
                         name={fieldNames.NAME}
+                        value={this.state.name}
                       />
                       {this.state.nameError && (
                         <h6 className="form-field-error">
@@ -139,6 +146,7 @@ class AddCategoryModal extends Component {
                         as="textarea"
                         rows={3}
                         name={fieldNames.DESCRIPTION}
+                        value={this.state.description}
                       />
                       {this.state.descriptionError && (
                         <h6 className="form-field-error">
@@ -146,14 +154,16 @@ class AddCategoryModal extends Component {
                         </h6>
                       )}
                     </Form.Group>
-                    <Button
-                      variant=""
-                      className="primary-button"
-                      type="submit"
-                      disabled={this.state.isFormInvalid}
-                    >
-                      Create
-                    </Button>
+                    <Row className="center-row">
+                      <Button
+                        variant=""
+                        className="primary-button organization-page-create-button"
+                        type="submit"
+                        disabled={this.state.isFormInvalid}
+                      >
+                        Create
+                      </Button>
+                    </Row>
                   </Form>
                 </div>
               </Col>
@@ -167,7 +177,7 @@ class AddCategoryModal extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    newCategory: state.category.add.newCategory,
+    isCompleted: state.category.add.isCompleted,
     error: state.category.add.error,
   };
 };

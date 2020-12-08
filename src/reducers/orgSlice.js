@@ -4,6 +4,7 @@ const axios = require("axios");
 export const createOrg = createAsyncThunk(
   "org/create",
   async (orgCreateData, { rejectWithValue }) => {
+    const tokenHeader = `Bearer ${localStorage.getItem("token")}`;
     const response = await axios
       .post(
         process.env.REACT_APP_GRAPHQL_API_ENDPOINT,
@@ -25,6 +26,7 @@ export const createOrg = createAsyncThunk(
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: tokenHeader,
           },
         }
       )
@@ -35,6 +37,105 @@ export const createOrg = createAsyncThunk(
       });
     if (response.data != undefined) {
       return response.data.data.createOrganization;
+    }
+    return rejectWithValue(response);
+  }
+);
+
+export const updateOrg = createAsyncThunk(
+  "org/update",
+  async (orgUpdateData, { rejectWithValue }) => {
+    const tokenHeader = `Bearer ${localStorage.getItem("token")}`;
+    const response = await axios
+      .post(
+        process.env.REACT_APP_GRAPHQL_API_ENDPOINT,
+        {
+          query: `mutation{ updateOrganization(organizationInput: {
+            name: "${orgUpdateData.name}"
+            description: {
+              shortDescription: "${orgUpdateData.description.shortDescription}"
+              longDescription: "${orgUpdateData.description.longDescription}"
+            }
+            contactInfo: {
+              email: "${orgUpdateData.contactInfo.email}"
+              website: "${orgUpdateData.contactInfo.website}"
+            }
+          }
+          ) {
+            _id
+            name
+            description {
+                shortDescription
+                longDescription
+            }
+            contactInfo {
+                email
+                website
+            }
+            isArchived
+            isUnderMaintenance
+            totalUsers
+            exists
+          }}`,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: tokenHeader,
+          },
+        }
+      )
+      .catch((error) => {
+        if (error.response) {
+          return error.response.data.errors[0].message;
+        }
+      });
+    if (response.data != undefined) {
+      return response.data.data.updateOrganization;
+    }
+    return rejectWithValue(response);
+  }
+);
+
+export const toggleMaintenanceMode = createAsyncThunk(
+  "org/toggleMaintenance",
+  async (orgToggleMaintenanceModeData, { rejectWithValue }) => {
+    const tokenHeader = `Bearer ${localStorage.getItem("token")}`;
+    const response = await axios
+      .post(
+        process.env.REACT_APP_GRAPHQL_API_ENDPOINT,
+        {
+          query: `mutation{ toggleMaintenanceMode {
+            _id
+            name
+            description {
+                shortDescription
+                longDescription
+            }
+            contactInfo {
+                email
+                website
+            }
+            isArchived
+            isUnderMaintenance
+            totalUsers
+            exists
+          }}`,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: tokenHeader,
+          },
+        }
+      )
+      .catch((error) => {
+        if (error.response) {
+          return error.response.data.errors[0].message;
+        }
+      });
+    if (response.data != undefined) {
+      return response.data.data.toggleMaintenanceMode;
     }
     return rejectWithValue(response);
   }
@@ -67,6 +168,7 @@ export const getOrg = createAsyncThunk(
         {
           headers: {
             "Content-Type": "application/json",
+            "Access-Level": -1,
           },
         }
       )
@@ -93,6 +195,10 @@ export const orgSlice = createSlice({
       result: "",
       error: "",
     },
+    update: {
+      isCompleted: true,
+      error: "",
+    },
   },
   reducers: {},
   extraReducers: {
@@ -111,6 +217,21 @@ export const orgSlice = createSlice({
     [createOrg.rejected]: (state, action) => {
       state.create.result = {};
       state.create.error = action.payload;
+    },
+    [updateOrg.fulfilled]: (state, action) => {
+      state.get.org = action.payload;
+      state.update.error = "";
+      state.update.isCompleted = true;
+    },
+    [updateOrg.pending]: (state, action) => {
+      state.update.isCompleted = false;
+    },
+    [updateOrg.rejected]: (state, action) => {
+      state.update.error = action.payload;
+      state.update.isCompleted = false;
+    },
+    [toggleMaintenanceMode.fulfilled]: (state, action) => {
+      state.get.org = action.payload;
     },
   },
 });

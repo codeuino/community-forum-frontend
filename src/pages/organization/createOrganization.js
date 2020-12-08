@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Form, Button } from "react-bootstrap";
+import { Container, Row, Col, Form, Button, Alert } from "react-bootstrap";
 import { connect } from "react-redux";
-import { createOrg } from "../../reducers/orgSlice";
+import { createOrg, getOrg } from "../../reducers/orgSlice";
 import { fieldNames, checkFieldValidation } from "../../commonFunctions/validateFormField";
 
 class CreateOrganization extends Component {
@@ -31,14 +31,14 @@ class CreateOrganization extends Component {
   onFormSubmit = (e) => {
     const {
       name,
-      shortDescription,
+      organizationShortDescription,
       email,
       website,
     } = this.state;
     e.preventDefault();
     this.props.createOrg(
       name,
-      shortDescription,
+      organizationShortDescription,
       email,
       website,
     );
@@ -87,6 +87,7 @@ class CreateOrganization extends Component {
     if (this.props.result &&
       prevProps.result != this.props.result
     ) {
+      this.props.getOrg();
       this.props.history.push("/");
     }
   }
@@ -94,13 +95,21 @@ class CreateOrganization extends Component {
   render() {
     return (
       <Container>
-        <Row className="organization-parent-row">
-          <Col xs={12}>
-            <h1 className="main-heading">Setup Organization</h1>
+        <Row>
+          <Col md={7} lg={6} className="organization-page-brand-container">
+            <h1 className="organization-page-brand">SPANSBERRY</h1>
+            <h6 className="organization-page-brand-subheading">
+              Have meaningful discussions in a more organized way and turn them
+              into impactful actions.
+              <hr align="left" />
+            </h6>
+            <h6 className="organization-page-copyright-text">
+              &#169; A <a href="https://www.codeuino.org/">CODEUINO</a> PRODUCT
+            </h6>
+          </Col>
+          <Col md={5} lg={6} className="organization-page-parent-column">
             {this.state.formSubmissionError && (
-              <div className="alert alert-danger" role="alert">
-                {this.state.formSubmissionError}
-              </div>
+              <Alert variant="danger">{this.state.formSubmissionError}</Alert>
             )}
             <Form onSubmit={this.onFormSubmit}>
               <Form.Group controlId="orgCreationFormBasicText1">
@@ -109,6 +118,7 @@ class CreateOrganization extends Component {
                   onChange={this.onFieldChange}
                   type="text"
                   name={fieldNames.NAME}
+                  value={this.state.name}
                 />
                 {this.state.nameError && (
                   <h6 className="form-field-error">{this.state.nameError}</h6>
@@ -121,6 +131,7 @@ class CreateOrganization extends Component {
                   name={fieldNames.ORGANIZATION_SHORT_DESCRIPTION}
                   as="textarea"
                   rows={3}
+                  value={this.state.organizationShortDescription}
                 />
                 {this.state.organizationShortDescriptionError && (
                   <h6 className="form-field-error">
@@ -134,6 +145,7 @@ class CreateOrganization extends Component {
                   onChange={this.onFieldChange}
                   type="email"
                   name={fieldNames.EMAIL}
+                  value={this.state.email}
                 />
                 {this.state.emailError && (
                   <h6 className="form-field-error">{this.state.emailError}</h6>
@@ -145,6 +157,7 @@ class CreateOrganization extends Component {
                   onChange={this.onFieldChange}
                   type="text"
                   name={fieldNames.WEBSITE}
+                  value={this.state.website}
                 />
                 {this.state.websiteError && (
                   <h6 className="form-field-error">
@@ -153,7 +166,7 @@ class CreateOrganization extends Component {
                 )}
               </Form.Group>
               <Button
-                className="primary-button organization-creation-button"
+                className="primary-button organization-page-create-button"
                 type="submit"
                 disabled={this.state.isFormInvalid}
               >
@@ -161,6 +174,9 @@ class CreateOrganization extends Component {
               </Button>
             </Form>
           </Col>
+          <h6 className="organization-page-copyright-text2">
+            &#169; A <a href="https://www.codeuino.org/">CODEUINO</a> PRODUCT
+          </h6>
         </Row>
       </Container>
     );
@@ -176,12 +192,12 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    createOrg: (name, shortDescription, email, website) => {
+    createOrg: (name, organizationShortDescription, email, website) => {
       dispatch(
         createOrg({
           name,
           description: {
-            shortDescription,
+            shortDescription: organizationShortDescription,
           },
           contactInfo: {
             email,
@@ -190,6 +206,7 @@ const mapDispatchToProps = (dispatch) => {
         })
       );
     },
+    getOrg: () => dispatch(getOrg()),
   };
 };
 

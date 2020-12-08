@@ -1,9 +1,22 @@
 //layouts
+html {
+  font-size: 18px;
+}
+
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: 'Inter', sans-serif;
   margin: 0;
+}
+
+.primary-container {
+  padding-top: 7rem;
+}
+
+.container-mid {
+  max-width: 98%;
+  padding: 0;
 }
 
 .center-row {
@@ -13,22 +26,75 @@ body {
   text-align: center;
 }
 
+@media (max-width: 1199px) and (min-width: 992px) {
+  html {
+    font-size: 17px;
+  }
+
+  .container-mid {
+    max-width: 90%;;
+  }
+}
+
+@media (max-width: 991px) and (min-width: 768px) {
+  html {
+    font-size: 17px;
+  }
+
+  .container-mid {
+    max-width: 100%;;
+  }
+}
+
+@media (max-width: 767px) and (min-width: 575px) {
+  html {
+    font-size: 16px;
+  }
+
+  .container-mid {
+    max-width: 100%;;
+  }
+}
+
+@media (max-width: 576px) {
+  html {
+    font-size: 14px;
+  }
+
+  .container-mid {
+    max-width: 100%;;
+  }
+
+  .primary-container {
+    padding-top: 6rem;
+  }
+}
+
 //headings
 .main-heading {
-  font-family: 'Playfair Display', serif;
-  font-weight: 800;
-  padding-bottom: 1.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 2.4rem;
+  font-weight: 600;
+  padding-bottom: 1rem;
+}
+
+//text
+.medium-text {
+  font-weight: 600;
 }
 
 //buttons
 .primary-button {
   background-color: $primary-button;
   border: 0;
+  border-radius: 0.35rem;
   color: $white;
+  font-size: 1rem;
   font-weight: 500;
   margin-bottom: 2rem;
   margin-top: 1rem;
-  padding: 0.5rem 1.5rem;
+  padding: 0.4rem 1.5rem;
+  transition: all .3s ease-in;
 
   &:disabled,
   &:hover,
@@ -38,10 +104,52 @@ body {
     color: $white;
   }
 
+  &:hover {
+    box-shadow: 0 10px 10px $shadow-black;
+    transform: translateY(-5px);
+  }
+
   &:focus {
     background-color: $primary-button;
     border-color: $primary-button;
     box-shadow: 0 0 0 0.2rem $input-shadow;
+  }
+}
+
+.primary-delete-button {
+  background-color: $error-hover-red;
+  border: 0;
+  border-radius: 0.35rem;
+  color: $white;
+  font-weight: 500;
+  font-size: 1rem;
+  margin-bottom: 2rem;
+  margin-top: 1rem;
+  padding: 0.5rem 2.5rem;
+  transition: all .3s ease-in;
+
+  &:disabled,
+  &:hover,
+  &.active {
+    background-color: $error-hover-red;
+    border: 0;
+    color: $white;
+  }
+
+  &:hover {
+    box-shadow: 0 10px 10px $shadow-black;
+    transform: translateY(-5px);
+  }
+
+  &:focus {
+    background-color: $error-hover-red;
+    border-color: $error-hover-red;
+    box-shadow: 0 0 0 0.2rem $input-shadow;
+  }
+
+  svg {
+    margin-right: 0.1rem;
+    padding-bottom: 0.2rem;
   }
 }
 
@@ -88,59 +196,171 @@ body {
   }
 }
 
+.anchor-container {
+  display: flex;
+  float: right;
+}
+
+.anchor-danger-text {
+  color: $error-red;
+  font-size: 1.2rem;
+  font-weight: 600;
+  padding-top: 1.6rem;
+  text-decoration: underline;
+
+  &:hover {
+    color: $error-hover-red;
+    text-decoration: none;
+  }
+}
+
+.anchor-update-text {
+  color: $form-label;
+
+  &:hover {
+    color: $primary-button;
+  }
+}
+
 //modals
+.modal-content {
+  border-radius: 0.5rem;
+}
+
 .modal-heading {
-  font-family: 'Playfair Display', serif;
-  font-weight: 700;
-  padding-bottom: 1rem;
-  padding-top: 0.6rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 2rem;
+  font-weight: 600;
+  padding-bottom: 0;
+  margin-top: -2rem;
+  padding-left: 1.9rem;
+  padding-top: 1.3rem;
+
+  svg {
+    font-size: 2rem;
+    margin-right: 0.2rem;
+    padding-bottom: 0.2rem;
+  }
+}
+
+.modal-header {
+  border-bottom: 0;
+  padding: 0;
+  padding-right: 4rem;
+  padding-top: 2.8rem;
+
+  .close {
+    background-color: $navbar-light;
+    border-radius: 50%;
+    box-shadow: 0 2px 2px $shadow-black;
+    padding: 0.4rem 0.6rem;
+  }
+}
+
+.modal-body {
+  padding-top: 0;
 }
 
 .modal-form {
   padding: 1rem;
 }
 
-//to be done//
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-}
-
-.App {
+.modal-delete-container {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.modal-delete-text {
+  text-align: left;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+@media (min-width: 768px) {
+  .modal-wide .modal-dialog {
+    max-width: 700px;
+    margin: 1.75rem auto;
   }
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
+//tags
+.primary-tag {
+  font-size: 0.8rem;
+  font-weight: 600;
+  margin: 0.4rem 0.2rem;
+  padding: 0.4rem 0.8rem;
+  transition: all .3s ease-in;
+  a {
+    color: $white;
+    text-shadow: 1px 1px $subheading-black;
+    text-decoration: none;
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+    &:hover {
+      color: $white;
+      text-decoration: none;
+    }
   }
-  to {
-    transform: rotate(360deg);
+
+  &:hover {
+    transform: translateY(-3px);
+  }
+}
+
+.primary-big-tag {
+  color: $white;
+  font-size: 1.8rem;
+  font-weight: 600;
+  margin: 0 0.2rem;
+  padding: 0.4rem 0.8rem;
+}
+
+//checkboxes
+.primary-checkpoint {
+  background-color: $shadow-black;
+  bottom: 0;
+  display: inline-block;
+  height: 1.5rem;
+  position: absolute;
+  width: 1.5rem;
+
+  &::after {
+    content: '';
+    display: none;
+    position: absolute;
+  }
+}
+
+.primary-checkpoint-container {
+  cursor: pointer;
+  display: block;
+  font-size: 1rem;
+  position: relative;
+
+  input {
+    height: 0;
+    opacity: 0;
+    position: absolute;
+    width: 0;
+  }
+
+  h6 {
+    display: inline-block;
+    margin-bottom: 0;
+    margin-right: 0.5rem;
+  }
+
+  input:checked ~ .primary-checkpoint {
+    background-color: $primary-button;
+
+    &::after {
+      border: solid $white;
+      border-width: 0 3px 3px 0;
+      display: block;
+      height: 1rem;
+      left: 0.5rem;
+      top: 0.15rem;
+      transform: rotate(45deg);
+      width: 0.5rem;
+    }
   }
 }
