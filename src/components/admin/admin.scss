@@ -60,3 +60,36 @@
   padding-bottom: 0.3rem;
   padding-top: 1rem;
 }
+
+.admin-members-dropdown  {
+  .btn {
+    &.focus,
+    &:focus {
+      box-shadow: 0 0 0 0.2rem $input-shadow;
+    }
+  }
+
+  .nav-link {
+    color: $black;
+
+    &:hover {
+      color: $black;
+    }
+  }
+
+  .dropdown-item {
+    padding-left: 1rem;
+    text-align: left;
+    word-wrap: break-word;
+
+    &.active,
+    &:active {
+      background-color: $primary-button;
+    }
+
+    svg {
+      margin-right: 0.3rem;
+      padding-bottom: 0.2rem;
+    }
+  }
+}

@@ -35,6 +35,7 @@ class MembersSection extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    console.log(this.state.currentUser);
     if (
       (!prevProps.isChangeAccessCompleted &&
       prevProps.isChangeAccessCompleted !=
@@ -95,11 +96,16 @@ class MembersSection extends Component {
     }
   };
 
+  setCurrentUser = (user) => {
+    this.setState({currentUser: user});
+  }
+
   render() {
     const modalAction = this.state.currentUser?.isBlocked ? "Unblock" : "Block";
     const modalDescription = this.state.currentUser?.isBlocked
       ? "on the platform. The user will get complete user-access rights to communicate."
       : "from the platform. The user won't be able to perform any action until allowed access again.";
+    
     return (
       <React.Fragment>
         <h2 className="main-heading">Members</h2>
@@ -112,21 +118,14 @@ class MembersSection extends Component {
               <MembersCard
                 user={user}
                 memberType="admin"
-                showBlockModal={this.state.showBlockModal}
-                showDeleteModal={this.state.showDeleteModal}
-                handleCloseBlock={() => {
-                  this.setState(handleModal("blockUser", "close"));
-                }}
                 handleOpenBlock={() => {
                   this.setState(handleModal("blockUser", "open"));
-                }}
-                handleCloseDelete={() => {
-                  this.setState(handleModal("delete", "close"));
                 }}
                 handleOpenDelete={() => {
                   this.setState(handleModal("delete", "open"));
                 }}
                 changeAccess={this.changeAccess}
+                setCurrentUser={this.setCurrentUser}
               />
             ))}
           </Row>
@@ -140,21 +139,14 @@ class MembersSection extends Component {
               <MembersCard
                 user={user}
                 memberType="moderator"
-                showBlockModal={this.state.showBlockModal}
-                showDeleteModal={this.state.showDeleteModal}
-                handleCloseBlock={() => {
-                  this.setState(handleModal("blockUser", "close"));
-                }}
                 handleOpenBlock={() => {
                   this.setState(handleModal("blockUser", "open"));
-                }}
-                handleCloseDelete={() => {
-                  this.setState(handleModal("delete", "close"));
                 }}
                 handleOpenDelete={() => {
                   this.setState(handleModal("delete", "open"));
                 }}
                 changeAccess={this.changeAccess}
+                setCurrentUser={this.setCurrentUser}
               />
             ))}
           </Row>
@@ -168,21 +160,14 @@ class MembersSection extends Component {
               <MembersCard
                 user={user}
                 memberType="user"
-                showBlockModal={this.state.showBlockModal}
-                showDeleteModal={this.state.showDeleteModal}
-                handleCloseBlock={() => {
-                  this.setState(handleModal("blockUser", "close"));
-                }}
                 handleOpenBlock={() => {
                   this.setState(handleModal("blockUser", "open"));
-                }}
-                handleCloseDelete={() => {
-                  this.setState(handleModal("delete", "close"));
                 }}
                 handleOpenDelete={() => {
                   this.setState(handleModal("delete", "open"));
                 }}
                 changeAccess={this.changeAccess}
+                setCurrentUser={this.setCurrentUser}
               />
             ))}
           </Row>
@@ -196,21 +181,14 @@ class MembersSection extends Component {
               <MembersCard
                 user={user}
                 memberType="blocked"
-                showBlockModal={this.state.showBlockModal}
-                showDeleteModal={this.state.showDeleteModal}
-                handleCloseBlock={() => {
-                  this.setState(handleModal("blockUser", "close"));
-                }}
                 handleOpenBlock={() => {
                   this.setState(handleModal("blockUser", "open"));
-                }}
-                handleCloseDelete={() => {
-                  this.setState(handleModal("delete", "close"));
                 }}
                 handleOpenDelete={() => {
                   this.setState(handleModal("delete", "open"));
                 }}
                 changeAccess={this.changeAccess}
+                setCurrentUser={this.setCurrentUser}
               />
             ))}
           </Row>

@@ -264,6 +264,7 @@ export const getUsers = createAsyncThunk(
                   designation
                 }
               }
+              isBlocked
               createdAt
             }
             blockedUsers {
@@ -279,6 +280,7 @@ export const getUsers = createAsyncThunk(
                   designation
                 }
               }
+              isBlocked
               createdAt
             }
           }}`,

@@ -206,6 +206,7 @@ export const getAdminsModerators = createAsyncThunk(
                   designation
                 }
               }
+              isBlocked
               isFirstAdmin
               createdAt
             }
@@ -222,6 +223,7 @@ export const getAdminsModerators = createAsyncThunk(
                   designation
                 }
               }
+              isBlocked
               createdAt
             }
           }}`,

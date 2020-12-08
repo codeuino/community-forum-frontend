@@ -1,12 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Row, Col, Dropdown } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
-// import BlockModal from "../../components/user/user/blockUserModal";
-// import DeleteModal from "../../components/common/deleteModal";
 
 function MembersCard(props) {
-  const [currentUser, setCurrentUser] = useState({});
   const {
     memberType,
     user,
@@ -34,13 +31,13 @@ function MembersCard(props) {
             </Col>
             {!user.isFirstAdmin && (
               <Col xs={1}>
-                <Dropdown>
+                <Dropdown className="admin-members-dropdown">
                   <Dropdown.Toggle variant=""></Dropdown.Toggle>
                   <Dropdown.Menu>
                     <Dropdown.Item
                       href=""
                       onClick={() => {
-                        setCurrentUser(user);
+                        props.setCurrentUser(user);
                         props.handleOpenBlock();
                       }}
                     >
@@ -49,7 +46,7 @@ function MembersCard(props) {
                     <Dropdown.Item
                       href=""
                       onClick={() => {
-                        setCurrentUser(user);
+                        props.setCurrentUser(user);
                         props.handleOpenDelete();
                       }}
                     >
