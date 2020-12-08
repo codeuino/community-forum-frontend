@@ -1,0 +1,62 @@
+.admin-user-card-container {
+  background-color: $navbar-light;
+  border: 1px solid $navbar-light;
+  border-radius: 0.5rem;
+  height: 90%;
+  max-width: 360px;
+  min-width: 330px;
+  margin-bottom: 0.7rem;
+  padding: 1rem 2rem;
+  transition: all 0.3s ease-in;
+  text-decoration: none;
+
+  .admin-user-icon {
+    color: $subheading-black;
+    font-size: 4rem;
+  }
+
+  .col-3,
+  .col-8,
+  .col-1 {
+    padding: 0;
+  }
+
+  &:hover {
+    border: 1px solid $fade-black;
+    box-shadow: 0 5px 5px $shadow-black;
+  }
+}
+
+.admin-user-card-heading {
+  color: $black;
+  font-size: 1.3rem;
+  font-weight: 600;
+  padding-left: 0.3rem;
+  text-decoration: none;
+  word-wrap: break-word;
+}
+
+.admin-user-card-email {
+  color: $subheading-black;
+  padding-left: 0.3rem;
+  text-decoration: none;
+}
+
+.admin-user-card-description {
+  color: $subheading-black;
+  padding-left: 0.3rem;
+  padding-top: 0.2rem;
+  text-decoration: none;
+
+  span {
+    color: $black;
+    font-weight: 500;
+  }
+}
+
+.admin-members-heading {
+  font-size: 1.5rem;
+  font-weight: 500;
+  padding-bottom: 0.3rem;
+  padding-top: 1rem;
+}

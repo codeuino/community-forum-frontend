@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { toggleMaintenanceMode } from "../../reducers/orgSlice";
 import NavBar from "../../components/navbar/navbar";
+import MembersSection from "../../components/admin/membersSection";
 import PowerIcon from "@material-ui/icons/Power";
 import GroupIcon from "@material-ui/icons/Group";
 import EqualizerIcon from "@material-ui/icons/Equalizer";
@@ -44,6 +45,9 @@ class AdminPage extends Component {
               </Col>
               <Col sm={9}>
                 <Tab.Content>
+                  <Tab.Pane eventKey="members">
+                    <MembersSection />
+                  </Tab.Pane>
                   <Tab.Pane eventKey="maintenance">
                     <h2 className="main-heading">Maintenance Mode</h2>
                     <Row>
@@ -70,9 +74,6 @@ class AdminPage extends Component {
                       esse cillum dolore eu fugiat nulla pariatur.
                     </p>
                   </Tab.Pane>
-                  {/* <Tab.Pane eventKey="second">
-                    <Sonnet />
-                  </Tab.Pane> */}
                 </Tab.Content>
               </Col>
             </Row>

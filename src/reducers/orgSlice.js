@@ -184,6 +184,219 @@ export const getOrg = createAsyncThunk(
   }
 );
 
+export const getAdminsModerators = createAsyncThunk(
+  "org/data",
+  async (getAdminsModeratorsData, { rejectWithValue }) => {
+    const tokenHeader = `Bearer ${localStorage.getItem("token")}`;
+    const response = await axios
+      .post(
+        process.env.REACT_APP_GRAPHQL_API_ENDPOINT,
+        {
+          query: `query{ getAdminModerators {
+            admins {
+              _id
+              name {
+                firstName
+                lastName
+              }
+              email
+              info {
+                about {
+                  shortDescription
+                  designation
+                }
+              }
+              isFirstAdmin
+              createdAt
+            }
+            moderators {
+              _id
+              name {
+                firstName
+                lastName
+              }
+              email
+              info {
+                about {
+                  shortDescription
+                  designation
+                }
+              }
+              createdAt
+            }
+          }}`,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: tokenHeader,
+          },
+        }
+      )
+      .catch((error) => {
+        if (error.response) {
+          return error.response.data.errors[0].message;
+        }
+      });
+    if (response.data != undefined) {
+      return response.data.data.getAdminModerators;
+    }
+    return rejectWithValue(response);
+  }
+);
+
+export const makeAdmin = createAsyncThunk(
+  "org/makeAdmin",
+  async (makeAdminData, { rejectWithValue }) => {
+    const isId = makeAdminData._id ? makeAdminData._id : "";
+    const isEmail = makeAdminData._email ? makeAdminData._email : "";
+    const tokenHeader = `Bearer ${localStorage.getItem("token")}`;
+    const response = await axios
+      .post(
+        process.env.REACT_APP_GRAPHQL_API_ENDPOINT,
+        {
+          query: `mutation{ makeAdmin(
+            userFindInput: {
+              _id: "${isId}"
+              email: "${isEmail}"
+            }
+          ) {
+            result
+          }}`,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: tokenHeader,
+          },
+        }
+      )
+      .catch((error) => {
+        if (error.response) {
+          return error.response.data.errors[0].message;
+        }
+      });
+    if (response.data != undefined) {
+      return response.data.data.makeAdmin;
+    }
+    return rejectWithValue(response);
+  }
+);
+
+export const makeModerator = createAsyncThunk(
+  "org/makeModerator",
+  async (makeModeratorData, { rejectWithValue }) => {
+    const isId = makeModeratorData._id ? makeModeratorData._id : "";
+    const isEmail = makeModeratorData._email ? makeModeratorData._email : "";
+    const tokenHeader = `Bearer ${localStorage.getItem("token")}`;
+    const response = await axios
+      .post(
+        process.env.REACT_APP_GRAPHQL_API_ENDPOINT,
+        {
+          query: `mutation{ makeModerator(
+            userFindInput: {
+              _id: "${isId}"
+              email: "${isEmail}"
+            }
+          ) {
+            result
+          }}`,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: tokenHeader,
+          },
+        }
+      )
+      .catch((error) => {
+        if (error.response) {
+          return error.response.data.errors[0].message;
+        }
+      });
+    if (response.data != undefined) {
+      return response.data.data.makeModerator;
+    }
+    return rejectWithValue(response);
+  }
+);
+
+export const removeAdmin = createAsyncThunk(
+  "org/removeAdmin",
+  async (removeAdminData, { rejectWithValue }) => {
+    const isId = removeAdminData._id ? removeAdminData._id : "";
+    const isEmail = removeAdminData._email ? removeAdminData._email : "";
+    const tokenHeader = `Bearer ${localStorage.getItem("token")}`;
+    const response = await axios
+      .post(
+        process.env.REACT_APP_GRAPHQL_API_ENDPOINT,
+        {
+          query: `mutation{ removeAdmin(
+            userFindInput: {
+              _id: "${isId}"
+              email: "${isEmail}"
+            }
+          ) {
+            result
+          }}`,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: tokenHeader,
+          },
+        }
+      )
+      .catch((error) => {
+        if (error.response) {
+          return error.response.data.errors[0].message;
+        }
+      });
+    if (response.data != undefined) {
+      return response.data.data.removeAdmin;
+    }
+    return rejectWithValue(response);
+  }
+);
+
+export const removeModerator = createAsyncThunk(
+  "org/removeModerator",
+  async (removeModeratorData, { rejectWithValue }) => {
+    const isId = removeModeratorData._id ? removeModeratorData._id : "";
+    const isEmail = removeModeratorData._email ? removeModeratorData._email : "";
+    const tokenHeader = `Bearer ${localStorage.getItem("token")}`;
+    const response = await axios
+      .post(
+        process.env.REACT_APP_GRAPHQL_API_ENDPOINT,
+        {
+          query: `mutation{ removeModerator(
+            userFindInput: {
+              _id: "${isId}"
+              email: "${isEmail}"
+            }
+          ) {
+            result
+          }}`,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: tokenHeader,
+          },
+        }
+      )
+      .catch((error) => {
+        if (error.response) {
+          return error.response.data.errors[0].message;
+        }
+      });
+    if (response.data != undefined) {
+      return response.data.data.removeModerator;
+    }
+    return rejectWithValue(response);
+  }
+);
+
 export const orgSlice = createSlice({
   name: "org",
   initialState: {
@@ -198,6 +411,13 @@ export const orgSlice = createSlice({
     update: {
       isCompleted: true,
       error: "",
+    },
+    orgData: {
+      admins: [],
+      moderators: [],
+    },
+    changeAccess: {
+      isCompleted: true,
     },
   },
   reducers: {},
@@ -232,6 +452,46 @@ export const orgSlice = createSlice({
     },
     [toggleMaintenanceMode.fulfilled]: (state, action) => {
       state.get.org = action.payload;
+    },
+    [getAdminsModerators.fulfilled]: (state, action) => {
+      state.orgData.admins = action.payload.admins;
+      state.orgData.moderators = action.payload.moderators;
+    },
+    [makeAdmin.fulfilled]: (state, action) => {
+      state.changeAccess.isCompleted = true;
+    },
+    [makeAdmin.pending]: (state, action) => {
+      state.changeAccess.isCompleted = false;
+    },
+    [makeAdmin.rejected]: (state, action) => {
+      state.changeAccess.isCompleted = false;
+    },
+    [makeModerator.fulfilled]: (state, action) => {
+      state.changeAccess.isCompleted = true;
+    },
+    [makeModerator.pending]: (state, action) => {
+      state.changeAccess.isCompleted = false;
+    },
+    [makeModerator.rejected]: (state, action) => {
+      state.changeAccess.isCompleted = false;
+    },
+    [removeAdmin.fulfilled]: (state, action) => {
+      state.changeAccess.isCompleted = true;
+    },
+    [removeAdmin.pending]: (state, action) => {
+      state.changeAccess.isCompleted = false;
+    },
+    [removeAdmin.rejected]: (state, action) => {
+      state.changeAccess.isCompleted = false;
+    },
+    [removeModerator.fulfilled]: (state, action) => {
+      state.changeAccess.isCompleted = true;
+    },
+    [removeModerator.pending]: (state, action) => {
+      state.changeAccess.isCompleted = false;
+    },
+    [removeModerator.rejected]: (state, action) => {
+      state.changeAccess.isCompleted = false;
     },
   },
 });
