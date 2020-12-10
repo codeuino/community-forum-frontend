@@ -3,6 +3,12 @@
 }
 
 .admin-page-tab-selector {
+  bottom: 0;
+  height: 100%;
+  padding-top: 5.5rem;
+  position: fixed;
+  z-index: 599;
+
   .nav-item {
     width: 90%;
     .nav-link {
@@ -31,9 +37,11 @@
 }
 
 .admin-page-checkpoint-container {
+  text-align: left;
+
   h6 {
     font-size: 1.2rem;
-    margin-right: 2rem;
+    margin-right: 1.5rem;
   }
 }
 
@@ -41,4 +49,37 @@
   color: $subheading-black;
   margin-top: 1.5rem;
   max-width: 90%;
+  text-align: left;
+}
+
+@media (max-width: 1199px) {
+  .admin-page-tab-selector {
+    svg {
+      display: none;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .admin-page-tab-selector {
+    box-shadow: 0 0.8rem 0.8rem $shadow-black;
+    display: none;
+    max-width: 280px;
+
+    &.active {
+      background-color: $white;
+      display: block;
+      transition: all 0.3s ease-in;
+    }
+  }
+
+  .admin-page-tab-selector-base {
+    max-width: 0;
+  }
+}
+
+@media (max-width: 576px) {
+  .admin-page-maintenance-text {
+    max-width: 95%;
+  }
 }

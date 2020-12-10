@@ -185,7 +185,7 @@ export const getOrg = createAsyncThunk(
 );
 
 export const getAdminsModerators = createAsyncThunk(
-  "org/data",
+  "org/adminsModeratorsData",
   async (getAdminsModeratorsData, { rejectWithValue }) => {
     const tokenHeader = `Bearer ${localStorage.getItem("token")}`;
     const response = await axios
@@ -242,6 +242,38 @@ export const getAdminsModerators = createAsyncThunk(
       });
     if (response.data != undefined) {
       return response.data.data.getAdminModerators;
+    }
+    return rejectWithValue(response);
+  }
+);
+
+export const getOrganizationData = createAsyncThunk(
+  "org/data",
+  async (getOrganizationData, { rejectWithValue }) => {
+    const tokenHeader = `Bearer ${localStorage.getItem("token")}`;
+    const response = await axios
+      .post(
+        process.env.REACT_APP_GRAPHQL_API_ENDPOINT,
+        {
+          query: `query{ getOrganizationData {
+            categories
+            topics
+          }}`,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: tokenHeader,
+          },
+        }
+      )
+      .catch((error) => {
+        if (error.response) {
+          return error.response.data.errors[0].message;
+        }
+      });
+    if (response.data != undefined) {
+      return response.data.data.getOrganizationData;
     }
     return rejectWithValue(response);
   }
@@ -417,6 +449,7 @@ export const orgSlice = createSlice({
     orgData: {
       admins: [],
       moderators: [],
+      data: {},
     },
     changeAccess: {
       isCompleted: true,
@@ -458,6 +491,9 @@ export const orgSlice = createSlice({
     [getAdminsModerators.fulfilled]: (state, action) => {
       state.orgData.admins = action.payload.admins;
       state.orgData.moderators = action.payload.moderators;
+    },
+    [getOrganizationData.fulfilled]: (state, action) => {
+      state.orgData.data = action.payload;
     },
     [makeAdmin.fulfilled]: (state, action) => {
       state.changeAccess.isCompleted = true;
