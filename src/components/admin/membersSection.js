@@ -35,7 +35,6 @@ class MembersSection extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log(this.state.currentUser);
     if (
       (!prevProps.isChangeAccessCompleted &&
       prevProps.isChangeAccessCompleted !=
@@ -110,7 +109,7 @@ class MembersSection extends Component {
       <React.Fragment>
         <h2 className="main-heading">Members</h2>
         {this.props.adminsModerators.admins.length != 0 && (
-          <Row>
+          <Row className="center-row">
             <Col xs={12}>
               <h2 className="admin-members-heading">Admins :</h2>
             </Col>
@@ -131,7 +130,7 @@ class MembersSection extends Component {
           </Row>
         )}
         {this.props.adminsModerators.moderators.length != 0 && (
-          <Row>
+          <Row className="center-row">
             <Col xs={12}>
               <h2 className="admin-members-heading">Moderators :</h2>
             </Col>
@@ -152,7 +151,7 @@ class MembersSection extends Component {
           </Row>
         )}
         {this.props.users.users.length != 0 && (
-          <Row>
+          <Row className="center-row">
             <Col xs={12}>
               <h2 className="admin-members-heading">Users :</h2>
             </Col>
@@ -173,7 +172,7 @@ class MembersSection extends Component {
           </Row>
         )}
         {this.props.users.blockedUsers.length != 0 && (
-          <Row>
+          <Row className="center-row">
             <Col xs={12}>
               <h2 className="admin-members-heading">Blocked Users :</h2>
             </Col>

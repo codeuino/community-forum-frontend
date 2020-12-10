@@ -10,7 +10,7 @@ function MembersCard(props) {
   } = props;
 
   return (
-    <Col md={6} lg={6} xl={4}>
+    <Col sm={6} xl={4}>
       {" "}
       <React.Fragment>
         <div className="admin-user-card-container">
