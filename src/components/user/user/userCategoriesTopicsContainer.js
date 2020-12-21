@@ -11,7 +11,7 @@ function UserCategoriesTopicsContainer(props) {
       >
         <Row className="user-categories-topics-list">
           {props.categoriesCreated.map((category) => (
-            <Col md={props.columnValue}>
+            <Col key={category._id} md={props.columnValue}>
               <CategoryTopicCard entityType="category" category={category} />
             </Col>
           ))}
@@ -23,7 +23,7 @@ function UserCategoriesTopicsContainer(props) {
       >
         <Row className="user-categories-topics-list">
           {props.topicsCreated.map((topic) => (
-            <Col md={props.columnValue}>
+            <Col key={topic._id} md={props.columnValue}>
               <CategoryTopicCard
                 entityType="topic"
                 category={{ _id: topic.parentCategory }}

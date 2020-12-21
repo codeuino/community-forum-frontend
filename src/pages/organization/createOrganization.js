@@ -59,7 +59,7 @@ class CreateOrganization extends Component {
         formSubmissionError: this.props.error,
       };
     }
-    if (isFormInvalid == true) {
+    if (isFormInvalid === true) {
       if (
         nameError === null &&
         organizationShortDescriptionError === null &&
@@ -81,11 +81,11 @@ class CreateOrganization extends Component {
         isFormInvalid: true,
       };
     }
-    if (Object.keys(newState).length != 0) {
+    if (Object.keys(newState).length !== 0) {
       this.setState(newState);
     }
     if (this.props.result &&
-      prevProps.result != this.props.result
+      prevProps.result !== this.props.result
     ) {
       this.props.getOrg();
       this.props.history.push("/");
@@ -104,7 +104,9 @@ class CreateOrganization extends Component {
               <hr align="left" />
             </h6>
             <h6 className="organization-page-copyright-text">
-              &#169; A <a href="https://www.codeuino.org/">CODEUINO</a> PRODUCT
+              &#169; A{" "}
+              <a href={process.env.REACT_APP_CODEUINO_HOMEPAGE}>CODEUINO</a>{" "}
+              PRODUCT
             </h6>
           </Col>
           <Col md={5} lg={6} className="organization-page-parent-column">
@@ -175,7 +177,9 @@ class CreateOrganization extends Component {
             </Form>
           </Col>
           <h6 className="organization-page-copyright-text2">
-            &#169; A <a href="https://www.codeuino.org/">CODEUINO</a> PRODUCT
+            &#169; A{" "}
+            <a href={process.env.REACT_APP_CODEUINO_HOMEPAGE}>CODEUINO</a>{" "}
+            PRODUCT
           </h6>
         </Row>
       </Container>

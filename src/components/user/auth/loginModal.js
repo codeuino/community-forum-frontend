@@ -42,7 +42,7 @@ class LoginModal extends Component {
       isFormInvalid,
     } = this.state;
     let newState = {};
-    if(prevProps.showModal != this.props.showModal) {
+    if(prevProps.showModal !== this.props.showModal) {
       newState = {
         ...newState,
         email: "",
@@ -51,20 +51,20 @@ class LoginModal extends Component {
         passwordError: "",
         isFormInvalid: true,
       };
-      if (formSubmissionError != "") {
+      if (formSubmissionError !== "") {
         newState = {
           ...newState,
           formSubmissionError: "",
         };
       }
     } else {
-      if(this.props.error != prevProps.error) {
+      if(this.props.error !== prevProps.error) {
         newState = {
           ...newState,
           formSubmissionError: this.props.error,
         };
       }
-      if (isFormInvalid == true) {
+      if (isFormInvalid === true) {
         if (
           emailError === null &&
           passwordError === null
@@ -84,11 +84,11 @@ class LoginModal extends Component {
           };
         }
     }
-    if (Object.keys(newState).length != 0) {
+    if (Object.keys(newState).length !== 0) {
       this.setState(newState);
     }
 
-    if (!prevProps.isLoggedIn && prevProps.isLoggedIn != this.props.isLoggedIn) {
+    if (!prevProps.isLoggedIn && prevProps.isLoggedIn !== this.props.isLoggedIn) {
       this.props.handleClose();
     }
   }
@@ -160,6 +160,7 @@ class LoginModal extends Component {
                     </Button>
                     <span className="pl-3 pr-1">New User?</span>
                     <Link
+                      to=""
                       className="anchor-text"
                       onClick={() => {
                         this.props.handleSignupShow();

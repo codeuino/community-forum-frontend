@@ -1,28 +1,39 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Modal, Form, Button, Alert } from "react-bootstrap";
+import {
+  Container,
+  Row,
+  Col,
+  Modal,
+  Form,
+  Button,
+  Alert,
+} from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
-import { updateCategory, archiveCategory, unarchiveCategory, deleteCategory } from "../../reducers/categorySlice";
+import {
+  updateTopic,
+  archiveTopic,
+  unarchiveTopic,
+  deleteTopic,
+} from "../../reducers/topicSlice";
 import {
   fieldNames,
   checkFieldValidation,
 } from "../../commonFunctions/validateFormField";
 import DeleteModal from "../common/deleteModal";
-import {
-  handleModal,
-} from "../../commonFunctions/handleModal";
+import { handleModal } from "../../commonFunctions/handleModal";
 
-class UpdateCategoryModal extends Component {
+class UpdateTopicModal extends Component {
   constructor(props) {
     super(props);
     this.state = {
       name: "",
-      nameError: null,
+      nameError: "",
       description: "",
-      descriptionError: null,
+      descriptionError: "",
+      tagString: "",
       isFormInvalid: true,
       formSubmissionError: "",
-      showDeleteModal: false,
     };
   }
 
@@ -34,26 +45,31 @@ class UpdateCategoryModal extends Component {
   };
 
   onFormSubmit = (e) => {
-    const { name, description } = this.state;
+    const { name, description, tagString } = this.state;
     e.preventDefault();
-    this.props.updateCategory(this.props.category._id, name, description);
+    this.props.updateTopic(
+      this.props.topic._id,
+      name,
+      description,
+      tagString,
+    );
   };
 
   onArchiveSubmit = (action) => {
     switch (action) {
       case "archive": {
-        this.props.archiveCategory(this.props.category._id);
+        this.props.archiveTopic(this.props.topic._id);
         break;
       }
       case "unarchive": {
-        this.props.unarchiveCategory(this.props.category._id);
+        this.props.unarchiveTopic(this.props.topic._id);
         break;
       }
     }
   };
 
   onDeleteSubmit = () => {
-    this.props.deleteCategory(this.props.category._id);
+    this.props.deleteTopic(this.props.topic._id);
   };
 
   componentDidUpdate(prevProps) {
@@ -63,7 +79,7 @@ class UpdateCategoryModal extends Component {
       formSubmissionError,
       isFormInvalid,
     } = this.state;
-    const { name, description } = this.props.category;
+    const { name, description, tagString } = this.props.topic;
     let newState = {};
     if (prevProps.showModal !== this.props.showModal) {
       newState = {
@@ -72,6 +88,7 @@ class UpdateCategoryModal extends Component {
         nameError: null,
         description: description,
         descriptionError: null,
+        tagString: tagString,
         isFormInvalid: true,
       };
       if (formSubmissionError !== "") {
@@ -86,8 +103,7 @@ class UpdateCategoryModal extends Component {
           ...newState,
           formSubmissionError: this.props.updateError,
         };
-      }
-      else if (this.props.archiveError !== prevProps.archiveError) {
+      } else if (this.props.archiveError !== prevProps.archiveError) {
         newState = {
           ...newState,
           formSubmissionError: this.props.archiveError,
@@ -115,17 +131,15 @@ class UpdateCategoryModal extends Component {
       prevProps.isUpdateCompleted !== this.props.isUpdateCompleted
     ) {
       this.props.handleClose();
-    } 
-     else if (
+    } else if (
       !prevProps.isDeleteCompleted &&
       prevProps.isDeleteCompleted !== this.props.isDeleteCompleted
     ) {
       this.setState(handleModal("delete", "close"));
-      if (this.props.resetCurrentCategory) {
-        this.props.resetCurrentCategory();
-      } else if (
-        this.props.history && this.props.history.location.pathname ===
-        `/category/${this.props.category._id}`
+      if (
+        this.props.history &&
+        this.props.history.location.pathname ===
+          `/category/${this.props.categoryId}/topic/${this.props.topic._id}`
       ) {
         this.props.history.push("/");
       }
@@ -162,7 +176,7 @@ class UpdateCategoryModal extends Component {
                       </Alert>
                     )}
                     <Form onSubmit={this.onFormSubmit}>
-                      <Form.Group controlId="updateCategoryFormBasicText">
+                      <Form.Group controlId="updateTopicFormBasicText1">
                         <Form.Label>Name</Form.Label>
                         <Form.Control
                           onChange={this.onFieldChange}
@@ -176,7 +190,20 @@ class UpdateCategoryModal extends Component {
                           </h6>
                         )}
                       </Form.Group>
-                      <Form.Group controlId="updateCategoryFormBasicTextArea">
+                      <Form.Group controlId="updateTopicFormBasicText2">
+                        <Form.Label>Tags</Form.Label>
+                        <Form.Control
+                          onChange={this.onFieldChange}
+                          type="text"
+                          name="tagString"
+                          aria-describedby="tagStringHelp"
+                          value={this.state.tagString}
+                        />
+                        <small id="tagStringHelp" class="form-text text-muted">
+                          Enter tags separated by a space (" ")
+                        </small>
+                      </Form.Group>
+                      <Form.Group controlId="updateTopicFormBasicTextArea">
                         <Form.Label>Description</Form.Label>
                         <Form.Control
                           onChange={this.onFieldChange}
@@ -200,7 +227,8 @@ class UpdateCategoryModal extends Component {
                         Update
                       </Button>
                       <div className="anchor-container">
-                        {this.props.category.isArchived ? (
+                        {!this.props.topic.isArchived && (
+                          this.props.topic.isSelfArchived ? (
                           <Link
                             className="pl-2 pr-1 anchor-danger-text anchor-update-text"
                             onClick={() => {
@@ -218,7 +246,7 @@ class UpdateCategoryModal extends Component {
                           >
                             Archive
                           </Link>
-                        )}
+                        ))}
                         <Link
                           className="pl-2 pr-1 anchor-danger-text"
                           onClick={() => {
@@ -238,8 +266,8 @@ class UpdateCategoryModal extends Component {
         </Modal>
         <DeleteModal
           showModal={this.state.showDeleteModal}
-          modalHeading="Category"
-          objectName={`${this.props.category.name} Category`}
+          modalHeading="Topic"
+          objectName={`${this.props.topic.name} Topic`}
           handleClose={() => {
             this.setState(handleModal("delete", "close"));
           }}
@@ -252,43 +280,44 @@ class UpdateCategoryModal extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    isUpdateCompleted: state.category.update.isCompleted,
-    updateError: state.category.update.error,
-    isArchiveCompleted: state.category.archive.isCompleted,
-    archiveError: state.category.archive.error,
-    isDeleteCompleted: state.category.delete.isCompleted,
+    isUpdateCompleted: state.topic.update.isCompleted,
+    updateError: state.topic.update.error,
+    isArchiveCompleted: state.topic.archive.isCompleted,
+    archiveError: state.topic.archive.error,
+    isDeleteCompleted: state.topic.delete.isCompleted,
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateCategory: (_id, name, description) =>
+    updateTopic: (_id, name, description, tagString) =>
       dispatch(
-        updateCategory({
+        updateTopic({
           _id,
           name,
           description,
+          tagString,
         })
       ),
-    archiveCategory: (_id) =>
+    archiveTopic: (_id) =>
       dispatch(
-        archiveCategory({
+        archiveTopic({
           _id,
         })
       ),
-    unarchiveCategory: (_id) =>
+    unarchiveTopic: (_id) =>
       dispatch(
-        unarchiveCategory({
+        unarchiveTopic({
           _id,
         })
       ),
-    deleteCategory: (_id) =>
+    deleteTopic: (_id) =>
       dispatch(
-        deleteCategory({
+        deleteTopic({
           _id,
         })
       ),
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(UpdateCategoryModal);
+export default connect(mapStateToProps, mapDispatchToProps)(UpdateTopicModal);

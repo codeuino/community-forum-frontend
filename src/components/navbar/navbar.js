@@ -97,8 +97,8 @@ class NavBar extends Component {
           fixed="top"
           className="navbar-container"
         >
-          {this.props.history.location.pathname == "/" ||
-          this.props.history.location.pathname == "/admin" ? (
+          {this.props.history.location.pathname === "/" ||
+          this.props.history.location.pathname === "/admin" ? (
             <span className="navbar-brand">
               <MenuIcon onClick={this.props.toggleSidebar} />
               <Link to="" onClick={this.scrollToTop}>

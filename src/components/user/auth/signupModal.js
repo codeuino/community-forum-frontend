@@ -30,7 +30,7 @@ class SignUpModal extends Component {
   onFieldChange = (e) => {
     const { name, value } = e.target;
     this.setState({ [name]: value }, () => {
-      if(name == "verifyPassword") {
+      if(name === "verifyPassword") {
         this.setState(checkFieldValidation(name, value, this.state.password));
       } else {
         this.setState(checkFieldValidation(name, value));
@@ -71,7 +71,7 @@ class SignUpModal extends Component {
       isFormInvalid,
     } = this.state;
     let newState = {};
-    if (prevProps.showModal != this.props.showModal) {
+    if (prevProps.showModal !== this.props.showModal) {
       newState = {
         ...newState,
         firstName: "",
@@ -90,20 +90,20 @@ class SignUpModal extends Component {
         userShortDescriptionError: "",
         isFormInvalid: true,
       };
-      if (formSubmissionError != "") {
+      if (formSubmissionError !== "") {
         newState = {
           ...newState,
           formSubmissionError: "",
         };
       }
     } else {
-      if (this.props.error != prevProps.error) {
+      if (this.props.error !== prevProps.error) {
         newState = {
           ...newState,
           formSubmissionError: this.props.error,
         };
       }
-      if (isFormInvalid == true) {
+      if (isFormInvalid === true) {
         if (
           firstNameError === null &&
           lastNameError === null &&
@@ -133,12 +133,12 @@ class SignUpModal extends Component {
         };
       }
     }
-    if (Object.keys(newState).length != 0) {
+    if (Object.keys(newState).length !== 0) {
       this.setState(newState);
     }
     if (
       !prevProps.isLoggedIn &&
-      prevProps.isLoggedIn != this.props.isLoggedIn
+      prevProps.isLoggedIn !== this.props.isLoggedIn
     ) {
       this.props.handleClose();
     }

@@ -39,15 +39,15 @@ class CategoryDetailsPage extends Component {
     ReactTooltip.rebuild();
     if (
       (!prevProps.isUpdateCompleted &&
-        prevProps.isUpdateCompleted != this.props.isUpdateCompleted) ||
+        prevProps.isUpdateCompleted !== this.props.isUpdateCompleted) ||
       (!prevProps.isArchiveCompleted &&
-        prevProps.isArchiveCompleted != this.props.isArchiveCompleted)
+        prevProps.isArchiveCompleted !== this.props.isArchiveCompleted)
     ) {
       this.props.getCategory(params.id);
     }
     if (
       !prevProps.isAddTopicCompleted &&
-      prevProps.isAddTopicCompleted != this.props.isAddTopicCompleted
+      prevProps.isAddTopicCompleted !== this.props.isAddTopicCompleted
     ) {
       this.props.getCategory(params.id);
       this.props.getTopics(this.props.category);
@@ -65,7 +65,7 @@ class CategoryDetailsPage extends Component {
         <Container className="primary-container">
           <Row>
             <Col>
-              {Object.keys(this.props.category).length != 0 && (
+              {Object.keys(this.props.category).length !== 0 && (
                 <React.Fragment>
                   <h2 className="dashboard-category-name">
                     {this.props.category.isArchived && (
@@ -76,7 +76,7 @@ class CategoryDetailsPage extends Component {
                     )}
                     {this.props.category.name}
                   </h2>
-                  {(this.props.category.createdBy._id ==
+                  {(this.props.category.createdBy._id ===
                     this.props.currentUser._id ||
                     this.props.currentUser.isModerator) && (
                     <React.Fragment>

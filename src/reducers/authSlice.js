@@ -56,7 +56,7 @@ export const login = createAsyncThunk(
 });
 
 export const getCurrentUser = createAsyncThunk(
-  "auth/getUser",
+  "auth/getCurrentUser",
   async (currentUserData, { rejectWithValue }) => {
     const tokenHeader = `Bearer ${localStorage.getItem("token")}`;
     const token = localStorage.getItem("token");

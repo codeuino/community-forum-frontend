@@ -243,7 +243,7 @@ export const getUserProfile = createAsyncThunk(
 );
 
 export const getUsers = createAsyncThunk(
-  "user/data",
+  "user/getUsersData",
   async (getUsersData, { rejectWithValue }) => {
     const tokenHeader = `Bearer ${localStorage.getItem("token")}`;
     const response = await axios

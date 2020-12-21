@@ -10,7 +10,7 @@ function InsightsSection(props) {
   const dispatch = useDispatch();
   useEffect(() => {
     if (
-      Object.keys(organizationData).length == 0
+      Object.keys(organizationData).length === 0
     ) {
       dispatch(getOrganizationData());
     }
