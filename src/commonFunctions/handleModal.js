@@ -1,5 +1,5 @@
 export const handleModal = (modalName, action) => {
-  let showValue = action == "open";
+  let showValue = action === "open";
   switch (modalName) {
     case "login": {
       return {
@@ -52,10 +52,19 @@ export const handleModal = (modalName, action) => {
         showUpdateTopicModal: showValue,
       };
     }
+    case "announcements": {
+      return {
+        showAnnouncementsModal: showValue,
+      };
+    }
     case "delete": {
       return {
         showDeleteModal: showValue,
       };
+    }
+    default: {
+      console.log(`Modal actions not defined for: ${modalName}`);
+      return;
     }
   }
 };

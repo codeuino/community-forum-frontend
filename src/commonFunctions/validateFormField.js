@@ -13,13 +13,14 @@ export const fieldNames = {
   ORGANIZATION_LONG_DESCRIPTION: "organizationLongDescription",
   DESIGNATION: "designation",
   TWITTER: "twitter",
+  MESSAGE_DESCRIPTION: "messageDescription",
 };
 Object.freeze(fieldNames);
 
 export const checkFieldValidation = (fieldName, fieldValue, repeatFieldValue=null) => {
   switch (fieldName) {
     case fieldNames.FIRSTNAME: {
-      if (fieldValue.trim().length == 0) {
+      if (fieldValue.trim().length === 0) {
         return {
           firstNameError: "Enter first name",
         };
@@ -27,7 +28,7 @@ export const checkFieldValidation = (fieldName, fieldValue, repeatFieldValue=nul
       return { firstNameError: null };
     }
     case fieldNames.LASTNAME: {
-      if (fieldValue.trim().length == 0) {
+      if (fieldValue.trim().length === 0) {
         return {
           lastNameError: "Enter last name",
         };
@@ -54,7 +55,7 @@ export const checkFieldValidation = (fieldName, fieldValue, repeatFieldValue=nul
       return { passwordError: null };
     }
     case fieldNames.VERIFY_PASSWORD: {
-      if (fieldValue != repeatFieldValue) {
+      if (fieldValue !== repeatFieldValue) {
         return {
           verifyPasswordError: "Passwords don't match",
         };
@@ -62,7 +63,7 @@ export const checkFieldValidation = (fieldName, fieldValue, repeatFieldValue=nul
       return { verifyPasswordError: null };
     }
     case fieldNames.PHONE: {
-      if (fieldValue.trim().length != 10) {
+      if (fieldValue.trim().length !== 10) {
         return {
           phoneError: "Enter a valid phone number",
         };
@@ -70,7 +71,7 @@ export const checkFieldValidation = (fieldName, fieldValue, repeatFieldValue=nul
       return { phoneError: null };
     }
     case fieldNames.USER_SHORT_DESCRIPTION: {
-      if (fieldValue.trim().length == 0) {
+      if (fieldValue.trim().length === 0) {
         return {
           userShortDescriptionError: "Enter short description",
         };
@@ -95,7 +96,7 @@ export const checkFieldValidation = (fieldName, fieldValue, repeatFieldValue=nul
     }
     case fieldNames.WEBSITE: {
       if (
-        //regex to be added
+        //TBD: Regex
         fieldValue.match()
       ) {
         return {
@@ -126,7 +127,7 @@ export const checkFieldValidation = (fieldName, fieldValue, repeatFieldValue=nul
       return { organizationLongDescriptionError: null };
     }
     case fieldNames.DESIGNATION: {
-      if (fieldValue.trim().length < 2 && fieldValue.trim().length != 0) {
+      if (fieldValue.trim().length < 2 && fieldValue.trim().length !== 0) {
         return {
           designationError: "Use 2 characters or more for designation",
         };
@@ -136,8 +137,9 @@ export const checkFieldValidation = (fieldName, fieldValue, repeatFieldValue=nul
     case fieldNames.TWITTER: {
       if (
         fieldValue.match(
-          `http(?:s)?:\/\/(?:www\.)?twitter\.com\/([a-zA-Z0-9_]{1,15}$)`
-        ) ||fieldValue.length == 0
+          `http(?:s)?://(?:www.)?twitter.com/([a-zA-Z0-9_]{1,15}$)`
+        ) ||
+        fieldValue.length === 0
       ) {
         return {
           twitterError: null,
@@ -147,6 +149,18 @@ export const checkFieldValidation = (fieldName, fieldValue, repeatFieldValue=nul
           twitterError: "Enter a valid twitter handle",
         };
       }
+    }
+    case fieldNames.MESSAGE_DESCRIPTION: {
+      if (fieldValue.trim().length === 0) {
+        return {
+          messageDescriptionError: "Enter message",
+        };
+      }
+      return { messageDescriptionError: null };
+    }
+    default: {
+      console.log(`Validation not defined for: ${fieldName}`);
+      return;
     }
   }
 };

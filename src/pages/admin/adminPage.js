@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Container, Row, Col, Tab, Nav } from "react-bootstrap";
-import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import { toggleMaintenanceMode } from "../../reducers/orgSlice";
 import NavBar from "../../components/navbar/navbar";

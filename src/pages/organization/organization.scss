@@ -22,9 +22,9 @@
 
 .organization-page-brand-subheading {
   color: $subheading-black;
-  line-height: 1.5;
   font-size: 1.3rem;
   font-weight: 500;
+  line-height: 1.5;
   margin-bottom: 7rem;
 
   hr {
@@ -41,9 +41,9 @@
 }
 
 .organization-page-create-button {
-  padding: 0.5rem 3.5rem;
   margin-left: auto;
   margin-right: auto;
+  padding: 0.5rem 3.5rem;
   text-align: center;
 }
 
@@ -58,9 +58,9 @@
 
   .organization-page-brand-subheading {
     color: $subheading-black;
-    line-height: 1.5;
     font-size: 1.1rem;
     font-weight: 500;
+    line-height: 1.5;
     margin-bottom: 7rem;
     max-width: 90%;
 
@@ -70,7 +70,7 @@
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .organization-page-brand-container {
     margin-top: 3.5rem;
   }
@@ -81,9 +81,9 @@
 
   .organization-page-brand-subheading {
     color: $subheading-black;
-    line-height: 1.5;
     font-size: 1.1rem;
     font-weight: 500;
+    line-height: 1.5;
     margin-bottom: 1.5rem;
     max-width: 90%;
 

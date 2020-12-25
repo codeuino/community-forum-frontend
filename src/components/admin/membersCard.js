@@ -41,7 +41,7 @@ function MembersCard(props) {
                         props.handleOpenBlock();
                       }}
                     >
-                      {memberType == "blocked" ? "Unblock User" : "Block User"}
+                      {memberType === "blocked" ? "Unblock User" : "Block User"}
                     </Dropdown.Item>
                     <Dropdown.Item
                       href=""
@@ -52,8 +52,8 @@ function MembersCard(props) {
                     >
                       Remove Account
                     </Dropdown.Item>
-                    {memberType != "blocked" &&
-                      (memberType == "moderator" || memberType == "user") && (
+                    {memberType !== "blocked" &&
+                      (memberType === "moderator" || memberType === "user") && (
                         <Dropdown.Item
                           href=""
                           onClick={() => {
@@ -63,8 +63,8 @@ function MembersCard(props) {
                           Make Admin
                         </Dropdown.Item>
                       )}
-                    {memberType != "blocked" &&
-                      (memberType == "admin" || memberType == "user") && (
+                    {memberType !== "blocked" &&
+                      (memberType === "admin" || memberType === "user") && (
                         <Dropdown.Item
                           href=""
                           onClick={() => {
@@ -74,7 +74,7 @@ function MembersCard(props) {
                           Make Moderator
                         </Dropdown.Item>
                       )}
-                    {memberType != "blocked" && memberType == "admin" && (
+                    {memberType !== "blocked" && memberType === "admin" && (
                       <Dropdown.Item
                         href=""
                         onClick={() => {
@@ -84,7 +84,7 @@ function MembersCard(props) {
                         Remove Admin
                       </Dropdown.Item>
                     )}
-                    {memberType != "blocked" && memberType == "moderator" && (
+                    {memberType !== "blocked" && memberType === "moderator" && (
                       <Dropdown.Item
                         href=""
                         onClick={() => {

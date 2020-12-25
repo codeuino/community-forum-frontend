@@ -9,6 +9,7 @@ import UserProfilePage from "./pages/user/userProfilePage";
 import TagSearchPage from "./pages/tag/tagSearchPage";
 import MaintenancePage from "./pages/common/maintenancePage";
 import AdminPage from "./pages/admin/adminPage";
+import DiscussionPage from "./pages/discussion/discussionPage";
 
 const Router = () => {
   const token = useSelector((state) => state.auth.currentUser.token);
@@ -28,6 +29,7 @@ const Router = () => {
         <Switch>
           <Route exact path="/" component={Dashboard} />
           <Route exact path="/category/:id" component={CategoryDetailsPage} />
+          <Route exact path="/category/:categoryId/topic/:id" component={DiscussionPage} />
           <Route exact path="/profile/:id" component={UserProfilePage} />
           <Route exact path="/tag/:id" component={TagSearchPage} />
           <AdminRoute exact path="/admin" component={AdminPage} />

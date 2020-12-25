@@ -9,17 +9,17 @@ function CategoryTopicsContainer(props) {
   const dispatch = useDispatch();
   const prevCurrentCategoryRef = useRef();
   useEffect(() => {
-    if (prevCurrentCategoryRef.current?.id || (prevCurrentCategoryRef.current?._id != props.currentCategory._id)) {
+    if (prevCurrentCategoryRef.current?.id || (prevCurrentCategoryRef.current?._id !== props.currentCategory._id)) {
       dispatch(getCategoryTopics({_id: props.currentCategory._id}));
     }
     prevCurrentCategoryRef.current = props.currentCategory;
   });
   const currentCategory = props.currentCategory._id;
-  if (topics[currentCategory] != undefined) {
+  if (topics[currentCategory] !== undefined) {
     return (
       <Row>
         {topics[currentCategory].map((topic) => (
-          <Col md={props.columnValue}>
+          <Col key={topic._id} md={props.columnValue}>
             <CategoryTopicCard
               entityType="topic"
               category={props.currentCategory}

@@ -1,130 +1,53 @@
-.topicHeading {
-  font-family: Inter;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 24px;
-  color: #1e3554;
-  margin-top: 30px;
+.discussion-topic-description {
+  color: $fade-black;
+  line-height: 1.3rem;
+  margin-top: 0.3rem;
+  max-width: 85%;
 }
-code{
-  background-color: #f5f2f0;
+
+.discussion-message-input-container {
+  background-color: $white;
+  bottom: 0;
+  max-height: 200px;
+  padding-bottom: 0.5rem;
+  position: fixed;
+  width: 100%;
+  z-index: 599;
+  .row {
+    max-width: 90%;
+  }
 }
-.discussionHeader {
-  margin: 20px 0 20px 0;
-  font-family: Inter;
-  font-style: normal;
-  font-weight: 600;
-  font-size: 20px;
-  color: #424242;
-}
-.tags {
-  margin-left: 20px;
-  font-weight: normal;
-}
-.description {
-  margin: 20px 20px 30px 0;
-}
-hr {
-  margin: 30px 20px 0 0;
-}
-.sidewrapper {
-  border-right: thick;
-  border-right-color: #999999;
-}
-.backbutton{
-  cursor: pointer;
-  margin-right: 20px;
-}
-.chat {
-  overflow-y: auto;
-  max-height: 61vh;
-  .chatReply{
-    background:#F7F7F7;
-    width: 100vh;
-    display: flex;
-    border-radius: 2px;
-    margin: 6px 10px 6px 0px;
-    padding: 7px 7px 7px 7px;
-    border: solid #F04B58;
-    border-width: 0 0 0 3px;
-    .avatarReply{
-      width: 23px;
-      height: 23px;
-    }
-    .chatinforeply {
-      margin-left: 10px;
-      .usernamereply {
-        font-family: Inter;
-        font-style: normal;
-        font-weight: 600;
-        font-size: 14px;
-      }
-      .chatdescriptionreply {
-        font-family: Inter;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 13px;
-        margin-top: 5px;
-        line-height: 19px;
-        p{
-          margin-bottom: 0.25rem;
-        }
-      }
-      .buttonsclass {
-        margin-top: 0px;
-      }
-      .buttons {
-        font-family: Inter;
-        font-style: normal;
-        font-weight: 600;
-        font-size: 14px;
-        line-height: 15px;
-        color: #949494;
-        margin: 10px 10px 0 0;
-      }
+
+.discussion-message-input-row {
+  border: 0.1rem solid $subheading-black;
+  border-radius: 0.35rem;
+
+  .form-control {
+    margin-left: -0.7rem;
+    padding-top: 0.8rem;
+
+    &:focus {
+      box-shadow: 0 0 0 0 $white;
     }
   }
-  .chatHead {
-    display: flex;
-    margin-bottom: 16px;
-    .chatinfo {
-      margin-left: 10px;
-      .username {
-        .icon{
-          cursor: pointer;
-          color: #F04B58;
-        }
-        width: 100vh;
-        display: flex;
-        justify-content: space-between  ;
-        font-family: Inter;
-        font-style: normal;
-        font-weight: 600;
-        font-size: 17px;
-      }
-      .chatdescription {
-        font-family: Inter;
-        font-style: normal;
-        font-weight: normal;
-        font-size: 16px;
-        margin-top: 5px;
-        line-height: 19px;
-        p{
-          margin-bottom: 0.25rem;
-        }
-      }
-      .buttonsclass {
-        margin-top: 0px;
-      }
-      .buttons {
-        font-family: Inter;
-        font-style: normal;
-        font-weight: 600;
-        font-size: 14px;
-        line-height: 15px;
-        color: #949494;
-        margin: 10px 10px 0 0;
-      }
-    }
+
+  #addMessageBasicText1 {
+    border: 0;
   }
+}
+
+.discussion-message-submit-button-container {
+  margin-left: auto;
+  text-align: right;
+}
+
+.discussion-message-submit-button {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  margin-bottom: 0.6rem;
+  margin-top: 0;
+}
+
+.discussion-bottom-scroll {
+  height: 130px;
 }

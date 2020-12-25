@@ -1,0 +1,65 @@
+.discussion-message-card-container {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.discussion-message-card {
+  background-color: $navbar-light;
+  border: 1px solid $navbar-light;
+  border-radius: 0.5rem;
+  height: 90%;
+  max-width: 90%;
+  margin-bottom: 0.1rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem;
+  transition: all 0.3s ease-in;
+  text-decoration: none;
+
+  .discussion-message-user-icon {
+    color: $subheading-black;
+    font-size: 3rem;
+  }
+
+
+  &:hover {
+    border: 1px solid $fade-black;
+  }
+}
+
+.discussion-message-user-icon-container {
+  max-width: 65px;
+}
+
+.discussion-message-card-description {
+  text-align: left;
+  word-wrap: break-word;
+}
+
+.discussion-message-card-timestamp {
+  margin-left: auto;
+  text-align: right;
+}
+
+.discussion-message-card-dropdown-container {
+  margin-left: auto;
+  max-width: 50px;
+  text-align: right;
+}
+
+.discussion-announcements-modal-container {
+  padding-top: 1rem;
+}
+
+.discussion-announcement-remove-text {
+  float: right;
+  font-size: 1rem;
+  margin-right: 2.5rem;
+  padding-top: 0.2rem;
+}
+
+@media (max-width: 575px) {
+  .discussion-message-card {
+    max-width: 100%;
+  }
+}

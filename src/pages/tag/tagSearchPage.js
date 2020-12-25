@@ -37,7 +37,7 @@ function TagSearchPage(props) {
           </Row>
           <Row className="tag-page-topics-container">
             {tagTopics.topics.map((topic) => (
-              <Col md="6">
+              <Col key={topic._id} md="6">
                 <CategoryTopicCard
                   entityType="topic"
                   category={{ _id: topic.parentCategory }}

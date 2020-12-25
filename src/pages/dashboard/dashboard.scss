@@ -195,44 +195,30 @@
   }
 }
 
-@media (max-width: 767px) {
+@media (min-width: 1200px) {
   .dashboard-sidebar {
-    box-shadow: 0 0.8rem 0.8rem $shadow-black;
-    display: none;
-    max-width: 280px;
-    padding-right: 1.2rem;
-
-    &.active {
-      background-color: $white;
-      display: block;
-      transition: all 0.3s ease-in;
-    }
+    max-width: 350px;
   }
 
   .dashboard-sidebar-base {
-    max-width: 0;
-  }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-  .dashboard-sidebar {
-    max-width: 250px;
-  }
-
-  .dashboard-sidebar-base {
-    max-width: 250px;
+    max-width: 350px;
   }
 
   .dashboard-sidebar-category-item {
-    max-width: 180px;
+    max-width: 260px;
   }
 
   .dashboard-sidebar-button {
-    padding: 0.5rem 1rem;
+    padding: 0.6rem 2.7rem;
+  }
+
+  .dashboard-sidebar-categories-container {
+    padding-left: 1.2rem;
   }
 
   .dashboard-main-container {
-    margin-left: 0px;
+    margin-left: 25px;
+    max-width: 65%;
   }
 
   .dashboard-main-button-container,
@@ -264,34 +250,48 @@
   }
 }
 
-@media (min-width: 1200px) {
+@media (min-width: 768px) and (max-width: 991px) {
   .dashboard-sidebar {
-    max-width: 350px;
+    max-width: 250px;
   }
 
   .dashboard-sidebar-base {
-    max-width: 350px;
+    max-width: 250px;
   }
 
   .dashboard-sidebar-category-item {
-    max-width: 260px;
+    max-width: 180px;
   }
 
   .dashboard-sidebar-button {
-    padding: 0.6rem 2.7rem;
-  }
-
-  .dashboard-sidebar-categories-container {
-    padding-left: 1.2rem;
+    padding: 0.5rem 1rem;
   }
 
   .dashboard-main-container {
-    margin-left: 25px;
-    max-width: 65%;
+    margin-left: 0px;
   }
 
   .dashboard-main-button-container,
   .dashboard-main-separator {
     max-width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  .dashboard-sidebar {
+    box-shadow: 0 0.8rem 0.8rem $shadow-black;
+    display: none;
+    max-width: 280px;
+    padding-right: 1.2rem;
+
+    &.active {
+      background-color: $white;
+      display: block;
+      transition: all 0.3s ease-in;
+    }
+  }
+
+  .dashboard-sidebar-base {
+    max-width: 0;
   }
 }

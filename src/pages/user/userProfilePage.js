@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Container, Row, Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
 import ReactTooltip from "react-tooltip";
@@ -45,14 +45,14 @@ class UserProfilePage extends Component {
     } = this.props;
     if (
       !prevProps.isBlockCompleted &&
-      prevProps.isBlockCompleted != this.props.isBlockCompleted
+      prevProps.isBlockCompleted !== this.props.isBlockCompleted
     ) {
       this.props.getUserProfile(params.id);
     }
     if (
       !prevProps.isOtherUserDeleteCompleted &&
-      prevProps.isOtherUserDeleteCompleted != this.props.isOtherUserDeleteCompleted &&
-      localStorage.getItem("token") != null
+      prevProps.isOtherUserDeleteCompleted !== this.props.isOtherUserDeleteCompleted &&
+      localStorage.getItem("token") !== null
     ) {
       this.props.history.push("/");
     }
@@ -86,7 +86,7 @@ class UserProfilePage extends Component {
       : "from the platform. The user won't be able to perform any action until allowed access again.";
     return (
       <React.Fragment>
-        {Object.keys(this.props.userProfile).length != 0 &&
+        {Object.keys(this.props.userProfile).length !== 0 &&
           !this.props.userProfile.isRemoved && (
             <Container fluid>
               <NavBar history={this.props.history} />

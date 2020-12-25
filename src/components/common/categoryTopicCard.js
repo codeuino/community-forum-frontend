@@ -25,6 +25,10 @@ function CategoryTopicCard(props) {
       entity = topic;
       break;
     }
+    default: {
+      console.log(`Invalid entity type: ${entityType}`)
+      break;
+    }
   }
   return (
     <React.Fragment>
@@ -37,18 +41,19 @@ function CategoryTopicCard(props) {
                   <ArchiveIcon className="common-card-icon" />
                 )}
                 {!entity.isArchived &&
-                  (entityType == "category" ? (
+                  (entityType === "category" ? (
                     <ForumRoundedIcon className="common-card-icon" />
                   ) : (
                     <NotesRoundedIcon className="common-card-icon" />
                   ))}
                 <h3 className="common-card-heading">{entity.name}</h3>
               </Row>
-              {entityType == "topic" && (
+              {entityType === "topic" && (
                 <Row>
-                  {entity.tags.length != 0 &&
+                  {entity.tags.length !== 0 &&
                     entity.tags.map((tag) => (
                       <Badge
+                        key={tag._id}
                         pill
                         variant=""
                         className="primary-tag"
@@ -67,7 +72,7 @@ function CategoryTopicCard(props) {
             </Col>
             <Col md={2}>
               <div className="common-card-count-container">
-                {entityType == "category" ? (
+                {entityType === "category" ? (
                   <React.Fragment>
                     <BubbleChartRoundedIcon />
                     <h6>{entity.topics.length}</h6>

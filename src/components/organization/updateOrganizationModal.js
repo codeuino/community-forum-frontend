@@ -64,7 +64,7 @@ class UpdateOrganizationModal extends Component {
       contactInfo,
     } = this.props.organization;
     let newState = {};
-    if (prevProps.showModal != this.props.showModal) {
+    if (prevProps.showModal !== this.props.showModal) {
       newState = {
         ...newState,
         name: name,
@@ -78,20 +78,20 @@ class UpdateOrganizationModal extends Component {
         websiteError: null,
         isFormInvalid: true,
       };
-      if (formSubmissionError != "") {
+      if (formSubmissionError !== "") {
         newState = {
           ...newState,
           formSubmissionError: "",
         };
       }
     } else {
-      if (this.props.error != prevProps.error) {
+      if (this.props.error !== prevProps.error) {
         newState = {
           ...newState,
           formSubmissionError: this.props.error,
         };
       }
-      if (isFormInvalid == true) {
+      if (isFormInvalid === true) {
         if (nameError === null &&
            organizationShortDescriptionError === null &&
            organizationLongDescriptionError === null &&
@@ -114,11 +114,11 @@ class UpdateOrganizationModal extends Component {
         };
       }
     }
-    if (Object.keys(newState).length != 0) {
+    if (Object.keys(newState).length !== 0) {
       this.setState(newState);
     }
 
-    if (!prevProps.isCompleted && prevProps.isCompleted != this.props.isCompleted) {
+    if (!prevProps.isCompleted && prevProps.isCompleted !== this.props.isCompleted) {
       this.props.handleClose();
     }
   }
