@@ -79,7 +79,7 @@ class UpdateUserModal extends Component {
     const { name, email, phone, info, socialMedia } = this.props.currentUser;
     const isTwitter = socialMedia && socialMedia.twitter;
     let newState = {};
-    if (prevProps.showModal != this.props.showModal) {
+    if (prevProps.showModal !== this.props.showModal) {
       newState = {
         ...newState,
         firstName: name.firstName,
@@ -97,20 +97,20 @@ class UpdateUserModal extends Component {
         twitterError: null,
         isFormInvalid: true,
       };
-      if (formSubmissionError != "") {
+      if (formSubmissionError !== "") {
         newState = {
           ...newState,
           formSubmissionError: "",
         };
       }
     } else {
-      if (this.props.error != prevProps.error) {
+      if (this.props.error !== prevProps.error) {
         newState = {
           ...newState,
           formSubmissionError: this.props.error,
         };
       }
-      if (isFormInvalid == true) {
+      if (isFormInvalid === true) {
         if (
           firstNameError === null &&
           lastNameError === null &&
@@ -138,24 +138,24 @@ class UpdateUserModal extends Component {
         };
       }
     }
-    if (Object.keys(newState).length != 0) {
+    if (Object.keys(newState).length !== 0) {
       this.setState(newState);
     }
 
     if (
       !prevProps.isUpdateCompleted &&
-      prevProps.isUpdateCompleted != this.props.isUpdateCompleted
+      prevProps.isUpdateCompleted !== this.props.isUpdateCompleted
     ) {
       this.props.getCurrentUser();
       this.props.handleClose();
     }
     if (
       !prevProps.isDeleteCompleted &&
-      prevProps.isDeleteCompleted != this.props.isDeleteCompleted &&
-      localStorage.getItem("token") == null
+      prevProps.isDeleteCompleted !== this.props.isDeleteCompleted &&
+      localStorage.getItem("token") === null
     ) {
       this.setState(handleModal("delete", "close"));
-      if (this.props.history.location.pathname == "/") {
+      if (this.props.history.location.pathname === "/") {
         window.location.reload();
       } else {
         this.props.getCurrentUser();

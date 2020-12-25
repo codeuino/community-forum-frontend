@@ -43,7 +43,7 @@ class AddTopicModal extends Component {
       isFormInvalid,
     } = this.state;
     let newState = {};
-    if (prevProps.showModal != this.props.showModal) {
+    if (prevProps.showModal !== this.props.showModal) {
       newState = {
         ...newState,
         name: "",
@@ -52,20 +52,20 @@ class AddTopicModal extends Component {
         descriptionError: "",
         isFormInvalid: true,
       };
-      if (formSubmissionError != "") {
+      if (formSubmissionError !== "") {
         newState = {
           ...newState,
           formSubmissionError: "",
         };
       }
     } else {
-      if (this.props.error != prevProps.error) {
+      if (this.props.error !== prevProps.error) {
         newState = {
           ...newState,
           formSubmissionError: this.props.error,
         };
       }
-      if (isFormInvalid == true) {
+      if (isFormInvalid === true) {
         if (
           nameError === null &&
           descriptionError === null
@@ -87,11 +87,11 @@ class AddTopicModal extends Component {
     }
     if (
       !prevProps.isCompleted &&
-      prevProps.isCompleted != this.props.isCompleted
+      prevProps.isCompleted !== this.props.isCompleted
     ) {
       this.props.handleClose();
     }
-    if (Object.keys(newState).length != 0) {
+    if (Object.keys(newState).length !== 0) {
       this.setState(newState);
     }
   }

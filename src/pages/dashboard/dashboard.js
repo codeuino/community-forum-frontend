@@ -39,17 +39,20 @@ class Dashboard extends Component {
 
   componentDidUpdate(prevProps) {
     ReactTooltip.rebuild();
+    if (!this.props.isOrgExist) {
+      this.props.history.push("/setup");
+    }
     let newState = {};
     if (
-      this.props.categories.length == 0 &&
-      this.state.currentCategory._id != undefined
+      this.props.categories.length === 0 &&
+      this.state.currentCategory._id !== undefined
     ) {
       newState = {
         ...newState,
         currentCategory: {},
       };
     } else if (
-      this.state.currentCategory._id == undefined &&
+      this.state.currentCategory._id === undefined &&
       this.props.categories[0]
     ) {
       newState = {
@@ -59,36 +62,36 @@ class Dashboard extends Component {
     }
     if (
       (!prevProps.isAddCategoryCompleted &&
-      prevProps.isAddCategoryCompleted != this.props.isAddCategoryCompleted) ||
+      prevProps.isAddCategoryCompleted !== this.props.isAddCategoryCompleted) ||
       (!prevProps.isUpdateCompleted &&
-        prevProps.isUpdateCompleted != this.props.isUpdateCompleted) ||
+        prevProps.isUpdateCompleted !== this.props.isUpdateCompleted) ||
       (!prevProps.isArchiveCompleted &&
-        prevProps.isArchiveCompleted != this.props.isArchiveCompleted) ||
+        prevProps.isArchiveCompleted !== this.props.isArchiveCompleted) ||
       (!prevProps.isDeleteCompleted &&
-        prevProps.isDeleteCompleted != this.props.isDeleteCompleted)
+        prevProps.isDeleteCompleted !== this.props.isDeleteCompleted)
     ) {
       this.props.getCategories();
     }
     if (
       !prevProps.isAddTopicCompleted &&
-      prevProps.isAddTopicCompleted != this.props.isAddTopicCompleted
+      prevProps.isAddTopicCompleted !== this.props.isAddTopicCompleted
     ) {
       this.props.getCategories();
       this.props.getTopics(this.state.currentCategory);
     }
     if (
-      this.props.categories.length != 0 &&
+      this.props.categories.length !== 0 &&
       (
-        JSON.stringify(prevProps.categories) !=
+        JSON.stringify(prevProps.categories) !==
         JSON.stringify(this.props.categories)
       )
     ) {
       const updatedCategory = this.props.categories.filter(
-        (category) => category._id == this.state.currentCategory._id
+        (category) => category._id === this.state.currentCategory._id
       );
       this.setState({ currentCategory: updatedCategory[0] });
     }
-    if (Object.keys(newState).length != 0) {
+    if (Object.keys(newState).length !== 0) {
       this.setState(newState);
     }
   }
@@ -102,7 +105,7 @@ class Dashboard extends Component {
   resetCurrentCategory = () => {
     if(
       (
-        this.props.categories[0]._id == this.state.currentCategory._id
+        this.props.categories[0]._id === this.state.currentCategory._id
         ) && 
         this.props.categories[1]
     ) {
@@ -127,9 +130,15 @@ class Dashboard extends Component {
   }
 
   render() {
+    if (this.props.isOrgExist === undefined || !this.props.isOrgExist) {
+      return null
+    }
     return (
       <Container fluid>
-        <NavBar history={this.props.history} toggleSidebar={this.toggleSidebar} />
+        <NavBar
+          history={this.props.history}
+          toggleSidebar={this.toggleSidebar}
+        />
         <Container fluid className="container-mid">
           <Row className="dashboard-row">
             <Col md={4} xl={3} className={this.state.dashboardSidebarClass}>
@@ -164,14 +173,14 @@ class Dashboard extends Component {
                     <React.Fragment>
                       <ul className="dashboard-sidebar-category-list">
                         {this.props.categories.map((category) => (
-                          <React.Fragment>
+                          <React.Fragment key={category._id}>
                             <li
                               data-tip={category.name}
                               onClick={() => {
                                 this.handleCurrentCategory(category);
                               }}
                             >
-                              {this.state.currentCategory._id ==
+                              {this.state.currentCategory._id ===
                               category._id ? (
                                 <ForumRoundedIcon />
                               ) : (
@@ -179,7 +188,8 @@ class Dashboard extends Component {
                               )}
                               <div
                                 className={
-                                  this.state.currentCategory._id == category._id
+                                  this.state.currentCategory._id ===
+                                  category._id
                                     ? "dashboard-sidebar-category-item active"
                                     : "dashboard-sidebar-category-item"
                                 }
@@ -198,7 +208,7 @@ class Dashboard extends Component {
             </Col>
             <Col md={4} className="dashboard-sidebar-base"></Col>
             <Col md={8} xl={9} className="dashboard-main-container">
-              {Object.keys(this.state.currentCategory).length != 0 && (
+              {Object.keys(this.state.currentCategory).length !== 0 && (
                 <React.Fragment>
                   <h2 className="dashboard-category-name">
                     {this.state.currentCategory.isArchived && (
@@ -215,7 +225,7 @@ class Dashboard extends Component {
                       <LaunchIcon />
                     </Link>
                   </h2>
-                  {(this.state.currentCategory.createdBy._id ==
+                  {(this.state.currentCategory.createdBy._id ===
                     this.props.currentUser._id ||
                     this.props.currentUser.isModerator) && (
                     <React.Fragment>
@@ -243,17 +253,11 @@ class Dashboard extends Component {
                   <h6 className="dashboard-category-creator">
                     <ReplyAllIcon />
                     Created By:{" "}
-                    {
-                      (this.state.currentCategory.createdBy.isRemoved ||
-                        (
-                          this.state.currentCategory.createdBy.isBlocked &&
-                          !this.props.currentUser.isAdmin
-                        )
-                      ) && (
-                      "Removed User"
-                    )}
-                    {
-                      !this.state.currentCategory.createdBy.isRemoved &&
+                    {(this.state.currentCategory.createdBy.isRemoved ||
+                      (this.state.currentCategory.createdBy.isBlocked &&
+                        !this.props.currentUser.isAdmin)) &&
+                      "Removed User"}
+                    {!this.state.currentCategory.createdBy.isRemoved &&
                       this.state.currentCategory.createdBy.isBlocked &&
                       this.props.currentUser.isAdmin && (
                         <Link
@@ -263,8 +267,7 @@ class Dashboard extends Component {
                           Blocked User
                         </Link>
                       )}
-                    {
-                      !this.state.currentCategory.createdBy.isRemoved &&
+                    {!this.state.currentCategory.createdBy.isRemoved &&
                       !this.state.currentCategory.createdBy.isBlocked && (
                         <Link
                           className="anchor-text"
@@ -340,6 +343,7 @@ const mapStateToProps = (state) => {
     isUpdateCompleted: state.category.update.isCompleted,
     isArchiveCompleted: state.category.archive.isCompleted,
     isDeleteCompleted: state.category.delete.isCompleted,
+    isOrgExist: state.org.get.org.exists,
   };
 };
 

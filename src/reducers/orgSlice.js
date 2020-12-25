@@ -99,7 +99,7 @@ export const updateOrg = createAsyncThunk(
 
 export const toggleMaintenanceMode = createAsyncThunk(
   "org/toggleMaintenance",
-  async (orgToggleMaintenanceModeData, { rejectWithValue }) => {
+  async (toggleMaintenanceModeData, { rejectWithValue }) => {
     const tokenHeader = `Bearer ${localStorage.getItem("token")}`;
     const response = await axios
       .post(
@@ -248,7 +248,7 @@ export const getAdminsModerators = createAsyncThunk(
 );
 
 export const getOrganizationData = createAsyncThunk(
-  "org/data",
+  "org/getInsightsData",
   async (getOrganizationData, { rejectWithValue }) => {
     const tokenHeader = `Bearer ${localStorage.getItem("token")}`;
     const response = await axios

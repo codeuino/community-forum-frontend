@@ -37,10 +37,10 @@ class MembersSection extends Component {
   componentDidUpdate(prevProps) {
     if (
       (!prevProps.isChangeAccessCompleted &&
-      prevProps.isChangeAccessCompleted !=
+      prevProps.isChangeAccessCompleted !==
         this.props.isChangeAccessCompleted) ||
       (!prevProps.isBlockCompleted &&
-      prevProps.isBlockCompleted != 
+      prevProps.isBlockCompleted !== 
         this.props.isBlockCompleted)
     ) {
       this.props.getUsers();
@@ -48,9 +48,9 @@ class MembersSection extends Component {
     }
     if (
       !prevProps.isOtherUserDeleteCompleted &&
-      prevProps.isOtherUserDeleteCompleted !=
+      prevProps.isOtherUserDeleteCompleted !==
         this.props.isOtherUserDeleteCompleted &&
-      localStorage.getItem("token") != null
+      localStorage.getItem("token") !== null
     ) {
       this.props.getUsers();
       this.props.getAdminsModerators();
@@ -108,13 +108,14 @@ class MembersSection extends Component {
     return (
       <React.Fragment>
         <h2 className="main-heading">Members</h2>
-        {this.props.adminsModerators.admins.length != 0 && (
+        {this.props.adminsModerators.admins.length !== 0 && (
           <Row className="center-row">
             <Col xs={12}>
               <h2 className="admin-members-heading">Admins :</h2>
             </Col>
             {this.props.adminsModerators.admins.map((user) => (
               <MembersCard
+                key={user._id}
                 user={user}
                 memberType="admin"
                 handleOpenBlock={() => {
@@ -129,13 +130,14 @@ class MembersSection extends Component {
             ))}
           </Row>
         )}
-        {this.props.adminsModerators.moderators.length != 0 && (
+        {this.props.adminsModerators.moderators.length !== 0 && (
           <Row className="center-row">
             <Col xs={12}>
               <h2 className="admin-members-heading">Moderators :</h2>
             </Col>
             {this.props.adminsModerators.moderators.map((user) => (
               <MembersCard
+                key={user._id}
                 user={user}
                 memberType="moderator"
                 handleOpenBlock={() => {
@@ -150,13 +152,14 @@ class MembersSection extends Component {
             ))}
           </Row>
         )}
-        {this.props.users.users.length != 0 && (
+        {this.props.users.users.length !== 0 && (
           <Row className="center-row">
             <Col xs={12}>
               <h2 className="admin-members-heading">Users :</h2>
             </Col>
             {this.props.users.users.map((user) => (
               <MembersCard
+                key={user._id}
                 user={user}
                 memberType="user"
                 handleOpenBlock={() => {
@@ -171,13 +174,14 @@ class MembersSection extends Component {
             ))}
           </Row>
         )}
-        {this.props.users.blockedUsers.length != 0 && (
+        {this.props.users.blockedUsers.length !== 0 && (
           <Row className="center-row">
             <Col xs={12}>
               <h2 className="admin-members-heading">Blocked Users :</h2>
             </Col>
             {this.props.users.blockedUsers.map((user) => (
               <MembersCard
+                key={user._id}
                 user={user}
                 memberType="blocked"
                 handleOpenBlock={() => {
@@ -192,7 +196,7 @@ class MembersSection extends Component {
             ))}
           </Row>
         )}
-        {Object.keys(this.state.currentUser).length != 0 && (
+        {Object.keys(this.state.currentUser).length !== 0 && (
           <React.Fragment>
             <BlockModal
               showModal={this.state.showBlockModal}
