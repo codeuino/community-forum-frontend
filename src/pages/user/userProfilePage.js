@@ -28,7 +28,7 @@ class UserProfilePage extends Component {
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const {
       match: { params },
     } = this.props;
@@ -54,7 +54,6 @@ class UserProfilePage extends Component {
       prevProps.isOtherUserDeleteCompleted != this.props.isOtherUserDeleteCompleted &&
       localStorage.getItem("token") != null
     ) {
-      console.log(localStorage.getItem("token"));
       this.props.history.push("/");
     }
   }

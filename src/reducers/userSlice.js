@@ -175,7 +175,7 @@ export const getUserProfile = createAsyncThunk(
       .post(
         process.env.REACT_APP_GRAPHQL_API_ENDPOINT,
         {
-          query: `mutation{ getUserProfile(userFindInput: {
+          query: `query{ getUserProfile(userFindInput: {
             _id: "${userProfileData._id}"
           }
           ) {
@@ -242,6 +242,68 @@ export const getUserProfile = createAsyncThunk(
   }
 );
 
+export const getUsers = createAsyncThunk(
+  "user/data",
+  async (getUsersData, { rejectWithValue }) => {
+    const tokenHeader = `Bearer ${localStorage.getItem("token")}`;
+    const response = await axios
+      .post(
+        process.env.REACT_APP_GRAPHQL_API_ENDPOINT,
+        {
+          query: `query{ users {
+            users {
+              _id
+              name {
+                firstName
+                lastName
+              }
+              email
+              info {
+                about {
+                  shortDescription
+                  designation
+                }
+              }
+              isBlocked
+              createdAt
+            }
+            blockedUsers {
+              _id
+              name {
+                firstName
+                lastName
+              }
+              email
+              info {
+                about {
+                  shortDescription
+                  designation
+                }
+              }
+              isBlocked
+              createdAt
+            }
+          }}`,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: tokenHeader,
+          },
+        }
+      )
+      .catch((error) => {
+        if (error.response) {
+          return error.response.data.errors[0].message;
+        }
+      });
+    if (response.data != undefined) {
+      return response.data.data.users;
+    }
+    return rejectWithValue(response);
+  }
+);
+
 export const userSlice = createSlice({
   name: "user",
   initialState: {
@@ -260,6 +322,10 @@ export const userSlice = createSlice({
       userProfile: {},
       error: "",
     },
+    usersData: {
+      users: [],
+      blockedUsers: [],
+    }
   },
   reducers: {
     clearCurrentUserProfile: (state) => {
@@ -321,6 +387,10 @@ export const userSlice = createSlice({
       state.getCurrent.userProfile = {};
       state.getCurrent.error = action.payload;
     },
+    [getUsers.fulfilled]: (state, action) => {
+      state.usersData.users = action.payload.users;
+      state.usersData.blockedUsers = action.payload.blockedUsers;
+    }
   },
 });
 

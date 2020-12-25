@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { Redirect } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 
 function AdminRoute({component: Component, ...rest}) {
   const token = useSelector((state) => state.auth.currentUser.token);
@@ -11,7 +11,12 @@ function AdminRoute({component: Component, ...rest}) {
     return null;
   } else if (token !== null && isAdmin) {
     return (
-      <Component {...rest} />
+      <Route
+      {...rest}
+      render={routeProps => (
+        <Component {...routeProps} />
+      )}
+    />
     );
   }
 }

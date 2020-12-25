@@ -1,0 +1,141 @@
+.admin-user-card-container {
+  background-color: $navbar-light;
+  border: 1px solid $navbar-light;
+  border-radius: 0.5rem;
+  height: 90%;
+  max-width: 360px;
+  margin-bottom: 0.7rem;
+  padding: 1rem 1.3rem;
+  transition: all 0.3s ease-in;
+  text-align: left;
+  text-decoration: none;
+
+  .admin-user-icon {
+    color: $subheading-black;
+    font-size: 4rem;
+  }
+
+  .col-3,
+  .col-8,
+  .col-1 {
+    padding: 0;
+  }
+
+  &:hover {
+    border: 1px solid $fade-black;
+    box-shadow: 0 5px 5px $shadow-black;
+  }
+}
+
+.admin-user-card-heading {
+  color: $black;
+  font-size: 1.3rem;
+  font-weight: 600;
+  padding-left: 0.3rem;
+  text-decoration: none;
+  word-wrap: break-word;
+}
+
+.admin-user-card-email {
+  color: $subheading-black;
+  padding-left: 0.3rem;
+  text-decoration: none;
+}
+
+.admin-user-card-description {
+  color: $subheading-black;
+  padding-left: 0.3rem;
+  padding-top: 0.2rem;
+  text-decoration: none;
+
+  span {
+    color: $black;
+    font-weight: 500;
+  }
+}
+
+.admin-members-heading {
+  font-size: 1.5rem;
+  font-weight: 500;
+  padding-bottom: 0.3rem;
+  padding-top: 0.8rem;
+  text-align: left;
+}
+
+.admin-members-dropdown  {
+  .btn {
+    &.focus,
+    &:focus {
+      box-shadow: 0 0 0 0.2rem $input-shadow;
+    }
+  }
+
+  .nav-link {
+    color: $black;
+
+    &:hover {
+      color: $black;
+    }
+  }
+
+  .dropdown-item {
+    padding-left: 1rem;
+    text-align: left;
+    word-wrap: break-word;
+
+    &.active,
+    &:active {
+      background-color: $primary-button;
+    }
+
+    svg {
+      margin-right: 0.3rem;
+      padding-bottom: 0.2rem;
+    }
+  }
+}
+
+.admin-insights-row {
+  padding-top: 0.5rem;
+}
+
+.admin-insights-card {
+  background-color: $navbar-light;
+  border: 1px solid $navbar-light;
+  border-radius: 0.5rem;
+  height: 10rem;
+  margin-bottom: 1rem;
+  padding: 1rem 0;
+  text-align: center;
+  transition: all 0.3s ease-in;
+  width: 100%;
+
+  h3 {
+    font-size: 4rem;
+    font-weight: 600;
+  }
+
+  h6 {
+    font-size: 1.2rem;
+  }
+
+  &:hover {
+    border: 1px solid $fade-black;
+    box-shadow: 0 5px 5px $shadow-black;
+
+  }
+}
+
+@media (max-width: 850px) {
+  .admin-user-card-container {
+    .admin-user-icon {
+      font-size: 2.5rem;
+    }
+  }
+}
+
+@media (max-width: 400px) {
+  .admin-user-card-container {
+    min-width: 100%;
+  }
+}

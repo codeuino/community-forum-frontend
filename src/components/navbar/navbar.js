@@ -97,18 +97,21 @@ class NavBar extends Component {
           fixed="top"
           className="navbar-container"
         >
-          <Link to="" onClick={this.scrollToTop}>
-            {this.props.history.location.pathname == "/" ? (
-              <span className="navbar-brand">
-                <MenuIcon onClick={this.props.toggleSidebar} />
+          {this.props.history.location.pathname == "/" ||
+          this.props.history.location.pathname == "/admin" ? (
+            <span className="navbar-brand">
+              <MenuIcon onClick={this.props.toggleSidebar} />
+              <Link to="" onClick={this.scrollToTop}>
                 SPANSBERRY
-              </span>
-            ) : (
-              <span className="navbar-brand">
+              </Link>
+            </span>
+          ) : (
+            <span className="navbar-brand">
+              <Link to="" onClick={this.scrollToTop}>
                 SPANSBERRY
-              </span>
-            )}
-          </Link>
+              </Link>
+            </span>
+          )}
           <Nav className="ml-auto">
             {this.props.isLoggedIn ? (
               <React.Fragment>
@@ -137,6 +140,10 @@ class NavBar extends Component {
                           Admin Dashboard
                         </div>
                       </NavDropdown.Item>
+                    </React.Fragment>
+                  )}
+                  {this.props.isLoggedIn &&
+                    this.props.currentUser.isFirstAdmin && (
                       <NavDropdown.Item>
                         <div
                           onClick={() => {
@@ -146,8 +153,7 @@ class NavBar extends Component {
                           Update Organization
                         </div>
                       </NavDropdown.Item>
-                    </React.Fragment>
-                  )}
+                    )}
                   <NavDropdown.Item>
                     <div onClick={this.props.logout}>
                       <ExitToAppIcon />
