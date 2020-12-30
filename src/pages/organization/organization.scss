@@ -1,0 +1,122 @@
+.organization-page-brand-container {
+  margin-top: 7rem;
+  text-align: left;
+
+  h6 {
+    a {
+      color: $black;
+      text-decoration: none;
+
+      &:hover {
+        color: $black;
+        text-decoration: none;
+      }
+    }
+  }
+}
+
+.organization-page-brand {
+  font-family: Bebas Neue;
+  font-size: 5.5rem;
+}
+
+.organization-page-brand-subheading {
+  color: $subheading-black;
+  font-size: 1.3rem;
+  font-weight: 500;
+  line-height: 1.5;
+  margin-bottom: 7rem;
+
+  hr {
+    max-width: 60%;
+  }
+}
+
+.organization-page-parent-column {
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 4rem;
+  max-width: 450px;
+  text-align: center;
+}
+
+.organization-page-create-button {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0.5rem 3.5rem;
+  text-align: center;
+}
+
+.organization-page-copyright-text2 {
+  display: none;
+}
+
+@media (max-width: 992px) and (min-width: 768px) {
+  .organization-page-brand {
+    font-size: 4.5rem;
+  }
+
+  .organization-page-brand-subheading {
+    color: $subheading-black;
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: 7rem;
+    max-width: 90%;
+
+    hr {
+      max-width: 60%;
+    }
+  }
+}
+
+@media (max-width: 767px) {
+  .organization-page-brand-container {
+    margin-top: 3.5rem;
+  }
+
+  .organization-page-brand {
+    font-size: 4rem;
+  }
+
+  .organization-page-brand-subheading {
+    color: $subheading-black;
+    font-size: 1.1rem;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: 1.5rem;
+    max-width: 90%;
+
+    hr {
+      max-width: 60%;
+    }
+  }
+
+  .organization-page-copyright-text {
+    display: none;
+  }
+
+  .organization-page-parent-column {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 1rem;
+    max-width: 450px;
+    text-align: center;
+  }
+
+  .organization-page-copyright-text2 {
+    display: block;
+    margin-left: 1rem;
+    margin-top: 3rem;
+
+    a {
+      color: $black;
+      text-decoration: none;
+
+      &:hover {
+        color: $black;
+        text-decoration: none;
+      }
+    }
+  }
+}

@@ -1,0 +1,52 @@
+
+.projectCards {
+  vertical-align: middle;
+  white-space: nowrap;
+  overflow-x: auto;
+  .projectCard {
+    white-space: normal;
+    overflow-x: auto;
+    display: inline-block;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    margin-right: 10px;
+    background-color: #f3f3f3;
+    .addnewcard {
+      cursor: pointer;
+      .reacticon {
+        vertical-align: middle;
+      }
+      vertical-align: middle;
+      margin: 1rem 0 1rem 1.6rem;
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 1.1em;
+      color: #808080;
+    }
+    .cardcontent {
+      height: 49vh;
+      overflow-y: auto;
+      .topicscard {
+        margin-bottom: 10px;
+        padding: 12px 12px 0 12px;
+        .tags {
+          width: fit-content;
+          display: inline-block;
+          font-family: "Inter", sans-serif;
+          padding: 0.4em 0.6em;
+          margin: 0 10px 10px 0;
+          font-weight: 600;
+          font-size: 0.8em;
+          background-color: #f04b58;
+        }
+      }
+    }
+    .projectcardheader {
+      color: #ffffff;
+      font-size: 20px;
+      font-weight: bold;
+      background-color: #366ff0;
+    }
+  }
+}
