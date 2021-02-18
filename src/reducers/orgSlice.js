@@ -72,7 +72,6 @@ export const updateOrg = createAsyncThunk(
                 email
                 website
             }
-            isArchived
             isUnderMaintenance
             totalUsers
             exists
@@ -116,7 +115,6 @@ export const toggleMaintenanceMode = createAsyncThunk(
                 email
                 website
             }
-            isArchived
             isUnderMaintenance
             totalUsers
             exists
@@ -159,7 +157,6 @@ export const getOrg = createAsyncThunk(
                 email
                 website
             }
-            isArchived
             isUnderMaintenance
             totalUsers
             exists

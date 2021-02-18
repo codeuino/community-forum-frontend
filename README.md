@@ -14,3 +14,10 @@ Spansberry backend application is built on the following technologies:
 `git clone https://github.com/<username>/community-forum-frontend.git`. (Replace username with your own username)
 3. Install all the dependencies using `npm install`.
 4. Start the application using `npm start`.
+
+## Screenshots
+![Setup](/screenshots/SetupPage.png)
+![Dashboard](/screenshots/Dashboard.png)
+![AdminDashboard](/screenshots/AdminDashboard.png)
+![AdminDashboard](/screenshots/AdminDashboard.png)
+![RealTimeCommunication](/screenshots/RealTimeCommunication.gif)
