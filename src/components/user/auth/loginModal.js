@@ -162,7 +162,8 @@ class LoginModal extends Component {
                     <Link
                       to=""
                       className="anchor-text"
-                      onClick={() => {
+                      onClick={(e) => {
+                        e.preventDefault();
                         this.props.handleSignupShow();
                       }}
                     >
