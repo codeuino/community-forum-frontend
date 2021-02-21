@@ -1,0 +1,43 @@
+.subparra {
+  font-family: Inter;
+  font-weight: 500;
+  font-size: 14px;
+  color: #b1b1b1;
+}
+.ToDosHeading {
+  margin: 10px 0 0 25px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  display: flex;
+  justify-content: space-between;
+  color: #1e3554;
+}
+.icons {
+  margin-top: 10px;
+  margin-right: 10px;
+  color: #f04b58;
+  display: flex;
+}
+.formCheckbox {
+  display: flex;
+}
+.addbutton {
+  margin-right: 20px;
+}
+.textTasks {
+  width: 19vw;
+}
+.formCheckbox {
+  margin-top: 10px;
+  .textTasks {
+    margin-left: 10px;
+    .subparra {
+      margin-top: 5px;
+    }
+  }
+  .FiMoreVertical {
+    margin-right: 7px;
+  }
+}

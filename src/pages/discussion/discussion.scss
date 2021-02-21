@@ -1,0 +1,53 @@
+.discussion-topic-description {
+  color: $fade-black;
+  line-height: 1.3rem;
+  margin-top: 0.3rem;
+  max-width: 85%;
+}
+
+.discussion-message-input-container {
+  background-color: $white;
+  bottom: 0;
+  max-height: 200px;
+  padding-bottom: 0.5rem;
+  position: fixed;
+  width: 100%;
+  z-index: 599;
+  .row {
+    max-width: 90%;
+  }
+}
+
+.discussion-message-input-row {
+  border: 0.1rem solid $subheading-black;
+  border-radius: 0.35rem;
+
+  .form-control {
+    margin-left: -0.7rem;
+    padding-top: 0.8rem;
+
+    &:focus {
+      box-shadow: 0 0 0 0 $white;
+    }
+  }
+
+  #addMessageBasicText1 {
+    border: 0;
+  }
+}
+
+.discussion-message-submit-button-container {
+  margin-left: auto;
+  text-align: right;
+}
+
+.discussion-message-submit-button {
+  padding-left: 2rem;
+  padding-right: 2rem;
+  margin-bottom: 0.6rem;
+  margin-top: 0;
+}
+
+.discussion-bottom-scroll {
+  height: 130px;
+}

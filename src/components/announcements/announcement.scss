@@ -1,0 +1,32 @@
+.AnnouncementsHeading {
+  margin: 10px 0 0 25px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  color: #1e3554;
+}
+.announcement {
+  margin: 20px 0 0 0;
+}
+.topannouncement {
+  display: flex;
+  .bottomannouncement {
+    margin-top: 5px;
+    font-family: Inter;
+    font-weight: 500;
+    font-size: 13px;
+    color: #8e8e8e;
+  }
+  .icon {
+    margin: 0 20px 0 0;
+  }
+  .text {
+    width: 22vw;
+  }
+}
+.avatar {
+  width: 24px;
+  height: 24px;
+  margin: 0 14px 0 0;
+}

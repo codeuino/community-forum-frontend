@@ -1,0 +1,47 @@
+.sendchat {
+  margin-top: 10px;
+}
+.Reply {
+  width: 22.5vw;
+  display: inline-flex;
+  justify-content: space-between;
+  .icon {
+    cursor: pointer;
+    margin-top: 2px;
+  }
+}
+.chatReply {
+  background: #f7f7f7;
+  display: flex;
+  width: 22.5vw;
+  border-radius: 2px;
+  margin: 6px 10px 6px 0px;
+  padding: 7px 7px 7px 7px;
+  border: solid #f04b58;
+  border-width: 0 0 0 3px;
+  .avatarReply {
+    width: 23px;
+    height: 23px;
+  }
+  .chatinforeply {
+    margin-left: 10px;
+    .usernamereply {
+      font-family: Inter;
+      font-style: normal;
+      font-weight: 600;
+      font-size: 14px;
+    }
+    .chatdescriptionreply {
+      width: 18vw;
+      font-family: Inter;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 13px;
+      margin-top: 5px;
+      line-height: 19px;
+      p {
+        margin-bottom: 0.25rem;
+      }
+    }
+  }
+}
