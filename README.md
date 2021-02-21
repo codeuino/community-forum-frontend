@@ -13,7 +13,8 @@ Spansberry backend application is built on the following technologies:
 2. Clone this forked repository on your local machine using: 
 `git clone https://github.com/<username>/community-forum-frontend.git`. (Replace username with your own username)
 3. Install all the dependencies using `npm install`.
-4. Start the application using `npm start`.
+4. Rename `example.env` to `.env`.
+5. Start the application using `npm start`.
 
 ## Screenshots
 ![Setup](/screenshots/SetupPage.png)
