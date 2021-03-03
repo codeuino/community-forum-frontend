@@ -2,7 +2,9 @@
 Spansberry aims to provide communities with a discussion platform via which they can hassle-free organize all the ongoing discussions under different categories and topics thereby keeping track of everything without getting lost in the abundance of it. This helps to manage the cluttered communication process, focus on the important ones and turn them into impactful actions.
 
 Link: [spansberry-app.herokuapp.com](https://spansberry-app.herokuapp.com/) 
+
 Admin Credentials: Email- rhoncus@email.com | Password- password (to access all functionalities)
+
 (Please note that the app may take upto a minute to load-up due to Heroku pushing it in down state when no requests are received for an extended period of time.)
 
 ## Technologies Involved
