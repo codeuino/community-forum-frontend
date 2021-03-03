@@ -22,5 +22,5 @@ Spansberry backend application is built on the following technologies:
 ![Setup](/screenshots/SetupPage.png)
 ![Dashboard](/screenshots/Dashboard.png)
 ![AdminDashboard](/screenshots/AdminDashboard.png)
-![AdminDashboard](/screenshots/AdminDashboard.png)
+![AdminDashboard](/screenshots/AdminDashboard2.png)
 ![RealTimeCommunication](/screenshots/RealTimeCommunication.gif)
