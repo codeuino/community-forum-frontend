@@ -1,7 +1,7 @@
 # Spansberry-Frontend
 Spansberry aims to provide communities with a discussion platform via which they can hassle-free organize all the ongoing discussions under different categories and topics thereby keeping track of everything without getting lost in the abundance of it. This helps to manage the cluttered communication process, focus on the important ones and turn them into impactful actions.
 
-Link: [https://spansberry-app.netlify.app/](https://spansberry-app.herokuapp.com/) 
+Link: [spansberry-app.netlify.app](https://spansberry-app.netlify.app/) 
 
 Admin Credentials: Email- rhoncus@email.com | Password- password (to access all functionalities)
 
